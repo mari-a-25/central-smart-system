@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase, isSupabaseConfigured } from '../lib/supabase'
 import { useAuthStore } from '../store/authStore'
 
 const AuthContext = createContext(null)
@@ -8,6 +8,13 @@ export function AuthProvider({ children }) {
   const { setUser, setPerfil, setEmpresa, setLoading, logout } = useAuthStore()
 
   useEffect(() => {
+    // Si Supabase no está configurado, simplemente dejar de cargar
+    if (!isSupabaseConfigured) {
+      console.warn('Supabase no configurado — el sistema funcionará en modo visual sin backend.')
+      setLoading(false)
+      return
+    }
+
     // Verificar sesión activa al cargar
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
