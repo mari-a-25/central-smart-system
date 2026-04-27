@@ -2,87 +2,86 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLogin } from '../../../hooks/useLogin'
 
-// ── Iconos SVG inline ──────────────────────────────────────────
+// ── Iconos SVG del nuevo estilo (Teal) ───────────────────────────────────
 function IconMail() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="12" height="9" rx="1.5"/>
-      <path d="M2 5.5l6 4.5 6-4.5"/>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2"/>
+      <path d="M3 7l9 6 9-6"/>
     </svg>
   )
 }
 
 function IconLock() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="7" width="10" height="7" rx="1.5"/>
-      <path d="M5 7V5a3 3 0 016 0v2"/>
-      <circle cx="8" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="5" y="11" width="14" height="10" rx="2"/>
+      <path d="M8 11V7a4 4 0 018 0v4"/>
+      <circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none"/>
     </svg>
   )
 }
 
 function IconEye({ show, onClick }) {
   return (
-    <button type="button" onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#475569', display: 'flex', padding: '4px' }}>
+    <button type="button" onClick={onClick} style={styles.btnEye} title={show ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
       {show ? (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-          <path d="M2 8s2.5-4 6-4 6 4 6 4-2.5 4-6 4-6-4-6-4z"/>
-          <circle cx="8" cy="8" r="1.5"/>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>
         </svg>
       ) : (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-          <path d="M2 2l12 12M6.5 6.6A2 2 0 0010 10M4.5 4.6C3.1 5.5 2 8 2 8s2.5 4 6 4c1.1 0 2.1-.3 3-.8"/>
-          <path d="M9.9 4.2C12.2 5 14 8 14 8s-.7 1.1-1.8 2.1"/>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
         </svg>
       )}
     </button>
   )
 }
 
-function IconArrow() {
+function IconArrowRight() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 8h10M9 4l4 4-4 4"/>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/>
+      <polyline points="12 5 19 12 12 19"/>
     </svg>
   )
 }
 
 function IconGrid() {
   return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-      <rect x="2" y="2" width="8" height="8" rx="2" fill="#2563eb"/>
-      <rect x="12" y="2" width="8" height="8" rx="2" fill="#2563eb" opacity="0.5"/>
-      <rect x="2" y="12" width="8" height="8" rx="2" fill="#2563eb" opacity="0.5"/>
-      <rect x="12" y="12" width="8" height="8" rx="2" fill="#2563eb" opacity="0.25"/>
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="3" width="8" height="8" rx="2" fill="#14b8a6"/>
+      <rect x="13" y="3" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.5"/>
+      <rect x="3" y="13" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.5"/>
+      <rect x="13" y="13" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.25"/>
     </svg>
   )
 }
 
 function IconShield() {
   return (
-    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8 2L3 4.5v4c0 2.8 2.2 5 5 5s5-2.2 5-5v-4L8 2z"/>
-      <path d="M6 8l1.5 1.5L10 6"/>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <path d="M9 12l2 2 4-4"/>
     </svg>
   )
 }
 
 function IconCpu() {
   return (
-    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round">
-      <rect x="4" y="4" width="8" height="8" rx="1"/>
-      <path d="M6 2v2M10 2v2M6 12v2M10 12v2M2 6h2M2 10h2M12 6h2M12 10h2"/>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="2"/>
+      <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/>
     </svg>
   )
 }
 
 function IconLayers() {
   return (
-    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8 2L2 5l6 3 6-3-6-3z"/>
-      <path d="M2 9l6 3 6-3"/>
-      <path d="M2 12l6 3 6-3"/>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/>
+      <polyline points="2 15.5 12 22 22 15.5"/>
     </svg>
   )
 }
@@ -108,121 +107,138 @@ export default function LoginPage() {
     }
   }
 
+  const handleDemo = () => {
+    setEmail('admin@demo.com')
+    setPassword('demo1234')
+  }
+
   return (
     <div style={styles.root}>
-      {/* Fondo */}
-      <div style={styles.bgWrap}>
+      {/* Fondo decorativo */}
+      <div style={styles.bgDeco}>
         <div style={styles.bgBlob1}/>
         <div style={styles.bgBlob2}/>
         <div style={styles.bgGrid}/>
-        <div style={styles.bgLineLeft}/>
-        <div style={styles.bgLineRight}/>
+        <div style={styles.bgLine1}/>
+        <div style={styles.bgLine2}/>
       </div>
 
-      {/* Shell */}
+      {/* Shell principal */}
       <div style={styles.shell}>
 
-        {/* Panel izquierdo */}
+        {/* PANEL IZQUIERDO */}
         <div style={styles.leftPanel}>
-          <div style={styles.leftTop}>
-            {/* Logo */}
+          <div>
+            {/* Marca */}
             <div style={styles.brand}>
-              <div style={styles.brandMark}><IconGrid/></div>
+              <div style={styles.brandLogo}>
+                <IconGrid />
+              </div>
               <div>
-                <div style={styles.brandName}>Central Smart System</div>
-                <div style={styles.brandTagline}>Sistema Operativo Empresarial</div>
+                <div style={styles.brandInfoName}>Central Smart System</div>
+                <div style={styles.brandInfoTag}>Sistema Operativo Empresarial</div>
               </div>
             </div>
 
             {/* Headline */}
             <div style={styles.headline}>
               La plataforma que<br/>
-              <span style={styles.headlineAccent}>unifica</span> tu empresa<br/>
+              <em style={styles.headlineEm}>unifica</em> tu empresa<br/>
               con inteligencia.
             </div>
-            <div style={styles.headlineSub}>
+            <p style={styles.headlineSub}>
               Conecta ventas, inventario, logística, RRHH y más en un solo sistema con IA integrada.
-            </div>
+            </p>
 
             {/* Features */}
-            <div style={styles.featureList}>
-              {[
-                { icon: <IconShield/>, label: 'Acceso seguro por roles — cada área ve solo lo suyo' },
-                { icon: <IconCpu/>,    label: 'Agente IA integrado — alertas y decisiones automáticas' },
-                { icon: <IconLayers/>, label: '8 módulos conectados — datos en tiempo real' },
-              ].map((f, i) => (
-                <div key={i} style={styles.featureItem}>
-                  <div style={styles.featureIcon}>{f.icon}</div>
-                  <div style={styles.featureText}>{f.label}</div>
-                </div>
-              ))}
+            <div style={styles.features}>
+              <div style={styles.featureItem}>
+                <span style={styles.featureIcon}><IconShield/></span>
+                <span style={styles.featureText}>Acceso seguro por roles — cada área ve solo lo suyo</span>
+              </div>
+              <div style={styles.featureItem}>
+                <span style={styles.featureIcon}><IconCpu/></span>
+                <span style={styles.featureText}>Agente IA integrado — alertas y decisiones automáticas</span>
+              </div>
+              <div style={styles.featureItem}>
+                <span style={styles.featureIcon}><IconLayers/></span>
+                <span style={styles.featureText}>8 módulos conectados — datos en tiempo real</span>
+              </div>
             </div>
           </div>
 
-          {/* Footer izq */}
+          {/* Footer izquierdo */}
           <div style={styles.leftFooter}>
             <div style={styles.versionBadge}>
               <span style={styles.versionDot}/>
               v1.0 · SISTEMA ACTIVO
             </div>
-            <div style={styles.schoolBadge}>
-              Instituto Tecnológico México · 2026
-            </div>
+            <div style={styles.schoolBadge}>Instituto Tecnológico México · 2026</div>
           </div>
         </div>
 
-        {/* Panel derecho — formulario */}
+        {/* PANEL DERECHO – FORMULARIO */}
         <div style={styles.rightPanel}>
           <div style={styles.formWrap}>
+
             <div style={styles.formHeader}>
-              <div style={styles.formTitle}>Iniciar sesión</div>
-              <div style={styles.formSub}>
-                Ingresa con tus credenciales para acceder a tu área de trabajo
-              </div>
+              <h1 style={styles.formTitle}>¡Bienvenido(a)!</h1>
+              <p style={styles.formSub}>Inicia sesión para continuar en tu área de trabajo</p>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
-              {/* Email */}
+            <form onSubmit={handleSubmit} noValidate>
+              {/* Correo */}
               <div style={styles.fieldGroup}>
-                <label style={styles.label}>Correo electrónico</label>
+                <label style={styles.fieldLabel}>Correo electrónico</label>
                 <div style={{
-                  ...styles.inputWrap,
-                  ...(focusEmail ? styles.inputWrapFocus : {}),
+                  ...styles.inputWrapper,
+                  ...(focusEmail ? styles.inputWrapperFocus : {})
                 }}>
-                  <span style={styles.inputIcon}><IconMail/></span>
+                  <span style={{
+                    ...styles.inputIconLeft,
+                    ...(focusEmail ? { color: '#14b8a6' } : {})
+                  }}>
+                    <IconMail/>
+                  </span>
                   <input
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     onFocus={() => setFocusEmail(true)}
                     onBlur={() => setFocusEmail(false)}
-                    placeholder="tu@empresa.com"
-                    style={styles.input}
+                    placeholder="Escribe tu correo"
+                    style={styles.inputField}
+                    autoComplete="username"
                     required
                   />
                 </div>
               </div>
 
-              {/* Password */}
+              {/* Contraseña */}
               <div style={styles.fieldGroup}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <label style={styles.label}>Contraseña</label>
+                <div style={styles.passwordHeader}>
+                  <label style={{ ...styles.fieldLabel, marginBottom: 0 }}>Contraseña</label>
                   <a href="#" style={styles.forgotLink}>¿Olvidaste tu contraseña?</a>
                 </div>
                 <div style={{
-                  ...styles.inputWrap,
-                  ...(focusPass ? styles.inputWrapFocus : {}),
+                  ...styles.inputWrapper,
+                  ...(focusPass ? styles.inputWrapperFocus : {})
                 }}>
-                  <span style={styles.inputIcon}><IconLock/></span>
+                  <span style={{
+                    ...styles.inputIconLeft,
+                    ...(focusPass ? { color: '#14b8a6' } : {})
+                  }}>
+                    <IconLock/>
+                  </span>
                   <input
                     type={showPass ? 'text' : 'password'}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     onFocus={() => setFocusPass(true)}
                     onBlur={() => setFocusPass(false)}
-                    placeholder="••••••••"
-                    style={{ ...styles.input, paddingRight: '44px' }}
+                    placeholder="Escribe tu contraseña"
+                    style={{ ...styles.inputField, paddingRight: '52px' }}
+                    autoComplete="current-password"
                     required
                   />
                   <span style={styles.inputIconRight}>
@@ -234,8 +250,12 @@ export default function LoginPage() {
               {/* Error */}
               {error && (
                 <div style={styles.errorBox}>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#f87171" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3M8 11h.01"/></svg>
-                  {error}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                  <span>{error}</span>
                 </div>
               )}
 
@@ -244,8 +264,8 @@ export default function LoginPage() {
                 type="submit"
                 disabled={loading || !email || !password}
                 style={{
-                  ...styles.btnPrimary,
-                  ...(loading || !email || !password ? styles.btnDisabled : {}),
+                  ...styles.btnSubmit,
+                  ...(loading || !email || !password ? styles.btnSubmitDisabled : {})
                 }}
               >
                 {loading ? (
@@ -255,8 +275,8 @@ export default function LoginPage() {
                   </>
                 ) : (
                   <>
-                    Ingresar al sistema
-                    <IconArrow/>
+                    Iniciar Sesión
+                    <IconArrowRight/>
                   </>
                 )}
               </button>
@@ -264,33 +284,27 @@ export default function LoginPage() {
 
             {/* Separador */}
             <div style={styles.divider}>
-              <div style={styles.dividerLine}/>
-              <span style={styles.dividerText}>acceso de demostración</span>
-              <div style={styles.dividerLine}/>
+              <div style={styles.dividerLine}></div>
+              <span style={styles.dividerText}>Acceso de demostración</span>
+              <div style={styles.dividerLine}></div>
             </div>
 
-            {/* Demo info */}
+            {/* Demo box */}
             <div style={styles.demoBox}>
               <div style={styles.demoBoxTitle}>Credenciales de demo</div>
-              <div style={styles.demoBoxRow}>
-                <span style={styles.demoBoxLabel}>Correo</span>
-                <span style={styles.demoBoxValue}>admin@demo.com</span>
+              <div style={styles.demoRow}>
+                <span style={styles.demoLabel}>Correo</span>
+                <code style={styles.demoValue}>admin@demo.com</code>
               </div>
-              <div style={styles.demoBoxRow}>
-                <span style={styles.demoBoxLabel}>Contraseña</span>
-                <span style={styles.demoBoxValue}>demo1234</span>
+              <div style={styles.demoRow}>
+                <span style={styles.demoLabel}>Contraseña</span>
+                <code style={styles.demoValue}>demo1234</code>
               </div>
-              <button
-                type="button"
-                style={styles.btnDemo}
-                onClick={() => {
-                  setEmail('admin@demo.com')
-                  setPassword('demo1234')
-                }}
-              >
+              <button type="button" style={styles.btnDemo} onClick={handleDemo}>
                 Usar credenciales demo
               </button>
             </div>
+
           </div>
         </div>
 
@@ -299,202 +313,169 @@ export default function LoginPage() {
   )
 }
 
-// ── Estilos ────────────────────────────────────────────────────
+// ── Estilos (Copiados del HTML de referencia con ajustes para React) ──
 const styles = {
   root: {
     minHeight: '100vh',
-    background: '#060c18',
+    background: '#0a1428',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontFamily: "'Outfit', sans-serif",
+    padding: '24px',
+    fontFamily: "'Outfit', system-ui, sans-serif",
     position: 'relative',
     overflow: 'hidden',
-    padding: '20px',
   },
-  bgWrap: { position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' },
+
+  bgDeco: { position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' },
   bgBlob1: {
     position: 'absolute', width: '600px', height: '600px', borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(37,99,235,0.12), transparent 70%)',
-    top: '-150px', left: '-100px', filter: 'blur(60px)',
+    background: 'radial-gradient(circle, rgba(20,184,166,0.18), transparent 70%)',
+    top: '-160px', left: '-120px', filter: 'blur(80px)',
   },
   bgBlob2: {
-    position: 'absolute', width: '500px', height: '500px', borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(59,130,246,0.08), transparent 70%)',
-    bottom: '-100px', right: '-80px', filter: 'blur(60px)',
+    position: 'absolute', width: '480px', height: '480px', borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(94,234,212,0.12), transparent 70%)',
+    bottom: '-100px', right: '-100px', filter: 'blur(80px)',
   },
   bgGrid: {
     position: 'absolute', inset: 0,
-    backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
-    backgroundSize: '44px 44px',
+    backgroundImage: 'linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)',
+    backgroundSize: '50px 50px',
   },
-  bgLineLeft: {
-    position: 'absolute', width: '1px', height: '130%',
-    background: 'linear-gradient(to bottom, transparent, rgba(59,130,246,0.15), transparent)',
-    left: '38%', top: '-15%', transform: 'rotate(8deg)',
+  bgLine1: {
+    position: 'absolute', width: '1px', height: '130%', top: '-15%', left: '38%',
+    background: 'linear-gradient(to bottom, transparent, rgba(94,234,212,0.10), transparent)',
+    transform: 'rotate(8deg)',
   },
-  bgLineRight: {
-    position: 'absolute', width: '1px', height: '130%',
-    background: 'linear-gradient(to bottom, transparent, rgba(37,99,235,0.1), transparent)',
-    right: '25%', top: '-15%', transform: 'rotate(-6deg)',
+  bgLine2: {
+    position: 'absolute', width: '1px', height: '130%', top: '-15%', right: '25%',
+    background: 'linear-gradient(to bottom, transparent, rgba(20,184,166,0.07), transparent)',
+    transform: 'rotate(-6deg)',
   },
 
   shell: {
     position: 'relative', zIndex: 2,
-    display: 'grid', gridTemplateColumns: '1fr 400px',
-    width: '900px', maxWidth: '100%',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '20px', overflow: 'hidden',
-    boxShadow: '0 50px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.08)',
+    display: 'grid', gridTemplateColumns: '1fr 440px',
+    width: '980px', maxWidth: '100%', minHeight: '660px',
+    borderRadius: '24px', overflow: 'hidden',
+    boxShadow: '0 36px 90px rgba(0,0,0,0.35), 0 0 0 1px rgba(20,184,166,0.12)',
   },
 
   leftPanel: {
-    background: 'linear-gradient(150deg, #0a1628 0%, #0d1d35 50%, #091526 100%)',
-    padding: '48px 44px',
+    background: 'linear-gradient(155deg, #0f172a 0%, #1a2840 50%, #0a1428 100%)',
+    padding: '50px 44px',
     display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
     borderRight: '1px solid rgba(255,255,255,0.06)',
-    position: 'relative',
+    color: '#f1f5f9',
   },
-  leftTop: {},
-  brand: { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '44px' },
-  brandMark: {
-    width: '44px', height: '44px',
-    background: 'rgba(37,99,235,0.15)',
-    border: '1px solid rgba(59,130,246,0.2)',
-    borderRadius: '12px',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    flexShrink: 0,
+
+  brand: { display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '52px' },
+  brandLogo: {
+    width: '62px', height: '62px', background: '#ffffff', border: '3px solid #14b8a6', borderRadius: '16px',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+    boxShadow: '0 8px 24px rgba(20,184,166,0.30)', overflow: 'hidden',
   },
-  brandName: { fontSize: '15px', fontWeight: '600', color: '#e2e8f0', letterSpacing: '-0.3px' },
-  brandTagline: { fontSize: '11px', color: '#334155', fontFamily: 'monospace', letterSpacing: '0.3px', marginTop: '2px' },
+  brandInfoName: { fontSize: '17px', fontWeight: '600', color: '#f1f5f9', letterSpacing: '-0.3px' },
+  brandInfoTag: { fontSize: '11px', color: '#94a3b8', fontFamily: "'Courier New', monospace", marginTop: '2px' },
 
   headline: {
-    fontFamily: "'Crimson Pro', serif",
-    fontWeight: '300', fontSize: '34px', lineHeight: '1.25',
-    color: '#e2e8f0', marginBottom: '14px', letterSpacing: '-0.5px',
+    fontFamily: "'Crimson Pro', Georgia, serif", fontWeight: '300', fontSize: '38px', lineHeight: '1.18',
+    color: '#f1f5f9', marginBottom: '16px', letterSpacing: '-0.5px',
   },
-  headlineAccent: { color: '#3b82f6', fontStyle: 'italic' },
-  headlineSub: { fontSize: '13px', color: '#475569', lineHeight: '1.65', maxWidth: '280px', marginBottom: '36px' },
+  headlineEm: { fontStyle: 'italic', fontWeight: '400', color: '#ffffff' },
+  headlineSub: { fontSize: '14px', color: '#cbd5e1', lineHeight: '1.65', maxWidth: '300px', marginBottom: '40px' },
 
-  featureList: { display: 'flex', flexDirection: 'column', gap: '10px' },
+  features: { display: 'flex', flexDirection: 'column', gap: '10px' },
   featureItem: {
-    display: 'flex', alignItems: 'center', gap: '12px',
-    padding: '11px 14px',
-    background: 'rgba(37,99,235,0.05)',
-    border: '1px solid rgba(59,130,246,0.1)',
-    borderRadius: '10px',
+    display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px',
+    background: 'rgba(20,184,166,0.06)', border: '1px solid rgba(94,234,212,0.12)', borderRadius: '12px',
   },
-  featureIcon: { flexShrink: 0 },
-  featureText: { fontSize: '12px', color: '#64748b', lineHeight: '1.4' },
+  featureIcon: { flexShrink: 0, color: '#5eead4', display: 'flex' },
+  featureText: { fontSize: '13px', color: '#e2e8f0', lineHeight: '1.5' },
 
-  leftFooter: { display: 'flex', flexDirection: 'column', gap: '8px' },
+  leftFooter: { display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '40px' },
   versionBadge: {
-    display: 'inline-flex', alignItems: 'center', gap: '7px',
-    background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
-    borderRadius: '20px', padding: '5px 12px',
-    fontSize: '10px', fontFamily: 'monospace', color: '#334155', letterSpacing: '0.5px',
-    width: 'fit-content',
+    display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.12)', borderRadius: '20px', padding: '6px 14px',
+    fontSize: '10px', fontFamily: "'Courier New', monospace", color: '#94a3b8', letterSpacing: '0.5px', width: 'fit-content',
   },
   versionDot: {
-    display: 'inline-block', width: '5px', height: '5px',
-    background: '#3b82f6', borderRadius: '50%',
+    width: '6px', height: '6px', background: '#5eead4', borderRadius: '50%',
+    boxShadow: '0 0 10px rgba(94,234,212,0.5)', flexShrink: 0,
   },
-  schoolBadge: { fontSize: '11px', color: '#1e293b', fontFamily: 'monospace' },
+  schoolBadge: { fontSize: '11px', color: '#64748b', fontFamily: "'Courier New', monospace" },
 
-  rightPanel: {
-    background: '#0f172a',
-    padding: '48px 40px',
-    display: 'flex', alignItems: 'center',
-  },
+  rightPanel: { background: '#ffffff', padding: '50px 48px', display: 'flex', alignItems: 'center' },
   formWrap: { width: '100%' },
-  formHeader: { marginBottom: '28px' },
-  formTitle: { fontSize: '22px', fontWeight: '600', color: '#f1f5f9', letterSpacing: '-0.4px', marginBottom: '6px' },
-  formSub: { fontSize: '13px', color: '#475569', lineHeight: '1.5' },
+  formHeader: { marginBottom: '36px' },
+  formTitle: { fontSize: '30px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.4px', marginBottom: '8px' },
+  formSub: { fontSize: '15px', color: '#64748b', lineHeight: '1.5' },
 
-  fieldGroup: { display: 'flex', flexDirection: 'column' },
-  label: {
-    fontSize: '11px', fontFamily: 'monospace', letterSpacing: '0.6px',
-    textTransform: 'uppercase', color: '#334155', marginBottom: '6px',
+  fieldGroup: { marginBottom: '20px' },
+  fieldLabel: { display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '9px', letterSpacing: '0.2px' },
+  passwordHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '9px' },
+  forgotLink: { fontSize: '13px', color: '#14b8a6', textDecoration: 'none', fontWeight: '500' },
+
+  inputWrapper: {
+    position: 'relative', display: 'flex', alignItems: 'center', background: '#f8fafc',
+    border: '2px solid #e2e8f0', borderRadius: '18px', transition: 'border-color 0.22s, box-shadow 0.22s, background 0.22s',
+    overflow: 'hidden',
   },
-  inputWrap: {
-    position: 'relative',
-    background: '#1e293b',
-    border: '1px solid rgba(255,255,255,0.07)',
-    borderRadius: '10px',
-    display: 'flex', alignItems: 'center',
-    transition: 'border-color 0.2s, box-shadow 0.2s',
-  },
-  inputWrapFocus: {
-    borderColor: '#2563eb',
-    boxShadow: '0 0 0 3px rgba(37,99,235,0.12)',
-  },
-  inputIcon: {
-    position: 'absolute', left: '13px',
-    color: '#334155', pointerEvents: 'none',
-    display: 'flex', alignItems: 'center',
-  },
-  inputIconRight: {
-    position: 'absolute', right: '10px',
-    display: 'flex', alignItems: 'center',
-  },
-  input: {
+  inputWrapperFocus: { borderColor: '#14b8a6', boxShadow: '0 0 0 5px rgba(20,184,166,0.20)', background: '#ffffff' },
+  inputIconLeft: { position: 'absolute', left: '17px', color: '#94a3b8', pointerEvents: 'none', display: 'flex', alignItems: 'center', transition: 'color 0.2s' },
+  inputIconRight: { position: 'absolute', right: '10px', display: 'flex', alignItems: 'center' },
+  inputField: {
     width: '100%', background: 'transparent', border: 'none', outline: 'none',
-    padding: '12px 14px 12px 40px',
-    color: '#e2e8f0', fontSize: '14px', fontFamily: "'Outfit', sans-serif",
+    padding: '16px 18px 16px 52px', color: '#0f172a', fontSize: '15.5px', fontFamily: "'Outfit', sans-serif",
   },
-  forgotLink: { fontSize: '11px', color: '#334155', textDecoration: 'none' },
+  btnEye: { background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex', padding: '7px', borderRadius: '8px', transition: 'color 0.2s' },
 
   errorBox: {
-    display: 'flex', alignItems: 'center', gap: '8px',
-    background: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.2)',
-    borderRadius: '8px', padding: '10px 13px',
-    fontSize: '13px', color: '#f87171',
+    display: 'flex', alignItems: 'center', gap: '10px', padding: '13px 16px',
+    background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '10px',
+    color: '#dc2626', fontSize: '14px', marginBottom: '16px',
   },
 
-  btnPrimary: {
-    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-    background: '#2563eb', border: 'none', borderRadius: '10px',
-    padding: '13px 20px', color: '#fff',
-    fontSize: '14px', fontWeight: '600', fontFamily: "'Outfit', sans-serif",
-    cursor: 'pointer', letterSpacing: '0.1px',
-    boxShadow: '0 4px 24px rgba(37,99,235,0.35)',
-    transition: 'opacity 0.15s, box-shadow 0.2s',
-    marginTop: '4px',
+  btnSubmit: {
+    width: '100%', background: '#14b8a6', color: '#ffffff', border: 'none', borderRadius: '18px',
+    padding: '16px 24px', fontSize: '16.5px', fontWeight: '600', fontFamily: "'Outfit', sans-serif",
+    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+    boxShadow: '0 8px 28px rgba(20,184,166,0.32)', transition: 'background 0.2s, transform 0.15s, box-shadow 0.2s',
+    marginTop: '8px', letterSpacing: '0.2px',
   },
-  btnDisabled: {
-    opacity: 0.5, cursor: 'not-allowed',
-    boxShadow: 'none',
-  },
+  btnSubmitDisabled: { opacity: 0.55, cursor: 'not-allowed', boxShadow: 'none' },
   spinner: {
-    display: 'inline-block',
-    width: '14px', height: '14px',
-    border: '2px solid rgba(255,255,255,0.3)',
-    borderTopColor: '#fff', borderRadius: '50%',
-    animation: 'spin 0.7s linear infinite',
+    width: '20px', height: '20px', border: '2.5px solid rgba(255,255,255,0.3)',
+    borderTopColor: 'white', borderRadius: '50%', animation: 'spin 0.7s linear infinite', flexShrink: 0,
   },
 
-  divider: {
-    display: 'flex', alignItems: 'center', gap: '10px',
-    margin: '24px 0 18px',
-  },
-  dividerLine: { flex: 1, height: '1px', background: 'rgba(255,255,255,0.05)' },
-  dividerText: { fontSize: '10px', fontFamily: 'monospace', color: '#1e293b', whiteSpace: 'nowrap', letterSpacing: '0.5px' },
+  divider: { display: 'flex', alignItems: 'center', gap: '14px', margin: '28px 0 22px' },
+  dividerLine: { flex: 1, height: '1px', background: '#e2e8f0' },
+  dividerText: { fontSize: '10px', fontFamily: "'Courier New', monospace", color: '#94a3b8', letterSpacing: '0.8px', textTransform: 'uppercase', whiteSpace: 'nowrap' },
 
-  demoBox: {
-    background: '#1e293b',
-    border: '1px solid rgba(255,255,255,0.06)',
-    borderRadius: '12px', padding: '16px',
-  },
-  demoBoxTitle: { fontSize: '11px', fontFamily: 'monospace', color: '#334155', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '10px' },
-  demoBoxRow: { display: 'flex', justifyContent: 'space-between', marginBottom: '6px' },
-  demoBoxLabel: { fontSize: '12px', color: '#334155' },
-  demoBoxValue: { fontSize: '12px', fontFamily: 'monospace', color: '#3b82f6' },
+  demoBox: { background: '#f8fafc', border: '2px solid #e2e8f0', borderRadius: '18px', padding: '20px 22px' },
+  demoBoxTitle: { fontSize: '10.5px', fontFamily: "'Courier New', monospace", color: '#64748b', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: '700', marginBottom: '14px' },
+  demoRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '9px' },
+  demoLabel: { fontSize: '13.5px', color: '#64748b' },
+  demoValue: { fontSize: '13px', fontFamily: "'Courier New', monospace", color: '#14b8a6', background: '#f0fdfa', padding: '5px 12px', borderRadius: '7px' },
   btnDemo: {
-    width: '100%', background: 'transparent',
-    border: '1px solid rgba(59,130,246,0.2)',
-    borderRadius: '8px', padding: '9px',
-    color: '#3b82f6', fontSize: '12px', fontFamily: "'Outfit', sans-serif",
-    cursor: 'pointer', marginTop: '12px',
-    transition: 'background 0.15s',
+    width: '100%', background: 'transparent', border: '2px solid #14b8a6', borderRadius: '12px',
+    padding: '11px', color: '#14b8a6', fontSize: '13.5px', fontFamily: "'Outfit', sans-serif",
+    cursor: 'pointer', fontWeight: '500', marginTop: '14px', transition: 'background 0.2s, color 0.2s, border-color 0.2s', letterSpacing: '0.2px',
   },
+}
+
+// ── Inyección de animaciones necesarias ──
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style')
+  styleSheet.textContent = `
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+  `
+  document.head.appendChild(styleSheet)
 }
