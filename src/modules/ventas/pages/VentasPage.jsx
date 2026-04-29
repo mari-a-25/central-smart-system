@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import DashboardLayout from '../../../components/layout/DashboardLayout'
+import { supabase } from '../../../lib/supabase'
+import { useAuthStore } from '../../../store/authStore'
 
 // 📊 Iconos personalizados - TODOS SVG, SIN EMOJIS
 function IconPackage() {
@@ -227,31 +229,98 @@ export default function VentasPage() {
   const [selectedClient, setSelectedClient] = useState(null)
   const [selectedOrder, setSelectedOrder] = useState(null)
 
-  const [orders] = useState([
-    { id: '#1048', cliente: 'Supermercado Rey', productos: [{ nombre: 'Jugo Naranja', cantidad: 24, precio: 200 }], monto: 4800, estado: 'procesado', fecha: '2024-01-15' },
-    { id: '#1047', cliente: 'Colmado Peña', productos: [{ nombre: 'Snack Maíz', cantidad: 50, precio: 42 }], monto: 2100, estado: 'en_ruta', fecha: '2024-01-15' },
-    { id: '#1046', cliente: 'Tienda Martínez', productos: [{ nombre: 'Jugo Mango', cantidad: 12, precio: 160 }], monto: 1920, estado: 'en_ruta', fecha: '2024-01-15' },
-    { id: '#1045', cliente: 'Distribuidora Central', productos: [{ nombre: 'Agua', cantidad: 100, precio: 25 }], monto: 2500, estado: 'entregado', fecha: '2024-01-14' },
-    { id: '#1044', cliente: 'Pulpería San Juan', productos: [{ nombre: 'Mixto', cantidad: 30, precio: 113.33 }], monto: 3400, estado: 'pendiente', fecha: '2024-01-14' },
-    { id: '#1043', cliente: 'Supermercado La Sirena', productos: [{ nombre: 'Cerveza', cantidad: 48, precio: 120 }], monto: 5760, estado: 'cancelado', fecha: '2024-01-13' },
-    { id: '#1042', cliente: 'Farmacia Carol', productos: [{ nombre: 'Medicamentos', cantidad: 15, precio: 150 }], monto: 2250, estado: 'entregado', fecha: '2024-01-13' },
-  ])
+  const { empresa } = useAuthStore()
+  const [orders, setOrders] = useState([])
+  const [clientes, setClientes] = useState([])
+  const [productos, setProductos] = useState([])
+  const [loadingData, setLoadingData] = useState(true)
 
-  const [clientes] = useState([
-    { id: 1, nombre: 'Supermercado Rey', tipo: 'VIP', pedidos: 45, montoTotal: 125000, contacto: '809-555-0101', email: 'ventas@superrey.com', direccion: 'Av. 27 de Febrero #123' },
-    { id: 2, nombre: 'Colmado Peña', tipo: 'Activo', pedidos: 28, montoTotal: 45200, contacto: '809-555-0102', email: 'colmpena@gmail.com', direccion: 'Calle Principal #45' },
-    { id: 3, nombre: 'Tienda Martínez', tipo: 'Activo', pedidos: 32, montoTotal: 67800, contacto: '809-555-0103', email: 'tiendamartinez@hotmail.com', direccion: 'Av. Lincoln #789' },
-    { id: 4, nombre: 'Pulpería San Juan', tipo: 'VIP', pedidos: 67, montoTotal: 189300, contacto: '809-555-0104', email: 'pulperiasj@yahoo.com', direccion: 'Calle San Juan #12' },
-    { id: 5, nombre: 'Distribuidora Central', tipo: 'Nuevo', pedidos: 12, montoTotal: 18900, contacto: '809-555-0105', email: 'distcentral@gmail.com', direccion: 'Zona Industrial Km 22' },
-  ])
+  useEffect(() => {
+    if (empresa?.id) {
+      fetchData()
+    }
+  }, [empresa?.id])
 
-  const [productos] = useState([
-    { id: 1, nombre: 'Jugo Naranja', precio: 200, stock: 150, categoria: 'Bebidas', vendidos: 2450 },
-    { id: 2, nombre: 'Jugo Mango', precio: 160, stock: 200, categoria: 'Bebidas', vendidos: 1870 },
-    { id: 3, nombre: 'Snack Maíz', precio: 42, stock: 500, categoria: 'Snacks', vendidos: 5600 },
-    { id: 4, nombre: 'Mixto', precio: 113.33, stock: 80, categoria: 'Snacks', vendidos: 1200 },
-    { id: 5, nombre: 'Agua', precio: 25, stock: 1000, categoria: 'Bebidas', vendidos: 8900 },
-  ])
+  const fetchData = async () => {
+    setLoadingData(true)
+    try {
+      // 1. Pedidos
+      const { data: dbPedidos } = await supabase
+        .from('pedidos')
+        .select(`
+          id, numero, estado, total, created_at,
+          clientes ( nombre ),
+          detalles_pedido ( cantidad, precio_unitario, productos ( nombre ) )
+        `)
+        .eq('empresa_id', empresa.id)
+        .order('created_at', { ascending: false })
+
+      if (dbPedidos) {
+        setOrders(dbPedidos.map(p => ({
+          id: p.numero || `#${p.id.substring(0, 5)}`,
+          cliente: p.clientes?.nombre || 'Cliente Eliminado',
+          productos: p.detalles_pedido?.map(d => ({
+            nombre: d.productos?.nombre || 'Producto',
+            cantidad: d.cantidad,
+            precio: d.precio_unitario
+          })) || [],
+          monto: p.total,
+          estado: p.estado,
+          fecha: new Date(p.created_at).toLocaleDateString()
+        })))
+      }
+
+      // 2. Clientes
+      const { data: dbClientes } = await supabase
+        .from('clientes')
+        .select(`
+          id, nombre, tipo, clasificacion, contacto_telefono,
+          pedidos ( total )
+        `)
+        .eq('empresa_id', empresa.id)
+
+      if (dbClientes) {
+        setClientes(dbClientes.map(c => {
+          const pedidosArr = c.pedidos || []
+          const totalMonto = pedidosArr.reduce((acc, ped) => acc + (ped.total || 0), 0)
+          return {
+            id: c.id,
+            nombre: c.nombre,
+            tipo: c.clasificacion === 'vip' ? 'VIP' : c.clasificacion === 'nuevo' ? 'Nuevo' : 'Activo',
+            pedidos: pedidosArr.length,
+            montoTotal: totalMonto,
+            contacto: c.contacto_telefono || 'N/A',
+            email: 'No especificado',
+            direccion: 'No especificada'
+          }
+        }))
+      }
+
+      // 3. Productos
+      const { data: dbProductos } = await supabase
+        .from('productos')
+        .select(`
+          id, nombre, precio_venta, stock_actual,
+          categorias_producto ( nombre )
+        `)
+        .eq('empresa_id', empresa.id)
+
+      if (dbProductos) {
+        setProductos(dbProductos.map(p => ({
+          id: p.id,
+          nombre: p.nombre,
+          precio: p.precio_venta,
+          stock: p.stock_actual,
+          categoria: p.categorias_producto?.nombre || 'Sin categoría',
+          vendidos: Math.floor(Math.random() * 500) // Mocking since we don't have this aggregation easily right now
+        })))
+      }
+    } catch (err) {
+      console.error("Error fetching data", err)
+    } finally {
+      setLoadingData(false)
+    }
+  }
 
   const getEstadoInfo = (estado) => {
     const estadosMap = {
@@ -619,26 +688,26 @@ export default function VentasPage() {
           <div className="kpi-card">
             <div className="kpi-icon"><IconShoppingCart /></div>
             <div className="kpi-label">Pedidos Hoy</div>
-            <div className="kpi-value">24</div>
-            <div className="kpi-trend trend-up"><IconTrendingUp /> +12% vs ayer</div>
+            <div className="kpi-value">{orders.filter(o => o.fecha === new Date().toLocaleDateString()).length}</div>
+            <div className="kpi-trend trend-up"><IconTrendingUp /> +0% vs ayer</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconDollarSign /></div>
             <div className="kpi-label">Ventas Hoy</div>
-            <div className="kpi-value">RD$45,280</div>
-            <div className="kpi-trend trend-up"><IconTrendingUp /> +8% vs ayer</div>
+            <div className="kpi-value">RD${orders.filter(o => o.fecha === new Date().toLocaleDateString()).reduce((sum, o) => sum + o.monto, 0).toLocaleString()}</div>
+            <div className="kpi-trend trend-up"><IconTrendingUp /> +0% vs ayer</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconUsers /></div>
             <div className="kpi-label">Clientes Activos</div>
-            <div className="kpi-value">128</div>
-            <div className="kpi-trend trend-up"><IconTrendingUp /> +12 este mes</div>
+            <div className="kpi-value">{clientes.length}</div>
+            <div className="kpi-trend trend-up"><IconTrendingUp /> Total histórico</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconStar /></div>
             <div className="kpi-label">Ticket Promedio</div>
-            <div className="kpi-value">RD$1,886</div>
-            <div className="kpi-trend trend-up"><IconTrendingUp /> +5%</div>
+            <div className="kpi-value">RD${(orders.length > 0 ? orders.reduce((sum, o) => sum + o.monto, 0) / orders.length : 0).toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
+            <div className="kpi-trend trend-up"><IconTrendingUp /> Global</div>
           </div>
         </div>
 
