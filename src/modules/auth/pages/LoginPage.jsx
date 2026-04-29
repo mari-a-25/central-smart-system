@@ -2,22 +2,22 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLogin } from '../../../hooks/useLogin'
 
-// ── Iconos SVG del nuevo estilo (Teal) ───────────────────────────────────
+// ── Iconos SVG ───────────────────────────────────
 function IconMail() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="5" width="18" height="14" rx="2"/>
-      <path d="M3 7l9 6 9-6"/>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6 9-6" />
     </svg>
   )
 }
 
 function IconLock() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="5" y="11" width="14" height="10" rx="2"/>
-      <path d="M8 11V7a4 4 0 018 0v4"/>
-      <circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 018 0v4" />
+      <circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none" />
     </svg>
   )
 }
@@ -26,13 +26,13 @@ function IconEye({ show, onClick }) {
   return (
     <button type="button" onClick={onClick} style={styles.btnEye} title={show ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
       {show ? (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" />
         </svg>
       ) : (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
         </svg>
       )}
     </button>
@@ -41,47 +41,47 @@ function IconEye({ show, onClick }) {
 
 function IconArrowRight() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12"/>
-      <polyline points="12 5 19 12 12 19"/>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
     </svg>
   )
 }
 
 function IconGrid() {
   return (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-      <rect x="3" y="3" width="8" height="8" rx="2" fill="#14b8a6"/>
-      <rect x="13" y="3" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.5"/>
-      <rect x="3" y="13" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.5"/>
-      <rect x="13" y="13" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.25"/>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="3" width="8" height="8" rx="2" fill="#0055CC" />
+      <rect x="13" y="3" width="8" height="8" rx="2" fill="#0055CC" fillOpacity="0.5" />
+      <rect x="3" y="13" width="8" height="8" rx="2" fill="#0055CC" fillOpacity="0.5" />
+      <rect x="13" y="13" width="8" height="8" rx="2" fill="#0055CC" fillOpacity="0.25" />
     </svg>
   )
 }
 
 function IconShield() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      <path d="M9 12l2 2 4-4"/>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
     </svg>
   )
 }
 
 function IconCpu() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="4" width="16" height="16" rx="2"/>
-      <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
     </svg>
   )
 }
 
 function IconLayers() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/>
-      <polyline points="2 15.5 12 22 22 15.5"/>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 22 8.5 12 15 2 8.5 12 2" />
+      <polyline points="2 15.5 12 22 22 15.5" />
     </svg>
   )
 }
@@ -116,11 +116,11 @@ export default function LoginPage() {
     <div style={styles.root}>
       {/* Fondo decorativo */}
       <div style={styles.bgDeco}>
-        <div style={styles.bgBlob1}/>
-        <div style={styles.bgBlob2}/>
-        <div style={styles.bgGrid}/>
-        <div style={styles.bgLine1}/>
-        <div style={styles.bgLine2}/>
+        <div style={styles.bgBlob1} />
+        <div style={styles.bgBlob2} />
+        <div style={styles.bgGrid} />
+        <div style={styles.bgLine1} />
+        <div style={styles.bgLine2} />
       </div>
 
       {/* Shell principal */}
@@ -142,8 +142,8 @@ export default function LoginPage() {
 
             {/* Headline */}
             <div style={styles.headline}>
-              La plataforma que<br/>
-              <em style={styles.headlineEm}>unifica</em> tu empresa<br/>
+              La plataforma que<br />
+              <em style={styles.headlineEm}>unifica</em> tu empresa<br />
               con inteligencia.
             </div>
             <p style={styles.headlineSub}>
@@ -153,15 +153,15 @@ export default function LoginPage() {
             {/* Features */}
             <div style={styles.features}>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}><IconShield/></span>
+                <span style={styles.featureIcon}><IconShield /></span>
                 <span style={styles.featureText}>Acceso seguro por roles — cada área ve solo lo suyo</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}><IconCpu/></span>
+                <span style={styles.featureIcon}><IconCpu /></span>
                 <span style={styles.featureText}>Agente IA integrado — alertas y decisiones automáticas</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}><IconLayers/></span>
+                <span style={styles.featureIcon}><IconLayers /></span>
                 <span style={styles.featureText}>8 módulos conectados — datos en tiempo real</span>
               </div>
             </div>
@@ -170,7 +170,7 @@ export default function LoginPage() {
           {/* Footer izquierdo */}
           <div style={styles.leftFooter}>
             <div style={styles.versionBadge}>
-              <span style={styles.versionDot}/>
+              <span style={styles.versionDot} />
               v1.0 · SISTEMA ACTIVO
             </div>
             <div style={styles.schoolBadge}>Instituto Tecnológico México · 2026</div>
@@ -196,9 +196,9 @@ export default function LoginPage() {
                 }}>
                   <span style={{
                     ...styles.inputIconLeft,
-                    ...(focusEmail ? { color: '#14b8a6' } : {})
+                    ...(focusEmail ? { color: '#0055CC' } : {})
                   }}>
-                    <IconMail/>
+                    <IconMail />
                   </span>
                   <input
                     type="email"
@@ -226,9 +226,9 @@ export default function LoginPage() {
                 }}>
                   <span style={{
                     ...styles.inputIconLeft,
-                    ...(focusPass ? { color: '#14b8a6' } : {})
+                    ...(focusPass ? { color: '#0055CC' } : {})
                   }}>
-                    <IconLock/>
+                    <IconLock />
                   </span>
                   <input
                     type={showPass ? 'text' : 'password'}
@@ -237,12 +237,12 @@ export default function LoginPage() {
                     onFocus={() => setFocusPass(true)}
                     onBlur={() => setFocusPass(false)}
                     placeholder="Escribe tu contraseña"
-                    style={{ ...styles.inputField, paddingRight: '52px' }}
+                    style={{ ...styles.inputField, paddingRight: '60px' }}
                     autoComplete="current-password"
                     required
                   />
                   <span style={styles.inputIconRight}>
-                    <IconEye show={showPass} onClick={() => setShowPass(!showPass)}/>
+                    <IconEye show={showPass} onClick={() => setShowPass(!showPass)} />
                   </span>
                 </div>
               </div>
@@ -250,10 +250,10 @@ export default function LoginPage() {
               {/* Error */}
               {error && (
                 <div style={styles.errorBox}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="12" y1="8" x2="12" y2="12"/>
-                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
                   </svg>
                   <span>{error}</span>
                 </div>
@@ -270,13 +270,13 @@ export default function LoginPage() {
               >
                 {loading ? (
                   <>
-                    <span style={styles.spinner}/>
+                    <span style={styles.spinner} />
                     Verificando...
                   </>
                 ) : (
                   <>
                     Iniciar Sesión
-                    <IconArrowRight/>
+                    <IconArrowRight />
                   </>
                 )}
               </button>
@@ -313,15 +313,15 @@ export default function LoginPage() {
   )
 }
 
-// ── Estilos (Copiados del HTML de referencia con ajustes para React) ──
+// ── ESTILOS CON TEXTOS 100% OSCUROS Y VISIBLES ──
 const styles = {
   root: {
     minHeight: '100vh',
-    background: '#0a1428',
+    background: '#0a0e27',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '24px',
+    padding: '32px',
     fontFamily: "'Outfit', system-ui, sans-serif",
     position: 'relative',
     overflow: 'hidden',
@@ -329,140 +329,144 @@ const styles = {
 
   bgDeco: { position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' },
   bgBlob1: {
-    position: 'absolute', width: '600px', height: '600px', borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(20,184,166,0.18), transparent 70%)',
+    position: 'absolute', width: '700px', height: '700px', borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(0,85,204,0.12), transparent 70%)',
     top: '-160px', left: '-120px', filter: 'blur(80px)',
   },
   bgBlob2: {
-    position: 'absolute', width: '480px', height: '480px', borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(94,234,212,0.12), transparent 70%)',
+    position: 'absolute', width: '550px', height: '550px', borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(0,119,204,0.08), transparent 70%)',
     bottom: '-100px', right: '-100px', filter: 'blur(80px)',
   },
   bgGrid: {
     position: 'absolute', inset: 0,
-    backgroundImage: 'linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)',
-    backgroundSize: '50px 50px',
+    backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
+    backgroundSize: '60px 60px',
   },
   bgLine1: {
     position: 'absolute', width: '1px', height: '130%', top: '-15%', left: '38%',
-    background: 'linear-gradient(to bottom, transparent, rgba(94,234,212,0.10), transparent)',
+    background: 'linear-gradient(to bottom, transparent, rgba(0,119,204,0.12), transparent)',
     transform: 'rotate(8deg)',
   },
   bgLine2: {
     position: 'absolute', width: '1px', height: '130%', top: '-15%', right: '25%',
-    background: 'linear-gradient(to bottom, transparent, rgba(20,184,166,0.07), transparent)',
+    background: 'linear-gradient(to bottom, transparent, rgba(0,85,204,0.08), transparent)',
     transform: 'rotate(-6deg)',
   },
 
   shell: {
     position: 'relative', zIndex: 2,
-    display: 'grid', gridTemplateColumns: '1fr 440px',
-    width: '980px', maxWidth: '100%', minHeight: '660px',
-    borderRadius: '24px', overflow: 'hidden',
-    boxShadow: '0 36px 90px rgba(0,0,0,0.35), 0 0 0 1px rgba(20,184,166,0.12)',
+    display: 'grid', gridTemplateColumns: '1fr 520px',
+    width: '1200px',
+    maxWidth: '100%', minHeight: '740px',
+    borderRadius: '32px',
+    overflow: 'hidden',
+    boxShadow: '0 40px 100px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,85,204,0.15)',
   },
 
   leftPanel: {
-    background: 'linear-gradient(155deg, #0f172a 0%, #1a2840 50%, #0a1428 100%)',
-    padding: '50px 44px',
+    background: 'linear-gradient(155deg, #0f1222 0%, #161c34 50%, #0a0e20 100%)',
+    padding: '60px 48px',
     display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-    borderRight: '1px solid rgba(255,255,255,0.06)',
-    color: '#f1f5f9',
+    borderRight: '1px solid rgba(255,255,255,0.08)',
+    color: '#ffffff',
   },
 
-  brand: { display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '52px' },
+  brand: { display: 'flex', alignItems: 'center', gap: '18px', marginBottom: '64px' },
   brandLogo: {
-    width: '62px', height: '62px', background: '#ffffff', border: '3px solid #14b8a6', borderRadius: '16px',
+    width: '76px', height: '76px', background: '#ffffff', border: '3px solid #0055CC', borderRadius: '20px',
     display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-    boxShadow: '0 8px 24px rgba(20,184,166,0.30)', overflow: 'hidden',
+    boxShadow: '0 12px 28px rgba(0,85,204,0.35)', overflow: 'hidden',
   },
-  brandInfoName: { fontSize: '17px', fontWeight: '600', color: '#f1f5f9', letterSpacing: '-0.3px' },
-  brandInfoTag: { fontSize: '11px', color: '#94a3b8', fontFamily: "'Courier New', monospace", marginTop: '2px' },
+  brandInfoName: { fontSize: '20px', fontWeight: '600', color: '#ffffff', letterSpacing: '-0.3px' },
+  brandInfoTag: { fontSize: '12px', color: '#a0aec0', fontFamily: "'Courier New', monospace", marginTop: '4px' },
 
   headline: {
-    fontFamily: "'Crimson Pro', Georgia, serif", fontWeight: '300', fontSize: '38px', lineHeight: '1.18',
-    color: '#f1f5f9', marginBottom: '16px', letterSpacing: '-0.5px',
+    fontFamily: "'Crimson Pro', Georgia, serif", fontWeight: '300', fontSize: '46px',
+    lineHeight: '1.2',
+    color: '#ffffff', marginBottom: '20px', letterSpacing: '-0.5px',
   },
-  headlineEm: { fontStyle: 'italic', fontWeight: '400', color: '#ffffff' },
-  headlineSub: { fontSize: '14px', color: '#cbd5e1', lineHeight: '1.65', maxWidth: '300px', marginBottom: '40px' },
+  headlineEm: { fontStyle: 'italic', fontWeight: '500', color: '#ffffff' },
+  headlineSub: { fontSize: '16px', color: '#cbd5e6', lineHeight: '1.65', maxWidth: '320px', marginBottom: '48px' },
 
-  features: { display: 'flex', flexDirection: 'column', gap: '10px' },
+  features: { display: 'flex', flexDirection: 'column', gap: '14px' },
   featureItem: {
-    display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px',
-    background: 'rgba(20,184,166,0.06)', border: '1px solid rgba(94,234,212,0.12)', borderRadius: '12px',
+    display: 'flex', alignItems: 'center', gap: '14px', padding: '14px 18px',
+    background: 'rgba(0,85,204,0.08)', border: '1px solid rgba(0,119,204,0.15)', borderRadius: '14px',
   },
-  featureIcon: { flexShrink: 0, color: '#5eead4', display: 'flex' },
-  featureText: { fontSize: '13px', color: '#e2e8f0', lineHeight: '1.5' },
+  featureIcon: { flexShrink: 0, color: '#4da8ff', display: 'flex' },
+  featureText: { fontSize: '15px', color: '#e2e8f0', lineHeight: '1.5', fontWeight: '500' },
 
-  leftFooter: { display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '40px' },
+  leftFooter: { display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '48px' },
   versionBadge: {
-    display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.06)',
-    border: '1px solid rgba(255,255,255,0.12)', borderRadius: '20px', padding: '6px 14px',
-    fontSize: '10px', fontFamily: "'Courier New', monospace", color: '#94a3b8', letterSpacing: '0.5px', width: 'fit-content',
+    display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.08)',
+    border: '1px solid rgba(255,255,255,0.15)', borderRadius: '24px', padding: '8px 16px',
+    fontSize: '11px', fontFamily: "'Courier New', monospace", color: '#a0aec0', letterSpacing: '0.5px', width: 'fit-content',
   },
   versionDot: {
-    width: '6px', height: '6px', background: '#5eead4', borderRadius: '50%',
-    boxShadow: '0 0 10px rgba(94,234,212,0.5)', flexShrink: 0,
+    width: '8px', height: '8px', background: '#4da8ff', borderRadius: '50%',
+    boxShadow: '0 0 12px rgba(77,168,255,0.6)', flexShrink: 0,
   },
-  schoolBadge: { fontSize: '11px', color: '#64748b', fontFamily: "'Courier New', monospace" },
+  schoolBadge: { fontSize: '12px', color: '#8a9bb5', fontFamily: "'Courier New', monospace" },
 
-  rightPanel: { background: '#ffffff', padding: '50px 48px', display: 'flex', alignItems: 'center' },
+  // PANEL DERECHO - TODOS LOS TEXTOS AHORA EN NEGRO U OSCURO
+  rightPanel: { background: '#ffffff', padding: '60px 52px', display: 'flex', alignItems: 'center' },
   formWrap: { width: '100%' },
-  formHeader: { marginBottom: '36px' },
-  formTitle: { fontSize: '30px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.4px', marginBottom: '8px' },
-  formSub: { fontSize: '15px', color: '#64748b', lineHeight: '1.5' },
+  formHeader: { marginBottom: '44px' },
+  formTitle: { fontSize: '38px', fontWeight: '700', color: '#000000', letterSpacing: '-0.4px', marginBottom: '12px' }, // NEGRO
+  formSub: { fontSize: '18px', color: '#1a202c', lineHeight: '1.5', fontWeight: '500' }, // GRIS OSCURO
 
-  fieldGroup: { marginBottom: '20px' },
-  fieldLabel: { display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '9px', letterSpacing: '0.2px' },
-  passwordHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '9px' },
-  forgotLink: { fontSize: '13px', color: '#14b8a6', textDecoration: 'none', fontWeight: '500' },
+  fieldGroup: { marginBottom: '24px' },
+  fieldLabel: { display: 'block', fontSize: '16px', fontWeight: '700', color: '#000000', marginBottom: '10px', letterSpacing: '0.2px' }, // NEGRO
+  passwordHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' },
+  forgotLink: { fontSize: '15px', color: '#0055CC', textDecoration: 'none', fontWeight: '600' },
 
   inputWrapper: {
-    position: 'relative', display: 'flex', alignItems: 'center', background: '#f8fafc',
-    border: '2px solid #e2e8f0', borderRadius: '18px', transition: 'border-color 0.22s, box-shadow 0.22s, background 0.22s',
+    position: 'relative', display: 'flex', alignItems: 'center', background: '#f7fafc',
+    border: '2px solid #cbd5e0', borderRadius: '20px', transition: 'border-color 0.22s, box-shadow 0.22s, background 0.22s',
     overflow: 'hidden',
   },
-  inputWrapperFocus: { borderColor: '#14b8a6', boxShadow: '0 0 0 5px rgba(20,184,166,0.20)', background: '#ffffff' },
-  inputIconLeft: { position: 'absolute', left: '17px', color: '#94a3b8', pointerEvents: 'none', display: 'flex', alignItems: 'center', transition: 'color 0.2s' },
-  inputIconRight: { position: 'absolute', right: '10px', display: 'flex', alignItems: 'center' },
+  inputWrapperFocus: { borderColor: '#0055CC', boxShadow: '0 0 0 6px rgba(0,85,204,0.15)', background: '#ffffff' },
+  inputIconLeft: { position: 'absolute', left: '18px', color: '#4a5568', pointerEvents: 'none', display: 'flex', alignItems: 'center', transition: 'color 0.2s' },
+  inputIconRight: { position: 'absolute', right: '12px', display: 'flex', alignItems: 'center' },
   inputField: {
     width: '100%', background: 'transparent', border: 'none', outline: 'none',
-    padding: '16px 18px 16px 52px', color: '#0f172a', fontSize: '15.5px', fontFamily: "'Outfit', sans-serif",
+    padding: '18px 20px 18px 58px', color: '#000000', fontSize: '17px', fontFamily: "'Outfit', sans-serif", fontWeight: '500', // NEGRO
   },
-  btnEye: { background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex', padding: '7px', borderRadius: '8px', transition: 'color 0.2s' },
+  btnEye: { background: 'none', border: 'none', cursor: 'pointer', color: '#4a5568', display: 'flex', padding: '8px', borderRadius: '10px', transition: 'color 0.2s' },
 
   errorBox: {
-    display: 'flex', alignItems: 'center', gap: '10px', padding: '13px 16px',
-    background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '10px',
-    color: '#dc2626', fontSize: '14px', marginBottom: '16px',
+    display: 'flex', alignItems: 'center', gap: '12px', padding: '15px 18px',
+    background: '#fff5f5', border: '1px solid #fed7d7', borderRadius: '14px',
+    color: '#c53030', fontSize: '15px', fontWeight: '600', marginBottom: '20px',
   },
 
   btnSubmit: {
-    width: '100%', background: '#14b8a6', color: '#ffffff', border: 'none', borderRadius: '18px',
-    padding: '16px 24px', fontSize: '16.5px', fontWeight: '600', fontFamily: "'Outfit', sans-serif",
-    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-    boxShadow: '0 8px 28px rgba(20,184,166,0.32)', transition: 'background 0.2s, transform 0.15s, box-shadow 0.2s',
-    marginTop: '8px', letterSpacing: '0.2px',
+    width: '100%', background: '#0055CC', color: '#ffffff', border: 'none', borderRadius: '20px',
+    padding: '18px 28px', fontSize: '18px', fontWeight: '700', fontFamily: "'Outfit', sans-serif",
+    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
+    boxShadow: '0 10px 32px rgba(0,85,204,0.35)', transition: 'background 0.2s, transform 0.15s, box-shadow 0.2s',
+    marginTop: '12px', letterSpacing: '0.3px',
   },
   btnSubmitDisabled: { opacity: 0.55, cursor: 'not-allowed', boxShadow: 'none' },
   spinner: {
-    width: '20px', height: '20px', border: '2.5px solid rgba(255,255,255,0.3)',
+    width: '22px', height: '22px', border: '2.5px solid rgba(255,255,255,0.3)',
     borderTopColor: 'white', borderRadius: '50%', animation: 'spin 0.7s linear infinite', flexShrink: 0,
   },
 
-  divider: { display: 'flex', alignItems: 'center', gap: '14px', margin: '28px 0 22px' },
-  dividerLine: { flex: 1, height: '1px', background: '#e2e8f0' },
-  dividerText: { fontSize: '10px', fontFamily: "'Courier New', monospace", color: '#94a3b8', letterSpacing: '0.8px', textTransform: 'uppercase', whiteSpace: 'nowrap' },
+  divider: { display: 'flex', alignItems: 'center', gap: '16px', margin: '32px 0 26px' },
+  dividerLine: { flex: 1, height: '1px', background: '#cbd5e0' },
+  dividerText: { fontSize: '13px', fontFamily: "'Courier New', monospace", color: '#2d3748', letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', fontWeight: '700' }, // GRIS OSCURO
 
-  demoBox: { background: '#f8fafc', border: '2px solid #e2e8f0', borderRadius: '18px', padding: '20px 22px' },
-  demoBoxTitle: { fontSize: '10.5px', fontFamily: "'Courier New', monospace", color: '#64748b', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: '700', marginBottom: '14px' },
-  demoRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '9px' },
-  demoLabel: { fontSize: '13.5px', color: '#64748b' },
-  demoValue: { fontSize: '13px', fontFamily: "'Courier New', monospace", color: '#14b8a6', background: '#f0fdfa', padding: '5px 12px', borderRadius: '7px' },
+  demoBox: { background: '#f7fafc', border: '2px solid #cbd5e0', borderRadius: '20px', padding: '24px 26px' },
+  demoBoxTitle: { fontSize: '13px', fontFamily: "'Courier New', monospace", color: '#000000', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: '800', marginBottom: '16px' }, // NEGRO
+  demoRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' },
+  demoLabel: { fontSize: '16px', color: '#000000', fontWeight: '600' }, // NEGRO
+  demoValue: { fontSize: '15px', fontFamily: "'Courier New', monospace", color: '#0055CC', background: '#e6f0ff', padding: '6px 14px', borderRadius: '8px', fontWeight: '600' },
   btnDemo: {
-    width: '100%', background: 'transparent', border: '2px solid #14b8a6', borderRadius: '12px',
-    padding: '11px', color: '#14b8a6', fontSize: '13.5px', fontFamily: "'Outfit', sans-serif",
-    cursor: 'pointer', fontWeight: '500', marginTop: '14px', transition: 'background 0.2s, color 0.2s, border-color 0.2s', letterSpacing: '0.2px',
+    width: '100%', background: 'transparent', border: '2px solid #0055CC', borderRadius: '14px',
+    padding: '14px', color: '#0055CC', fontSize: '16px', fontFamily: "'Outfit', sans-serif",
+    cursor: 'pointer', fontWeight: '700', marginTop: '18px', transition: 'background 0.2s, color 0.2s, border-color 0.2s', letterSpacing: '0.2px',
   },
 }
 

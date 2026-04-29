@@ -124,7 +124,7 @@ export default function DashboardPage() {
       {/* Módulos */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
         <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a' }}>Módulos del Sistema</div>
-        <span style={{ fontSize: '12px', color: '#94a3b8' }}>8 módulos activos</span>
+        <span style={{ fontSize: '12px', color: '#475569' }}>8 módulos activos</span>
       </div>
 
       <div style={styles.modulosGrid}>
@@ -201,7 +201,7 @@ function Card({ title, children, icon, iconColor, badge }) {
 
 function LegendItem({ color, label }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#94a3b8' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#475569' }}>
       <div style={{ width: '10px', height: '10px', borderRadius: '3px', background: color }}></div>{label}
     </div>
   )
@@ -294,10 +294,10 @@ const styles = {
   },
   greetingText: { position: 'relative', zIndex: 1 },
   greetingWelcome: { fontSize: '20px', fontWeight: '700', color: '#f1f5f9', letterSpacing: '-0.3px' },
-  greetingSub: { fontSize: '13px', color: '#94a3b8', marginTop: '2px' },
+  greetingSub: { fontSize: '13px', color: '#cbd5e1', marginTop: '2px' },
   greetingSpacer: { flex: 1 },
   greetingDate: {
-    fontSize: '12px', color: '#64748b', fontFamily: "'Courier New', monospace",
+    fontSize: '12px', color: '#94a3b8', fontFamily: "'Courier New', monospace",
     position: 'relative', zIndex: 1, textAlign: 'right',
   },
   greetingTime: { fontSize: '16px', color: '#e2e8f0', fontFamily: "'Outfit', sans-serif", fontWeight: '600' },
@@ -323,7 +323,7 @@ const styles = {
     position: 'relative', overflow: 'hidden', cursor: 'default',
   },
   kpiIconBg: { position: 'absolute', right: '16px', top: '16px', width: '38px', height: '38px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  kpiLabel: { fontSize: '10px', letterSpacing: '0.8px', textTransform: 'uppercase', color: '#94a3b8', marginBottom: '10px', fontWeight: '600' },
+  kpiLabel: { fontSize: '10px', letterSpacing: '0.8px', textTransform: 'uppercase', color: '#475569', marginBottom: '10px', fontWeight: '600' },
   kpiValue: { fontSize: '28px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.5px', lineHeight: 1 },
   kpiSub: { fontSize: '12px', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' },
 
@@ -337,26 +337,26 @@ const styles = {
   chartWrap: { height: '130px', display: 'flex', alignItems: 'flex-end', gap: '8px', padding: '0 4px' },
   barGroup: { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' },
   bar: { width: '100%', borderRadius: '6px 6px 0 0', cursor: 'pointer' },
-  barLabel: { fontSize: '10px', color: '#94a3b8' },
+  barLabel: { fontSize: '10px', color: '#475569' },
 
   alertItem: { display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 16px', borderRadius: '10px', marginBottom: '8px', border: '1px solid transparent' },
   alertDot: { width: '28px', height: '28px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' },
   alertTitle: { fontSize: '13.5px', fontWeight: '600', color: '#0f172a' },
-  alertSub: { fontSize: '11.5px', color: '#94a3b8', marginTop: '2px' },
+  alertSub: { fontSize: '11.5px', color: '#475569', marginTop: '2px' },
 
   modulosGrid: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px', marginBottom: '22px' },
   moduloCard: { background: '#ffffff', borderRadius: '16px', padding: '18px 16px', border: '1px solid rgba(15,30,53,0.08)', boxShadow: '0 2px 16px rgba(15,30,53,0.08)', cursor: 'pointer', position: 'relative', overflow: 'hidden' },
   moduloIconWrap: { width: '42px', height: '42px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px', flexShrink: 0 },
   moduloName: { fontSize: '14px', fontWeight: '700', color: '#0f172a', marginBottom: '2px' },
-  moduloDesc: { fontSize: '11px', color: '#94a3b8', marginBottom: '10px', lineHeight: 1.4 },
+  moduloDesc: { fontSize: '11px', color: '#475569', marginBottom: '10px', lineHeight: 1.4 },
   moduloBarBg: { height: '4px', borderRadius: '2px', background: '#f1f5f9' },
   moduloBarFill: { height: '100%', borderRadius: '2px' },
   moduloStatus: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px' },
   moduloStatusTxt: { fontSize: '10.5px', fontWeight: '600' },
-  moduloLink: { fontSize: '10px', color: '#94a3b8', textDecoration: 'none' },
+  moduloLink: { fontSize: '10px', color: '#475569', textDecoration: 'none' },
 
   miniStat: { display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: '#ffffff', border: '1px solid rgba(15,30,53,0.08)', borderRadius: '10px', boxShadow: '0 2px 16px rgba(15,30,53,0.08)' },
   miniStatIcon: { width: '36px', height: '36px', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   miniStatVal: { fontSize: '18px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.3px' },
-  miniStatLbl: { fontSize: '11px', color: '#94a3b8' },
+  miniStatLbl: { fontSize: '11px', color: '#475569' },
 }

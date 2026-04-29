@@ -2,6 +2,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import LoginPage from '../modules/auth/pages/LoginPage'
 import DashboardPage from '../modules/dashboard/pages/DashboardPage'
+import VentasPage from '../modules/ventas/pages/VentasPage'
+import InventarioPage from '../modules/inventario/pages/InventarioPage'
+import ComprasPage from '../modules/compras/pages/ComprasPage'
+import ProduccionPage from '../modules/produccion/pages/ProduccionPage'
+import LogisticaPage from '../modules/logistica/pages/LogisticaPage'
+import RrhhPage from '../modules/rrhh/pages/RrhhPage'
+import ContabilidadPage from '../modules/contabilidad/pages/ContabilidadPage'
+import ClientesPage from '../modules/clientes/pages/ClientesPage'
+import ConfiguracionPage from '../modules/configuracion/pages/ConfiguracionPage'
 
 // Ruta protegida — si no hay sesión redirige al login
 function ProtectedRoute({ children }) {
@@ -35,20 +44,19 @@ export default function AppRouter() {
         <Route path="/dashboard" element={
           <ProtectedRoute><DashboardPage/></ProtectedRoute>
         }/>
-        {/* Agregamos redirecciones temporales para los otros módulos */}
-        <Route path="/ia-chat" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/ventas" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/inventario" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/compras" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/produccion" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/logistica" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/rrhh" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/contabilidad" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/clientes" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-        <Route path="/configuracion" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
+        {/* Agregamos las rutas para los módulos */}
+        <Route path="/ventas" element={<ProtectedRoute><VentasPage/></ProtectedRoute>}/>
+        <Route path="/inventario" element={<ProtectedRoute><InventarioPage/></ProtectedRoute>}/>
+        <Route path="/compras" element={<ProtectedRoute><ComprasPage/></ProtectedRoute>}/>
+        <Route path="/produccion" element={<ProtectedRoute><ProduccionPage/></ProtectedRoute>}/>
+        <Route path="/logistica" element={<ProtectedRoute><LogisticaPage/></ProtectedRoute>}/>
+        <Route path="/rrhh" element={<ProtectedRoute><RrhhPage/></ProtectedRoute>}/>
+        <Route path="/contabilidad" element={<ProtectedRoute><ContabilidadPage/></ProtectedRoute>}/>
+        <Route path="/clientes" element={<ProtectedRoute><ClientesPage/></ProtectedRoute>}/>
+        <Route path="/configuracion" element={<ProtectedRoute><ConfiguracionPage/></ProtectedRoute>}/>
         
         <Route path="*" element={<Navigate to="/login" replace/>}/>
       </Routes>
     </BrowserRouter>
   )
-}
+}

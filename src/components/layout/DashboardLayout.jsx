@@ -1,5 +1,6 @@
 import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { useAuthStore } from '../../store/authStore'
+import IaChat from '../../modules/ia-chat/components/IaChat'
 
 export default function DashboardLayout({ children, title = 'Dashboard', subtitle = 'visión general' }) {
   const { perfil, empresa, logout } = useAuthStore()
@@ -52,14 +53,6 @@ export default function DashboardLayout({ children, title = 'Dashboard', subtitl
               <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
             </svg>
             Dashboard
-          </NavItem>
-
-          <NavItem to="/ia-chat">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            Asistente IA
-            <span style={{ ...styles.navBadge, background: '#14b8a6', fontSize: '9px', padding: '0 6px' }}>IA</span>
           </NavItem>
 
           <div style={{ ...styles.sidebarSectionLabel, marginTop: '6px' }}>Módulos</div>
@@ -180,6 +173,9 @@ export default function DashboardLayout({ children, title = 'Dashboard', subtitl
           {children}
         </main>
       </div>
+
+      {/* IA Chat Component */}
+      <IaChat />
     </div>
   )
 }
@@ -256,7 +252,7 @@ const styles = {
     fontSize: '14px', fontWeight: '700', color: '#f1f5f9', letterSpacing: '-0.2px',
   },
   sidebarBrandSub: {
-    fontSize: '9.5px', color: '#64748b', fontFamily: "'Courier New', monospace", marginTop: '1px',
+    fontSize: '9.5px', color: '#94a3b8', fontFamily: "'Courier New', monospace", marginTop: '1px',
   },
   sidebarEmpresa: {
     padding: '14px 18px',
@@ -292,7 +288,7 @@ const styles = {
     cursor: 'pointer',
     transition: 'background 0.18s',
     textDecoration: 'none',
-    color: '#94a3b8',
+    color: '#cbd5e1',
     fontSize: '13.5px', fontWeight: '500',
   },
   navItemActive: {
@@ -323,7 +319,7 @@ const styles = {
     border: '2px solid rgba(20,184,166,0.3)',
   },
   userName: { fontSize: '12.5px', fontWeight: '600', color: '#e2e8f0' },
-  userRole: { fontSize: '10px', color: '#475569' },
+  userRole: { fontSize: '10px', color: '#94a3b8' },
 
   main: {
     marginLeft: '210px',
@@ -343,7 +339,7 @@ const styles = {
     boxShadow: '0 1px 8px rgba(15,30,53,0.06)',
   },
   headerTitle: { fontSize: '20px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.3px' },
-  headerSubtitle: { fontSize: '13px', color: '#94a3b8', marginLeft: '8px', fontWeight: '400' },
+  headerSubtitle: { fontSize: '13px', color: '#475569', marginLeft: '8px', fontWeight: '400' },
   headerSpacer: { flex: 1 },
   headerIaBtn: {
     display: 'flex', alignItems: 'center', gap: '8px',
