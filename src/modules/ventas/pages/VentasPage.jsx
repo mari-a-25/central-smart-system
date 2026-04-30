@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import DashboardLayout from '../../../components/layout/DashboardLayout'
-import { supabase } from '../../../lib/supabase'
-import { useAuthStore } from '../../../store/authStore'
 
-// 📊 Iconos personalizados - TODOS SVG, SIN EMOJIS
+// ≡ƒôè Iconos personalizados - TODOS SVG, SIN EMOJIS
 function IconPackage() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -229,98 +227,31 @@ export default function VentasPage() {
   const [selectedClient, setSelectedClient] = useState(null)
   const [selectedOrder, setSelectedOrder] = useState(null)
 
-  const { empresa } = useAuthStore()
-  const [orders, setOrders] = useState([])
-  const [clientes, setClientes] = useState([])
-  const [productos, setProductos] = useState([])
-  const [loadingData, setLoadingData] = useState(true)
+  const [orders] = useState([
+    { id: '#1048', cliente: 'Supermercado Rey', productos: [{ nombre: 'Jugo Naranja', cantidad: 24, precio: 200 }], monto: 4800, estado: 'procesado', fecha: '2024-01-15' },
+    { id: '#1047', cliente: 'Colmado Pe├▒a', productos: [{ nombre: 'Snack Ma├¡z', cantidad: 50, precio: 42 }], monto: 2100, estado: 'en_ruta', fecha: '2024-01-15' },
+    { id: '#1046', cliente: 'Tienda Mart├¡nez', productos: [{ nombre: 'Jugo Mango', cantidad: 12, precio: 160 }], monto: 1920, estado: 'en_ruta', fecha: '2024-01-15' },
+    { id: '#1045', cliente: 'Distribuidora Central', productos: [{ nombre: 'Agua', cantidad: 100, precio: 25 }], monto: 2500, estado: 'entregado', fecha: '2024-01-14' },
+    { id: '#1044', cliente: 'Pulper├¡a San Juan', productos: [{ nombre: 'Mixto', cantidad: 30, precio: 113.33 }], monto: 3400, estado: 'pendiente', fecha: '2024-01-14' },
+    { id: '#1043', cliente: 'Supermercado La Sirena', productos: [{ nombre: 'Cerveza', cantidad: 48, precio: 120 }], monto: 5760, estado: 'cancelado', fecha: '2024-01-13' },
+    { id: '#1042', cliente: 'Farmacia Carol', productos: [{ nombre: 'Medicamentos', cantidad: 15, precio: 150 }], monto: 2250, estado: 'entregado', fecha: '2024-01-13' },
+  ])
 
-  useEffect(() => {
-    if (empresa?.id) {
-      fetchData()
-    }
-  }, [empresa?.id])
+  const [clientes] = useState([
+    { id: 1, nombre: 'Supermercado Rey', tipo: 'VIP', pedidos: 45, montoTotal: 125000, contacto: '809-555-0101', email: 'ventas@superrey.com', direccion: 'Av. 27 de Febrero #123' },
+    { id: 2, nombre: 'Colmado Pe├▒a', tipo: 'Activo', pedidos: 28, montoTotal: 45200, contacto: '809-555-0102', email: 'colmpena@gmail.com', direccion: 'Calle Principal #45' },
+    { id: 3, nombre: 'Tienda Mart├¡nez', tipo: 'Activo', pedidos: 32, montoTotal: 67800, contacto: '809-555-0103', email: 'tiendamartinez@hotmail.com', direccion: 'Av. Lincoln #789' },
+    { id: 4, nombre: 'Pulper├¡a San Juan', tipo: 'VIP', pedidos: 67, montoTotal: 189300, contacto: '809-555-0104', email: 'pulperiasj@yahoo.com', direccion: 'Calle San Juan #12' },
+    { id: 5, nombre: 'Distribuidora Central', tipo: 'Nuevo', pedidos: 12, montoTotal: 18900, contacto: '809-555-0105', email: 'distcentral@gmail.com', direccion: 'Zona Industrial Km 22' },
+  ])
 
-  const fetchData = async () => {
-    setLoadingData(true)
-    try {
-      // 1. Pedidos
-      const { data: dbPedidos } = await supabase
-        .from('pedidos')
-        .select(`
-          id, numero, estado, total, created_at,
-          clientes ( nombre ),
-          detalles_pedido ( cantidad, precio_unitario, productos ( nombre ) )
-        `)
-        .eq('empresa_id', empresa.id)
-        .order('created_at', { ascending: false })
-
-      if (dbPedidos) {
-        setOrders(dbPedidos.map(p => ({
-          id: p.numero || `#${p.id.substring(0, 5)}`,
-          cliente: p.clientes?.nombre || 'Cliente Eliminado',
-          productos: p.detalles_pedido?.map(d => ({
-            nombre: d.productos?.nombre || 'Producto',
-            cantidad: d.cantidad,
-            precio: d.precio_unitario
-          })) || [],
-          monto: p.total,
-          estado: p.estado,
-          fecha: new Date(p.created_at).toLocaleDateString()
-        })))
-      }
-
-      // 2. Clientes
-      const { data: dbClientes } = await supabase
-        .from('clientes')
-        .select(`
-          id, nombre, tipo, clasificacion, contacto_telefono,
-          pedidos ( total )
-        `)
-        .eq('empresa_id', empresa.id)
-
-      if (dbClientes) {
-        setClientes(dbClientes.map(c => {
-          const pedidosArr = c.pedidos || []
-          const totalMonto = pedidosArr.reduce((acc, ped) => acc + (ped.total || 0), 0)
-          return {
-            id: c.id,
-            nombre: c.nombre,
-            tipo: c.clasificacion === 'vip' ? 'VIP' : c.clasificacion === 'nuevo' ? 'Nuevo' : 'Activo',
-            pedidos: pedidosArr.length,
-            montoTotal: totalMonto,
-            contacto: c.contacto_telefono || 'N/A',
-            email: 'No especificado',
-            direccion: 'No especificada'
-          }
-        }))
-      }
-
-      // 3. Productos
-      const { data: dbProductos } = await supabase
-        .from('productos')
-        .select(`
-          id, nombre, precio_venta, stock_actual,
-          categorias_producto ( nombre )
-        `)
-        .eq('empresa_id', empresa.id)
-
-      if (dbProductos) {
-        setProductos(dbProductos.map(p => ({
-          id: p.id,
-          nombre: p.nombre,
-          precio: p.precio_venta,
-          stock: p.stock_actual,
-          categoria: p.categorias_producto?.nombre || 'Sin categoría',
-          vendidos: Math.floor(Math.random() * 500) // Mocking since we don't have this aggregation easily right now
-        })))
-      }
-    } catch (err) {
-      console.error("Error fetching data", err)
-    } finally {
-      setLoadingData(false)
-    }
-  }
+  const [productos] = useState([
+    { id: 1, nombre: 'Jugo Naranja', precio: 200, stock: 150, categoria: 'Bebidas', vendidos: 2450 },
+    { id: 2, nombre: 'Jugo Mango', precio: 160, stock: 200, categoria: 'Bebidas', vendidos: 1870 },
+    { id: 3, nombre: 'Snack Ma├¡z', precio: 42, stock: 500, categoria: 'Snacks', vendidos: 5600 },
+    { id: 4, nombre: 'Mixto', precio: 113.33, stock: 80, categoria: 'Snacks', vendidos: 1200 },
+    { id: 5, nombre: 'Agua', precio: 25, stock: 1000, categoria: 'Bebidas', vendidos: 8900 },
+  ])
 
   const getEstadoInfo = (estado) => {
     const estadosMap = {
@@ -340,16 +271,16 @@ export default function VentasPage() {
   )
 
   const handleConfirmOrder = () => {
-    alert('✅ Pedido confirmado!\n\n1. Pedido registrado en tabla pedidos\n2. Stock actualizado en inventario\n3. Evento enviado a n8n para verificar mínimos')
+    alert('Γ£à Pedido confirmado!\n\n1. Pedido registrado en tabla pedidos\n2. Stock actualizado en inventario\n3. Evento enviado a n8n para verificar m├¡nimos')
     setShowNewOrderModal(false)
   }
 
   const handleGenerateInvoice = (order) => {
-    alert(`📄 Generando factura para pedido ${order.id}\n\nCliente: ${order.cliente}\nMonto: RD$${order.monto.toLocaleString()}\n\n[PDF generado para descarga]`)
+    alert(`≡ƒôä Generando factura para pedido ${order.id}\n\nCliente: ${order.cliente}\nMonto: RD$${order.monto.toLocaleString()}\n\n[PDF generado para descarga]`)
   }
 
   return (
-    <DashboardLayout title="Ventas" subtitle="gestión de pedidos, clientes y facturación">
+    <DashboardLayout title="Ventas" subtitle="gesti├│n de pedidos, clientes y facturaci├│n">
       <style>{`
         :root {
           --c-ventas: #3b82f6;
@@ -688,26 +619,26 @@ export default function VentasPage() {
           <div className="kpi-card">
             <div className="kpi-icon"><IconShoppingCart /></div>
             <div className="kpi-label">Pedidos Hoy</div>
-            <div className="kpi-value">{orders.filter(o => o.fecha === new Date().toLocaleDateString()).length}</div>
-            <div className="kpi-trend trend-up"><IconTrendingUp /> +0% vs ayer</div>
+            <div className="kpi-value">24</div>
+            <div className="kpi-trend trend-up"><IconTrendingUp /> +12% vs ayer</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconDollarSign /></div>
             <div className="kpi-label">Ventas Hoy</div>
-            <div className="kpi-value">RD${orders.filter(o => o.fecha === new Date().toLocaleDateString()).reduce((sum, o) => sum + o.monto, 0).toLocaleString()}</div>
-            <div className="kpi-trend trend-up"><IconTrendingUp /> +0% vs ayer</div>
+            <div className="kpi-value">RD$45,280</div>
+            <div className="kpi-trend trend-up"><IconTrendingUp /> +8% vs ayer</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconUsers /></div>
             <div className="kpi-label">Clientes Activos</div>
-            <div className="kpi-value">{clientes.length}</div>
-            <div className="kpi-trend trend-up"><IconTrendingUp /> Total histórico</div>
+            <div className="kpi-value">128</div>
+            <div className="kpi-trend trend-up"><IconTrendingUp /> +12 este mes</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconStar /></div>
             <div className="kpi-label">Ticket Promedio</div>
-            <div className="kpi-value">RD${(orders.length > 0 ? orders.reduce((sum, o) => sum + o.monto, 0) / orders.length : 0).toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
-            <div className="kpi-trend trend-up"><IconTrendingUp /> Global</div>
+            <div className="kpi-value">RD$1,886</div>
+            <div className="kpi-trend trend-up"><IconTrendingUp /> +5%</div>
           </div>
         </div>
 
@@ -818,7 +749,7 @@ export default function VentasPage() {
                   <div className="info-row">
                     <div className="info-item"><div className="info-label">Pedidos Totales</div><div className="info-value">{cliente.pedidos}</div></div>
                     <div className="info-item"><div className="info-label">Monto Acumulado</div><div className="info-value">RD${cliente.montoTotal.toLocaleString()}</div></div>
-                    <div className="info-item"><div className="info-label">Último Pedido</div><div className="info-value">Hace 3 días</div></div>
+                    <div className="info-item"><div className="info-label">├Ültimo Pedido</div><div className="info-value">Hace 3 d├¡as</div></div>
                   </div>
                 </div>
               ))}
@@ -864,9 +795,9 @@ export default function VentasPage() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '20px' }}>
               <div className="card" style={{ padding: '20px' }}>
-                <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}><IconBarChart /> Ventas por Período</h3>
+                <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}><IconBarChart /> Ventas por Per├¡odo</h3>
                 <div style={{ height: '200px', display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
-                  {['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map((dia, i) => {
+                  {['Lun', 'Mar', 'Mi├⌐', 'Jue', 'Vie', 'S├íb', 'Dom'].map((dia, i) => {
                     const heights = [65, 78, 82, 71, 94, 88, 52]
                     return (
                       <div key={dia} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
@@ -894,7 +825,7 @@ export default function VentasPage() {
               </div>
             </div>
             <div className="card" style={{ padding: '20px' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}><IconPackage /> Productos Más Vendidos</h3>
+              <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}><IconPackage /> Productos M├ís Vendidos</h3>
               {productos.map((p, i) => (
                 <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
                   <div style={{ flex: 2 }}><strong>{p.nombre}</strong><br/><span style={{ fontSize: '11px', color: 'var(--text-3)' }}>{p.categoria}</span></div>
@@ -943,11 +874,11 @@ export default function VentasPage() {
                 <div><span style={{ fontSize: '14px', color: 'var(--text-2)' }}>Total:</span><strong style={{ fontSize: '24px', marginLeft: '8px' }}>RD$0</strong></div>
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <button className="btn-secondary" onClick={() => setShowNewOrderModal(false)}>Cancelar</button>
-                  <button className="btn-primary" onClick={handleConfirmOrder}>Confirmar Pedido →</button>
+                  <button className="btn-primary" onClick={handleConfirmOrder}>Confirmar Pedido ΓåÆ</button>
                 </div>
               </div>
               <div style={{ marginTop: '16px', padding: '12px', background: '#f0fdf4', borderRadius: '8px', fontSize: '12px', color: '#166534', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <IconCheckCircle /> <strong>Automatización:</strong> Al confirmar se descontará el stock y se verificará niveles mínimos vía n8n
+                <IconCheckCircle /> <strong>Automatizaci├│n:</strong> Al confirmar se descontar├í el stock y se verificar├í niveles m├¡nimos v├¡a n8n
               </div>
             </div>
           </div>
@@ -968,7 +899,7 @@ export default function VentasPage() {
               </div>
               <div className="form-group"><label className="form-label"><IconPhone /> Contacto</label><div>{selectedClient.contacto}</div></div>
               <div className="form-group"><label className="form-label"><IconMail /> Email</label><div>{selectedClient.email}</div></div>
-              <div className="form-group"><label className="form-label"><IconMapPin /> Dirección</label><div>{selectedClient.direccion}</div></div>
+              <div className="form-group"><label className="form-label"><IconMapPin /> Direcci├│n</label><div>{selectedClient.direccion}</div></div>
               <div className="form-group"><label className="form-label"><IconPackage /> Pedidos Totales</label><div><strong>{selectedClient.pedidos}</strong> pedidos</div></div>
               <div className="form-group"><label className="form-label"><IconDollarSign /> Monto Acumulado</label><div><strong>RD${selectedClient.montoTotal.toLocaleString()}</strong></div></div>
               <button className="btn-primary" style={{ width: '100%', marginTop: '20px' }} onClick={() => setSelectedClient(null)}>Cerrar</button>

@@ -8,6 +8,20 @@ export function AuthProvider({ children }) {
   const { setUser, setPerfil, setEmpresa, setLoading, logout } = useAuthStore()
 
   const cargarPerfil = useCallback(async (userId) => {
+    // MODO DEMO: Perfil ficticio
+    if (userId === 'demo-user-id') {
+      setPerfil({
+        id: 'demo-user-id',
+        nombre: 'Administrador Demo',
+        empresa_id: 'demo-empresa-id',
+        rol: 'admin',
+        empresas: { id: 'demo-empresa-id', nombre: 'Empresa Demo' }
+      })
+      setEmpresa({ id: 'demo-empresa-id', nombre: 'Empresa Demo' })
+      setLoading(false)
+      return
+    }
+
     try {
       const { data: perfil, error } = await supabase
         .from('usuarios')

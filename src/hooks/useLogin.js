@@ -10,6 +10,16 @@ export function useLogin() {
     setError(null)
 
     try {
+      // MODO DEMO: Bypass si es el usuario de demo
+      if (email.trim().toLowerCase() === 'admin@demo.com' && password === 'demo1234') {
+        console.log('Ingresando en modo DEMO (sin backend)')
+        const demoData = {
+          user: { id: 'demo-user-id', email: 'admin@demo.com' },
+          session: { access_token: 'demo-token' }
+        }
+        return demoData
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email.trim().toLowerCase(),
         password,
