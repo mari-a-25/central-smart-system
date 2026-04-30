@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { useAuthStore } from '../../store/authStore'
 import IaChat from '../../modules/ia-chat/components/IaChat'
@@ -6,6 +7,7 @@ export default function DashboardLayout({ children, title = 'Dashboard', subtitl
   const { perfil, empresa, logout } = useAuthStore()
   const navigate = useNavigate()
   const location = useLocation()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const handleSignOut = async () => {
     await logout()
@@ -13,90 +15,200 @@ export default function DashboardLayout({ children, title = 'Dashboard', subtitl
   }
 
   return (
-    <div style={styles.body}>
+    <div style={{ fontFamily: "'Outfit', system-ui, sans-serif", background: '#f0f4f8', color: '#0f172a', display: 'flex', minHeight: '100vh', overflowX: 'hidden' }}>
+      <style>{`
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        @media (max-width: 768px) {
+          .sidebar-overlay { display: block !important; }
+          .sidebar-main {
+            transform: ${sidebarOpen ? 'translateX(0)' : 'translateX(-100%)'} !important;
+          }
+          .main-content { margin-left: 0 !important; }
+          .header-top { padding: 0 16px !important; }
+          .page-content { padding: 16px !important; }
+          .mobile-menu-btn { display: flex !important; }
+          .desktop-ia-btn { display: none !important; }
+        }
+
+        @media (min-width: 769px) {
+          .sidebar-main { transform: translateX(0) !important; }
+          .sidebar-overlay { display: none !important; }
+          .mobile-menu-btn { display: none !important; }
+        }
+
+        .nav-link {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 11px 20px;
+          cursor: pointer;
+          transition: all 0.18s ease;
+          text-decoration: none;
+          color: #c8d8f0;
+          font-size: 14.5px;
+          font-weight: 500;
+          border-left: 3px solid transparent;
+          position: relative;
+        }
+        .nav-link:hover {
+          background: rgba(255,255,255,0.06);
+          color: #e8f0fa;
+        }
+        .nav-link.active {
+          background: rgba(20,184,166,0.12);
+          color: #5eead4;
+          border-left-color: #14b8a6;
+          font-weight: 600;
+        }
+        .nav-link .nav-icon {
+          width: 20px;
+          height: 20px;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+        }
+        .nav-badge {
+          margin-left: auto;
+          min-width: 22px;
+          height: 22px;
+          border-radius: 11px;
+          padding: 0 7px;
+          font-size: 11px;
+          font-weight: 700;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .sidebar-user:hover {
+          background: rgba(255,255,255,0.05);
+        }
+        .header-icon-btn:hover {
+          background: #e8edf4 !important;
+          color: #0f172a !important;
+        }
+        .ia-btn:hover {
+          background: rgba(20,184,166,0.18) !important;
+          transform: scale(1.02);
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+      `}</style>
+
+      {/* Overlay móvil */}
+      <div
+        className="sidebar-overlay"
+        style={{
+          display: 'none',
+          position: 'fixed', inset: 0, zIndex: 90,
+          background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(2px)'
+        }}
+        onClick={() => setSidebarOpen(false)}
+      />
+
       {/* SIDEBAR */}
-      <aside style={styles.sidebar}>
+      <aside
+        className="sidebar-main"
+        style={{
+          width: '230px', minHeight: '100vh',
+          background: 'linear-gradient(175deg, #0f1e35 0%, #0a1428 100%)',
+          display: 'flex', flexDirection: 'column',
+          position: 'fixed', top: 0, left: 0, bottom: 0,
+          zIndex: 100,
+          borderRight: '1px solid rgba(255,255,255,0.06)',
+          transition: 'transform 0.28s cubic-bezier(.4,0,.2,1)',
+          overflow: 'hidden',
+        }}
+      >
         {/* Marca */}
-        <div style={styles.sidebarBrand}>
-          <div style={styles.sidebarLogo}>
-            <div style={styles.logoPh}>LOGO</div>
+        <div style={{
+          padding: '24px 20px 20px',
+          display: 'flex', alignItems: 'center', gap: '13px',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          flexShrink: 0,
+        }}>
+          <div style={{
+            width: '44px', height: '44px', background: 'white',
+            border: '2px solid #14b8a6', borderRadius: '12px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            boxShadow: '0 4px 16px rgba(20,184,166,0.3)',
+          }}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="8" height="8" rx="2" fill="#14b8a6" />
+              <rect x="13" y="3" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.55" />
+              <rect x="3" y="13" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.55" />
+              <rect x="13" y="13" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.28" />
+            </svg>
           </div>
-          <div style={styles.sidebarBrandText}>
-            <div style={styles.sidebarBrandName}>Central</div>
-            <div style={{ ...styles.sidebarBrandName, color: '#5eead4', fontSize: '12px' }}>Smart System</div>
-            <div style={styles.sidebarBrandSub}>ERP Empresarial</div>
+          <div style={{ lineHeight: 1.25 }}>
+            <div style={{ fontSize: '15px', fontWeight: '700', color: '#f1f5f9', letterSpacing: '-0.2px' }}>Central</div>
+            <div style={{ fontSize: '13px', fontWeight: '600', color: '#5eead4' }}>Smart System</div>
+            <div style={{ fontSize: '10px', color: '#8899b0', fontFamily: "'Courier New', monospace", marginTop: '1px' }}>ERP Empresarial</div>
           </div>
         </div>
 
         {/* Empresa activa */}
-        <div style={styles.sidebarEmpresa}>
-          <div style={styles.sidebarEmpresaLabel}>Empresa activa</div>
-          <div style={styles.sidebarEmpresaName}>{empresa?.nombre || 'Dist. La Nueva Esperanza'}</div>
+        <div style={{ padding: '14px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }}>
+          <div style={{ fontSize: '10px', color: '#7a92b0', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '4px' }}>Empresa activa</div>
+          <div style={{ fontSize: '13.5px', fontWeight: '600', color: '#e8f0fa' }}>{empresa?.nombre || 'Dist. La Nueva Esperanza'}</div>
         </div>
 
-        {/* Búsqueda */}
-        <div style={styles.sidebarSearch}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#475569" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <span style={{ fontSize: '12px', color: '#475569' }}>Buscar...</span>
-          <kbd style={styles.kbd}>⌘K</kbd>
-        </div>
+        {/* Nav — sin scroll visible */}
+        <nav style={{ flex: 1, overflow: 'hidden', paddingBottom: '10px', paddingTop: '8px' }}>
+          <div style={{ fontSize: '10px', letterSpacing: '0.8px', textTransform: 'uppercase', color: '#5a7a9a', padding: '10px 20px 6px' }}>Principal</div>
 
-        {/* Nav */}
-        <nav style={styles.sidebarNav}>
-          <div style={styles.sidebarSectionLabel}>Principal</div>
-          
-          <NavItem to="/dashboard" active={location.pathname === '/dashboard'}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <NavItem to="/dashboard" active={location.pathname === '/dashboard'} onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
               <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
             </svg>
             Dashboard
           </NavItem>
 
-          <div style={{ ...styles.sidebarSectionLabel, marginTop: '6px' }}>Módulos</div>
+          <div style={{ fontSize: '10px', letterSpacing: '0.8px', textTransform: 'uppercase', color: '#5a7a9a', padding: '10px 20px 6px', marginTop: '4px' }}>Módulos</div>
 
-          <NavItem to="/ventas" color="#3b82f6" badge="8">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <NavItem to="/ventas" color="#3b82f6" badge="8" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
             </svg>
             Ventas
           </NavItem>
 
-          <NavItem to="/inventario" color="#f59e0b" badge="1">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <NavItem to="/inventario" color="#f59e0b" badge="3" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
             </svg>
             Inventario
           </NavItem>
 
-          <NavItem to="/compras" color="#8b5cf6">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <NavItem to="/compras" color="#8b5cf6" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
             </svg>
             Compras
           </NavItem>
 
-          <NavItem to="/produccion" color="#ec4899">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <NavItem to="/produccion" color="#ec4899" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2L2 7l10 5 10-5-10-5z"/>
               <path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
             </svg>
             Producción
           </NavItem>
 
-          <NavItem to="/logistica" color="#f97316">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <NavItem to="/logistica" color="#f97316" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
               <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
             </svg>
             Logística
           </NavItem>
 
-          <NavItem to="/rrhh" color="#06b6d4">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <NavItem to="/rrhh" color="#06b6d4" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
               <circle cx="9" cy="7" r="4"/>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -104,24 +216,26 @@ export default function DashboardLayout({ children, title = 'Dashboard', subtitl
             RRHH
           </NavItem>
 
-          <NavItem to="/contabilidad" color="#a78bfa">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          <NavItem to="/contabilidad" color="#a78bfa" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
             </svg>
             Contabilidad
           </NavItem>
 
-          <NavItem to="/clientes" color="#34d399">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <NavItem to="/clientes" color="#34d399" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
               <circle cx="12" cy="7" r="4"/>
             </svg>
             Clientes
           </NavItem>
 
-          <div style={{ ...styles.sidebarSectionLabel, marginTop: '6px' }}>Sistema</div>
-          <NavItem to="/configuracion">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div style={{ fontSize: '10px', letterSpacing: '0.8px', textTransform: 'uppercase', color: '#5a7a9a', padding: '10px 20px 6px', marginTop: '4px' }}>Sistema</div>
+
+          <NavItem to="/configuracion" onClick={() => setSidebarOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="3"/>
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
             </svg>
@@ -129,245 +243,139 @@ export default function DashboardLayout({ children, title = 'Dashboard', subtitl
           </NavItem>
         </nav>
 
-        {/* User */}
-        <div style={styles.sidebarUser} onClick={handleSignOut}>
-          <div style={styles.userAvatar}>
-            {perfil?.nombre?.substring(0, 2).toUpperCase() || 'MP'}
+        {/* Usuario / Salir */}
+        <div
+          className="sidebar-user"
+          style={{
+            padding: '14px 18px',
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            display: 'flex', alignItems: 'center', gap: '12px',
+            cursor: 'pointer', transition: 'background 0.18s',
+            flexShrink: 0,
+          }}
+          onClick={handleSignOut}
+        >
+          <div style={{
+            width: '38px', height: '38px', borderRadius: '50%', flexShrink: 0,
+            background: 'linear-gradient(135deg, #14b8a6, #0891b2)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '13px', fontWeight: '700', color: 'white',
+            border: '2px solid rgba(20,184,166,0.4)',
+          }}>
+            {perfil?.nombre?.substring(0, 2).toUpperCase() || 'AD'}
           </div>
-          <div>
-            <div style={styles.userName}>{perfil?.nombre || 'María Peña'}</div>
-            <div style={styles.userRole}>Salir →</div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: '13.5px', fontWeight: '600', color: '#e8f0fa', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {perfil?.nombre || 'Administrador'}
+            </div>
+            <div style={{ fontSize: '11.5px', color: '#7a92b0', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '1px' }}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              Cerrar sesión
+            </div>
           </div>
         </div>
       </aside>
 
       {/* MAIN */}
-      <div style={styles.main}>
+      <div className="main-content" style={{ marginLeft: '230px', flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+
         {/* Header */}
-        <header style={styles.header}>
-          <div>
-            <span style={styles.headerTitle}>{title}</span>
-            <span style={styles.headerSubtitle}>· {subtitle}</span>
-          </div>
-          <div style={styles.headerSpacer}></div>
-          <button style={styles.headerIaBtn}>
-            <span style={styles.iaDot}></span>
-            Preguntarle a IA
+        <header className="header-top" style={{
+          height: '66px',
+          background: '#ffffff',
+          borderBottom: '1px solid rgba(15,30,53,0.08)',
+          display: 'flex', alignItems: 'center',
+          padding: '0 28px', gap: '16px',
+          position: 'sticky', top: 0, zIndex: 50,
+          boxShadow: '0 1px 10px rgba(15,30,53,0.07)',
+        }}>
+          {/* Hamburger (móvil) */}
+          <button
+            className="mobile-menu-btn"
+            style={{
+              display: 'none', background: 'none', border: 'none',
+              cursor: 'pointer', color: '#0f172a', padding: '6px',
+              borderRadius: '8px', alignItems: 'center', justifyContent: 'center',
+            }}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
           </button>
-          <div style={styles.headerIconBtn}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+
+          <div>
+            <span style={{ fontSize: '21px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.3px' }}>{title}</span>
+            <span style={{ fontSize: '14px', color: '#4a5f75', marginLeft: '8px', fontWeight: '400' }}>· {subtitle}</span>
+          </div>
+
+          <div style={{ flex: 1 }} />
+
+          <button className="ia-btn desktop-ia-btn" style={{
+            display: 'flex', alignItems: 'center', gap: '8px',
+            background: 'rgba(20,184,166,0.10)', border: '1.5px solid rgba(20,184,166,0.30)',
+            borderRadius: '22px', padding: '8px 18px',
+            fontSize: '13.5px', fontWeight: '600', color: '#0d9488',
+            cursor: 'pointer', transition: 'all 0.2s', fontFamily: "'Outfit', sans-serif",
+          }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#14b8a6', boxShadow: '0 0 8px rgba(20,184,166,0.7)', display: 'block', flexShrink: 0 }} />
+            Asistente IA
+          </button>
+
+          <div className="header-icon-btn" style={{
+            width: '40px', height: '40px', borderRadius: '10px',
+            background: '#f0f4f8', border: '1px solid rgba(15,30,53,0.08)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer', color: '#3d5169', transition: 'all 0.18s', position: 'relative',
+          }}>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
               <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
             </svg>
-            <span style={styles.notifBadge}>5</span>
-          </div>
-          <div style={styles.headerIconBtn}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            </svg>
+            <span style={{
+              position: 'absolute', top: '-4px', right: '-4px',
+              width: '16px', height: '16px', borderRadius: '50%',
+              background: '#ef4444', color: 'white', fontSize: '10px', fontWeight: '700',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              border: '2px solid white',
+            }}>5</span>
           </div>
         </header>
 
         {/* Content */}
-        <main style={styles.content}>
+        <main className="page-content" style={{ padding: '24px 28px', flex: 1, animation: 'fadeIn 0.25s ease' }}>
           {children}
         </main>
       </div>
 
-      {/* IA Chat Component */}
       <IaChat />
     </div>
   )
 }
 
-function NavItem({ to, children, active, color, badge }) {
+function NavItem({ to, children, active, color, badge, onClick }) {
+  const location = useLocation()
+  const isActive = active !== undefined ? active : location.pathname === to
+
   return (
-    <Link 
-      to={to} 
-      style={{
-        ...styles.navItem,
-        ...(active ? styles.navItemActive : {})
-      }}
+    <Link
+      to={to}
+      className={`nav-link${isActive ? ' active' : ''}`}
+      onClick={onClick}
     >
-      <span style={{ 
-        ...styles.navIcon, 
-        ...(color && !active ? { color } : {}),
-        ...(active ? { color: '#14b8a6' } : {})
-      }}>
+      <span className="nav-icon" style={{ color: isActive ? '#14b8a6' : (color || '#7a92b0') }}>
         {children[0]}
       </span>
       {children.slice(1)}
       {badge && (
-        <span style={{ ...styles.navBadge, background: color || '#14b8a6' }}>
+        <span className="nav-badge" style={{ background: color || '#14b8a6' }}>
           {badge}
         </span>
       )}
     </Link>
   )
-}
-
-const styles = {
-  body: {
-    fontFamily: "'Outfit', system-ui, sans-serif",
-    background: '#f0f4f8',
-    color: '#0f172a',
-    display: 'flex',
-    minHeight: '100vh',
-    overflowX: 'hidden',
-  },
-  sidebar: {
-    width: '210px',
-    minHeight: '100vh',
-    background: 'linear-gradient(175deg, #0f1e35 0%, #0a1428 100%)',
-    display: 'flex',
-    flexDirection: 'column',
-    position: 'fixed',
-    top: 0, left: 0, bottom: 0,
-    zIndex: 100,
-    borderRight: '1px solid rgba(255,255,255,0.05)',
-  },
-  sidebarBrand: {
-    padding: '22px 18px 20px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '11px',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-  sidebarLogo: {
-    width: '40px', height: '40px',
-    background: 'white',
-    border: '2px solid #14b8a6',
-    borderRadius: '10px',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    flexShrink: 0,
-    overflow: 'hidden',
-    boxShadow: '0 4px 14px rgba(20,184,166,0.28)',
-  },
-  logoPh: {
-    fontSize: '8px', color: '#14b8a6', fontFamily: "'Courier New', monospace",
-    textAlign: 'center', lineHeight: '1.2', padding: '2px',
-  },
-  sidebarBrandText: { lineHeight: '1.2' },
-  sidebarBrandName: {
-    fontSize: '14px', fontWeight: '700', color: '#f1f5f9', letterSpacing: '-0.2px',
-  },
-  sidebarBrandSub: {
-    fontSize: '9.5px', color: '#94a3b8', fontFamily: "'Courier New', monospace", marginTop: '1px',
-  },
-  sidebarEmpresa: {
-    padding: '14px 18px',
-    borderBottom: '1px solid rgba(255,255,255,0.05)',
-  },
-  sidebarEmpresaLabel: {
-    fontSize: '9px', color: '#475569', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '4px',
-  },
-  sidebarEmpresaName: {
-    fontSize: '12.5px', fontWeight: '600', color: '#e2e8f0',
-  },
-  sidebarSearch: {
-    margin: '12px 14px',
-    display: 'flex', alignItems: 'center', gap: '8px',
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '8px',
-    padding: '8px 12px',
-    cursor: 'text',
-  },
-  kbd: {
-    marginLeft: 'auto', fontSize: '9px', color: '#334155',
-    background: 'rgba(255,255,255,0.08)', borderRadius: '4px', padding: '2px 5px',
-  },
-  sidebarSectionLabel: {
-    fontSize: '9px', letterSpacing: '0.8px', textTransform: 'uppercase',
-    color: '#334155', padding: '10px 18px 6px', marginTop: '4px',
-  },
-  sidebarNav: { flex: 1, overflowY: 'auto', paddingBottom: '10px' },
-  navItem: {
-    display: 'flex', alignItems: 'center', gap: '10px',
-    padding: '10px 18px',
-    cursor: 'pointer',
-    transition: 'background 0.18s',
-    textDecoration: 'none',
-    color: '#cbd5e1',
-    fontSize: '13.5px', fontWeight: '500',
-  },
-  navItemActive: {
-    background: 'rgba(20,184,166,0.12)',
-    color: '#5eead4',
-    borderLeft: '3px solid #14b8a6',
-  },
-  navIcon: { width: '18px', height: '18px', flexShrink: 0, display: 'flex', alignItems: 'center' },
-  navBadge: {
-    marginLeft: 'auto',
-    minWidth: '20px', height: '20px',
-    borderRadius: '10px', padding: '0 6px',
-    fontSize: '10px', fontWeight: '700', color: 'white',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-  },
-  sidebarUser: {
-    padding: '14px 16px',
-    borderTop: '1px solid rgba(255,255,255,0.06)',
-    display: 'flex', alignItems: 'center', gap: '10px',
-    cursor: 'pointer',
-    transition: 'background 0.18s',
-  },
-  userAvatar: {
-    width: '34px', height: '34px', borderRadius: '50%',
-    background: 'linear-gradient(135deg, #14b8a6, #0891b2)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontSize: '12px', fontWeight: '700', color: 'white', flexShrink: 0,
-    border: '2px solid rgba(20,184,166,0.3)',
-  },
-  userName: { fontSize: '12.5px', fontWeight: '600', color: '#e2e8f0' },
-  userRole: { fontSize: '10px', color: '#94a3b8' },
-
-  main: {
-    marginLeft: '210px',
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-  },
-  header: {
-    height: '62px',
-    background: '#ffffff',
-    borderBottom: '1px solid rgba(15,30,53,0.08)',
-    display: 'flex', alignItems: 'center',
-    padding: '0 28px',
-    gap: '16px',
-    position: 'sticky', top: 0, zIndex: 50,
-    boxShadow: '0 1px 8px rgba(15,30,53,0.06)',
-  },
-  headerTitle: { fontSize: '20px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.3px' },
-  headerSubtitle: { fontSize: '13px', color: '#475569', marginLeft: '8px', fontWeight: '400' },
-  headerSpacer: { flex: 1 },
-  headerIaBtn: {
-    display: 'flex', alignItems: 'center', gap: '8px',
-    background: 'rgba(20,184,166,0.10)',
-    border: '1.5px solid rgba(20,184,166,0.30)',
-    borderRadius: '22px',
-    padding: '7px 16px',
-    fontSize: '13px', fontWeight: '600', color: '#14b8a6',
-    cursor: 'pointer', transition: 'all 0.2s',
-    fontFamily: "'Outfit', sans-serif",
-  },
-  iaDot: {
-    width: '7px', height: '7px', borderRadius: '50%', background: '#14b8a6',
-    boxShadow: '0 0 8px rgba(20,184,166,0.6)',
-  },
-  headerIconBtn: {
-    width: '38px', height: '38px', borderRadius: '10px',
-    background: '#f0f4f8', border: '1px solid rgba(15,30,53,0.08)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    cursor: 'pointer', color: '#475569',
-    transition: 'all 0.18s', position: 'relative',
-  },
-  notifBadge: {
-    position: 'absolute', top: '-4px', right: '-4px',
-    width: '16px', height: '16px', borderRadius: '50%',
-    background: '#ef4444', color: 'white', fontSize: '9px', fontWeight: '700',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    border: '2px solid #ffffff',
-  },
-  content: { padding: '24px 28px', flex: 1 },
 }

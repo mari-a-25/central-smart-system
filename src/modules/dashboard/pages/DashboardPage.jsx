@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuthStore } from '../../../store/authStore'
 import DashboardLayout from '../../../components/layout/DashboardLayout'
 
@@ -128,14 +129,14 @@ export default function DashboardPage() {
       </div>
 
       <div style={styles.modulosGrid}>
-        <ModuloCard mod="ventas" color="#3b82f6" name="Ventas" desc="Rendimiento de las ventas" progress={82} status="Excelente" />
-        <ModuloCard mod="inv" color="#f59e0b" name="Inventario" desc="Estado de salud del inventario" progress={67} status="Atención" />
-        <ModuloCard mod="compras" color="#8b5cf6" name="Compras" desc="Órdenes y proveedores" progress={74} status="Buena" />
-        <ModuloCard mod="prod" color="#ec4899" name="Producción" desc="Líneas y órdenes activas" progress={90} status="Excelente" />
-        <ModuloCard mod="log" color="#f97316" name="Logística" desc="Organización de la empresa" progress={88} status="Excelente" />
-        <ModuloCard mod="rrhh" color="#06b6d4" name="RRHH" desc="Personal y nóminas" progress={61} status="Revisión" />
-        <ModuloCard mod="cont" color="#a78bfa" name="Contabilidad" desc="Estado financiero general" progress={79} status="Buena" />
-        <ModuloCard mod="clientes" color="#34d399" name="Clientes" desc="CRM y cartera de clientes" progress={85} status="Excelente" />
+        <ModuloCard to="/ventas"       mod="ventas"   color="#3b82f6" name="Ventas"       desc="Rendimiento de las ventas"           progress={82} status="Excelente" />
+        <ModuloCard to="/inventario"   mod="inv"      color="#f59e0b" name="Inventario"   desc="Estado de salud del inventario"       progress={67} status="Atención" />
+        <ModuloCard to="/compras"      mod="compras"  color="#8b5cf6" name="Compras"      desc="Órdenes y proveedores"               progress={74} status="Buena" />
+        <ModuloCard to="/produccion"   mod="prod"     color="#ec4899" name="Producción"   desc="Líneas y órdenes activas"            progress={90} status="Excelente" />
+        <ModuloCard to="/logistica"    mod="log"      color="#f97316" name="Logística"    desc="Organización de la empresa"          progress={88} status="Excelente" />
+        <ModuloCard to="/rrhh"         mod="rrhh"     color="#06b6d4" name="RRHH"         desc="Personal y nóminas"                 progress={61} status="Revisión" />
+        <ModuloCard to="/contabilidad" mod="cont"     color="#a78bfa" name="Contabilidad" desc="Estado financiero general"           progress={79} status="Buena" />
+        <ModuloCard to="/clientes"     mod="clientes" color="#34d399" name="Clientes"     desc="CRM y cartera de clientes"           progress={85} status="Excelente" />
       </div>
 
       {/* Mini Stats */}
@@ -235,18 +236,26 @@ function AlertItem({ type, title, sub }) {
   )
 }
 
-function ModuloCard({ mod, color, name, desc, progress, status }) {
+function ModuloCard({ to, mod, color, name, desc, progress, status }) {
   return (
-    <div style={{ ...styles.moduloCard, borderBottom: `3px solid ${color}` }}>
+    <Link
+      to={to}
+      style={{
+        ...styles.moduloCard,
+        borderBottom: `3px solid ${color}`,
+        textDecoration: 'none',
+        display: 'block',
+      }}
+    >
       <div style={{ ...styles.moduloIconWrap, background: `${color}1f` }}>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          {mod === 'ventas' && <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>}
-          {mod === 'inv' && <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>}
-          {mod === 'compras' && <><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></>}
-          {mod === 'prod' && <><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></>}
-          {mod === 'log' && <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>}
-          {mod === 'rrhh' && <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>}
-          {mod === 'cont' && <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>}
+          {mod === 'ventas'   && <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>}
+          {mod === 'inv'      && <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>}
+          {mod === 'compras'  && <><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></>}
+          {mod === 'prod'     && <><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></>}
+          {mod === 'log'      && <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>}
+          {mod === 'rrhh'     && <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>}
+          {mod === 'cont'     && <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>}
           {mod === 'clientes' && <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>}
         </svg>
       </div>
@@ -255,9 +264,9 @@ function ModuloCard({ mod, color, name, desc, progress, status }) {
       <div style={styles.moduloBarBg}><div style={{ ...styles.moduloBarFill, width: `${progress}%`, background: color }}></div></div>
       <div style={styles.moduloStatus}>
         <span style={{ ...styles.moduloStatusTxt, color }}>{status} · {progress}%</span>
-        <a href="#" style={styles.moduloLink}>Ir →</a>
+        <span style={{ ...styles.moduloLink, color }}>Abrir módulo →</span>
       </div>
-    </div>
+    </Link>
   )
 }
 

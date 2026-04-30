@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import LandingPage from '../modules/landing/pages/LandingPage'
 import LoginPage from '../modules/auth/pages/LoginPage'
 import DashboardPage from '../modules/dashboard/pages/DashboardPage'
 import VentasPage from '../modules/ventas/pages/VentasPage'
@@ -38,6 +39,9 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Ruta raíz — landing page pública */}
+        <Route path="/" element={<LandingPage />} />
+
         <Route path="/login" element={
           <PublicRoute><LoginPage/></PublicRoute>
         }/>
