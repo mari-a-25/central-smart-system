@@ -139,8 +139,14 @@ El proyecto está organizado en una estructura modular clara:
    - Organización modular preparada para escalabilidad.
    - Componentes base listos para desarrollo.
 
+5. **Base de Datos (Datos de Prueba)**:
+   - Base de datos poblada exitosamente mediante script masivo (`seed_massive.sql`) que llenó todas las entidades (clientes, productos, empleados, compras, ventas, facturas, tickets, etc.).
+
 ### Lo pendiente de implementar
-1. **Dashboard principal** (Pantalla 3):
+1. **Lógica de Agregar/Editar (Formularios CRUD en Frontend)**:
+   - Aún falta conectar la interfaz de React para que los botones de "Agregar X" o "Crear Nuevo" en los distintos módulos funcionen (insertando datos a través de Supabase en tiempo real).
+
+2. **Dashboard principal** (Pantalla 3):
    - KPIs en tiempo real con Supabase Realtime.
    - Gráfica de ventas semanales.
    - Panel de alertas IA.
