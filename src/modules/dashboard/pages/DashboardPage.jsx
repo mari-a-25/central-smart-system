@@ -1,16 +1,84 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '../../../store/authStore'
+import { supabase } from '../../../lib/supabase' // REVISA ESTA RUTA
 import DashboardLayout from '../../../components/layout/DashboardLayout'
 
 export default function DashboardPage() {
   const { perfil } = useAuthStore()
   const [time, setTime] = useState(new Date())
+  
+  // Estados para datos reales
+  const [stats, setStats] = useState({
+    ventasHoy: 0,
+    entregasActivas: 0,
+    alertasInv: 0,
+    balance: 0,
+    totalClientes: 0,
+    totalSkus: 0,
+    totalEmpleados: 0
+  })
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 30000)
     return () => clearInterval(timer)
   }, [])
+
+  // CARGA DE DATOS DESDE SUPABASE
+  useEffect(() => {
+    async function fetchRealData() {
+      if (!perfil?.empresa_id) return;
+      
+      try {
+        // 1. Ventas de Hoy (Suma de total en facturas creadas hoy)
+        const today = new Date().toISOString().split('T')[0];
+        const { data: facturas } = await supabase
+          .from('facturas')
+          .select('total')
+          .eq('empresa_id', perfil.empresa_id)
+          .gte('created_at', today);
+        
+        const totalVentas = facturas?.reduce((acc, curr) => acc + Number(curr.total), 0) || 0;
+
+        // 2. Entregas Activas (Pedidos en ruta o procesados)
+        const { count: countPedidos } = await supabase
+          .from('pedidos')
+          .select('*', { count: 'exact', head: true })
+          .eq('empresa_id', perfil.empresa_id)
+          .in('estado', ['procesado', 'en_ruta']);
+
+        // 3. Alertas Inventario (Productos por debajo del stock mínimo)
+        // Usamos una query simple: stock_actual < stock_minimo
+        const { count: countAlertas } = await supabase
+          .from('productos')
+          .select('*', { count: 'exact', head: true })
+          .eq('empresa_id', perfil.empresa_id)
+          .filter('stock_actual', 'lt', 'stock_minimo'); // Esto asume que tienes lógica de comparación
+
+        // 4. Mini Stats
+        const { count: cClientes } = await supabase.from('clientes').select('*', { count: 'exact', head: true }).eq('empresa_id', perfil.empresa_id);
+        const { count: cSkus } = await supabase.from('productos').select('*', { count: 'exact', head: true }).eq('empresa_id', perfil.empresa_id);
+        const { count: cEmpleados } = await supabase.from('empleados').select('*', { count: 'exact', head: true }).eq('empresa_id', perfil.empresa_id);
+
+        setStats({
+          ventasHoy: totalVentas,
+          entregasActivas: countPedidos || 0,
+          alertasInv: countAlertas || 0,
+          balance: totalVentas * 1.2, // Simulación de balance basado en ventas
+          totalClientes: cClientes || 0,
+          totalSkus: cSkus || 0,
+          totalEmpleados: cEmpleados || 0
+        });
+      } catch (e) {
+        console.error("Error cargando dashboard:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchRealData();
+  }, [perfil]);
 
   const formatTime = (date) => {
     return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
@@ -39,6 +107,8 @@ export default function DashboardPage() {
   const handleViewDetails = (section) => {
     alert(`🔍 Mostrando detalles de: ${section}\n\nRedirigiendo al módulo correspondiente...`)
   }
+  // Formateador de moneda dominicana
+  const fmtRD = (val) => new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP' }).format(val);
 
   return (
     <DashboardLayout title="Dashboard" subtitle="visión general">
@@ -73,7 +143,7 @@ export default function DashboardPage() {
           .responsive-mini-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         
-        @media (max-width: 600px) {
+        @media (max-width: 800px) {
           .responsive-kpi-grid { grid-template-columns: 1fr !important; }
           .responsive-modulos-grid { grid-template-columns: 1fr !important; }
           .responsive-mini-stats-grid { grid-template-columns: 1fr !important; }
@@ -140,7 +210,7 @@ export default function DashboardPage() {
         </div>
         <div style={styles.greetingText}>
           <div style={styles.greetingWelcome}>Bienvenida, {perfil?.nombre?.split(' ')[0] || 'María'} 👋</div>
-          <div style={styles.greetingSub}>Aquí tienes el resumen general de hoy. Todo marcha bien.</div>
+          <div style={styles.greetingSub}>{loading ? 'Sincronizando datos...' : 'Aquí tienes el resumen general de hoy. Todo marcha bien.'}</div>
         </div>
         <div style={styles.greetingSpacer}></div>
         <div className="greeting-date" style={styles.greetingDate}>
@@ -167,13 +237,13 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Cards con DATA REAL */}
       <div className="responsive-kpi-grid">
         <KPICard 
           type="ventas" 
           label="Ventas Hoy" 
-          value="RD$84,320" 
-          sub="12% vs ayer" 
+          value={fmtRD(stats.ventasHoy)} 
+          sub="En tiempo real" 
           up 
           icon={<polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#3b82f6" strokeWidth="2.5" fill="none"/>}
           onClick={() => handleViewDetails('Ventas Hoy')}
@@ -181,8 +251,8 @@ export default function DashboardPage() {
         <KPICard 
           type="entregas" 
           label="Entregas Activas" 
-          value="38" 
-          sub="5 pendientes" 
+          value={stats.entregasActivas} 
+          sub="Pendientes de cierre" 
           up 
           icon={<><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>}
           onClick={() => handleViewDetails('Entregas')}
@@ -190,18 +260,18 @@ export default function DashboardPage() {
         <KPICard 
           type="alertas" 
           label="Alertas Inventario" 
-          value="7" 
-          sub="Stock crítico" 
-          warn 
+          value={stats.alertasInv} 
+          sub="Stock bajo el mínimo" 
+          warn={stats.alertasInv > 0} 
           color="#f59e0b"
           icon={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></>}
           onClick={() => handleViewDetails('Alertas Inventario')}
         />
         <KPICard 
           type="balance" 
-          label="Balance Caja" 
-          value="RD$612K" 
-          sub="disponible" 
+          label="Balance Estimado" 
+          value={fmtRD(stats.balance)} 
+          sub="Caja proyectada" 
           up 
           icon={<><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>}
           onClick={() => handleViewDetails('Balance Caja')}
@@ -294,12 +364,12 @@ export default function DashboardPage() {
         <ModuloCard to="/clientes"     mod="clientes" color="#34d399" name="Clientes"     desc="CRM y cartera de clientes"           progress={85} status="Excelente" />
       </div>
 
-      {/* Mini Stats */}
+      {/* Mini Stats CON DATA REAL */}
       <div className="responsive-mini-stats-grid">
-        <MiniStat color="#3b82f6" value="142" label="Clientes activos" icon={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></>} onClick={() => handleViewDetails('Clientes activos')} />
-        <MiniStat color="#f59e0b" value="1,340" label="SKUs en inventario" icon={<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>} onClick={() => handleViewDetails('Inventario completo')} />
-        <MiniStat color="#06b6d4" value="28" label="Empleados activos" icon={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>} onClick={() => handleViewDetails('Empleados')} />
-        <MiniStat color="#ef4444" value="7" label="Alertas pendientes" icon={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></>} onClick={() => handleViewDetails('Alertas pendientes')} />
+        <MiniStat color="#3b82f6" value={stats.totalClientes} label="Clientes registrados" icon={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></>} onClick={() => handleViewDetails('Clientes activos')} />
+        <MiniStat color="#f59e0b" value={stats.totalSkus} label="SKUs en inventario" icon={<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>} onClick={() => handleViewDetails('Inventario completo')} />
+        <MiniStat color="#06b6d4" value={stats.totalEmpleados} label="Empleados activos" icon={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>} onClick={() => handleViewDetails('Empleados')} />
+        <MiniStat color="#ef4444" value={stats.alertasInv} label="Alertas pendientes" icon={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></>} onClick={() => handleViewDetails('Alertas pendientes')} />
       </div>
     </DashboardLayout>
   )

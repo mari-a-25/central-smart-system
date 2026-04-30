@@ -1,3 +1,6 @@
+import { supabase } from '../../../lib/supabase'
+import { useAuthStore } from '../../../store/authStore'
+
 import { useState } from 'react'
 import DashboardLayout from '../../../components/layout/DashboardLayout'
 

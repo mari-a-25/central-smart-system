@@ -25,3 +25,11 @@ input:-webkit-autofill {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* GLOBAL MOBILE SAFEGUARD */
+@media (max-width: 900px) {
+  html, body, #root, .main-content, .page-content-wrap, .page-content {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+}
