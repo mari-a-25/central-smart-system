@@ -324,6 +324,17 @@ export default function ContabilidadPage() {
           gap: 16px;
           margin-bottom: 24px;
         }
+        @media (max-width: 1024px) {
+          .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 800px) {
+          .kpi-grid { grid-template-columns: 1fr !important; }
+          .page-content-wrap { padding: 16px 12px !important; }
+          .ia-card { padding: 16px !important; }
+          .alert-card { padding: 12px !important; }
+          .chart-container { overflow-x: auto; padding-bottom: 10px; }
+          .chart-bar { min-width: 40px; }
+        }
         .kpi-card {
           background: var(--card);
           border-radius: var(--radius);
@@ -560,7 +571,7 @@ export default function ContabilidadPage() {
         }
       `}</style>
 
-      <div style={{ padding: '24px 28px' }}>
+      <div className="page-content-wrap" style={{ padding: '24px 28px' }}>
         {/* KPIs */}
         <div className="kpi-grid">
           <div className="kpi-card">

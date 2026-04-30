@@ -332,6 +332,14 @@ export default function InventarioPage() {
           gap: 16px;
           margin-bottom: 24px;
         }
+        @media (max-width: 1024px) {
+          .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+          .kpi-grid { grid-template-columns: 1fr; }
+          .productos-grid { grid-template-columns: 1fr; }
+          .tabs-container { overflow-x: auto; white-space: nowrap; }
+        }
         .kpi-card {
           background: var(--card);
           border-radius: var(--radius);
@@ -642,9 +650,18 @@ export default function InventarioPage() {
         .form-input:focus {
           border-color: var(--c-inventario);
         }
+        @media (max-width: 1024px) {
+          .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 800px) {
+          .kpi-grid { grid-template-columns: 1fr !important; }
+          .page-content-wrap { padding: 16px 12px !important; }
+          .productos-grid { grid-template-columns: 1fr !important; }
+          .search-box input { width: 100%; }
+        }
       `}</style>
 
-      <div style={{ padding: '24px 28px' }}>
+      <div className="page-content-wrap" style={{ padding: '24px 28px' }}>
         {/* KPIs */}
         <div className="kpi-grid">
           <div className="kpi-card">

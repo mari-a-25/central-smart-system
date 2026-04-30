@@ -75,8 +75,9 @@ body {
   max-width: 1150px; margin: 0 auto; padding: 0 28px;
   width: 100%;
   display: flex; align-items: center; gap: 28px;
+  justify-content: space-between;
 }
-.lp-nav-logo { display: flex; align-items: center; gap: 11px; flex: 1; text-decoration: none; }
+.lp-nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
 .lp-nav-logo-box {
   width: 38px; height: 38px;
   background: var(--teal-dim); border: 1px solid var(--teal-glow);
@@ -88,6 +89,12 @@ body {
 .lp-nav-links { display: flex; gap: 24px; }
 .lp-nav-link { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
 .lp-nav-link:hover { color: var(--text); }
+
+@media (max-width: 600px) {
+  .lp-nav-inner { padding: 0 16px; }
+  .lp-nav-name { font-size: 14px; }
+  .lp-nav-sub { display: none; }
+}
 
 /* ══ BOTONES ════════════════════════════════════════ */
 .lp-btn-primary {
@@ -170,11 +177,17 @@ body {
   justify-content: center; animation: fadeUp 0.5s 0.4s ease both;
 }
 .lp-hero-stat-num {
-  font-size: 2rem; font-weight: 800; color: var(--teal);
+  font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; color: var(--teal);
   line-height: 1; margin-bottom: 4px;
 }
-.lp-hero-stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.lp-hero-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 .lp-hero-divider { width: 1px; height: 40px; background: var(--border); }
+
+@media (max-width: 480px) {
+  .lp-hero { padding-top: 100px; padding-bottom: 60px; }
+  .lp-hero-stats { gap: 24px; }
+  .lp-hero-divider { display: none; }
+}
 
 /* ══ SECTION BASE ════════════════════════════════════ */
 .lp-section {
@@ -394,176 +407,24 @@ body {
 .lp-footer-copy    { font-size: 13px; color: #334155; }
 .lp-footer-version { font-size: 12px; color: #1e293b; font-family: 'Courier New', monospace; }
 
-/* ══ RESPONSIVE ════════════════════════════════════════
-   Tablet  → ≤ 900px
-   Móvil   → ≤ 768px
-   Pequeño → ≤ 480px
-   ══════════════════════════════════════════════════════ */
-
-/* ── Tablet (900px) ── */
+/* ══ RESPONSIVE ════════════════════════════════════════ */
 @media (max-width: 900px) {
-  /* Problema: de 3 cols a 1 */
-  .lp-problem-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* IA: de 2 cols a 1 */
-  .lp-ai-inner {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  /* Módulos: 2 columnas */
-  .lp-modulos-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Secciones: menos padding */
-  .lp-section,
-  .lp-section-alt-inner {
-    padding: 72px 24px;
-  }
+  .lp-problem-grid { grid-template-columns: 1fr; border-radius: 12px; }
+  .lp-ai-inner { grid-template-columns: 1fr; gap: 40px; }
+  .lp-section, .lp-section-alt-inner { padding: 60px 20px; }
 }
-
-/* ── Móvil (768px) ── */
 @media (max-width: 768px) {
-
-  /* NAV */
   .lp-nav-links { display: none; }
-  .lp-nav-inner { padding: 0 18px; gap: 16px; }
-  .lp-nav-name  { font-size: 14px; }
-  .lp-nav-sub   { display: none; }
-
-  /* HERO */
-  .lp-hero {
-    padding: 100px 20px 64px;
-    min-height: auto;
-  }
-  .lp-hero-title {
-    font-size: clamp(2rem, 8vw, 2.6rem);
-    letter-spacing: -0.8px;
-  }
-  .lp-hero-sub {
-    font-size: 15px;
-    margin-bottom: 28px;
-  }
-  .lp-hero-badge {
-    font-size: 11px;
-    margin-bottom: 20px;
-  }
-  .lp-hero-actions {
-    flex-direction: column;
-    width: 100%;
-    gap: 12px;
-    margin-bottom: 40px;
-  }
-  .lp-btn-primary,
-  .lp-btn-ghost {
-    width: 100%;
-    justify-content: center;
-  }
-  .lp-btn-primary.sm {
-    width: auto;
-  }
-  .lp-hero-stats {
-    gap: 0;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-  }
+  .lp-hero-title { font-size: clamp(2.2rem, 8vw, 3.2rem); }
+  .lp-hero-stats { gap: 20px; }
   .lp-hero-divider { display: none; }
-  .lp-hero-stat-num {
-    font-size: 1.6rem;
-  }
-  .lp-hero-stats > div {
-    padding: 18px 12px;
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    text-align: center;
-  }
-  .lp-hero-stats > div:nth-child(even) { border-right: none; }
-  .lp-hero-stats > div:nth-last-child(-n+2) { border-bottom: none; }
-
-  /* SECCIONES */
-  .lp-section,
-  .lp-section-alt-inner {
-    padding: 56px 18px;
-  }
-  .lp-section-header { margin-bottom: 36px; }
-  .lp-section-title { font-size: clamp(1.7rem, 6vw, 2.2rem); }
-  .lp-section-sub   { font-size: 14px; }
-
-  /* PROBLEMA */
-  .lp-problem-grid  { grid-template-columns: 1fr; }
-  .lp-problem-card  { padding: 28px 22px; }
-  .lp-problem-stat  { font-size: 2.2rem; }
-
-  /* MÓDULOS: 1 columna */
-  .lp-modulos-grid  { grid-template-columns: 1fr; gap: 12px; }
-  .lp-modulo-card   { padding: 22px 18px; }
-  .lp-modulo-icon   { width: 42px; height: 42px; }
-  .lp-modulo-name   { font-size: 15px; }
-
-  /* IA CHAT */
-  .lp-ai-inner      { gap: 28px; }
-  .lp-ai-content h2 { font-size: clamp(1.6rem, 5vw, 2rem); }
-  .lp-chat-bubble   { max-width: 200px; font-size: 12.5px; }
-
-  /* DEMO */
-  .lp-demo-box {
-    padding: 28px 20px;
-    border-radius: 16px;
-  }
-  .lp-demo-inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .lp-demo-sep {
-    width: 100%;
-    height: 1px;
-  }
-  .lp-demo-qr-col   { order: 2; } /* QR va abajo en móvil */
-  .lp-demo-creds-col {
-    order: 1;
-    text-align: center;
-    align-items: center;
-  }
-  .lp-demo-cred-row { justify-content: center; }
-
-  /* FOOTER */
-  .lp-footer {
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-    padding: 24px 18px;
-  }
+  .lp-hero-actions { flex-direction: column; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; }
+  .lp-btn-primary, .lp-btn-ghost { width: 100%; justify-content: center; padding: 14px 20px; }
+  .lp-footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
+  .lp-modulos-grid { grid-template-columns: 1fr; }
 }
-
-/* ── Pequeño (480px) ── */
 @media (max-width: 480px) {
-  .lp-nav-logo-box { width: 32px; height: 32px; }
-  .lp-nav-name     { font-size: 13px; }
-
-  .lp-hero { padding: 88px 16px 56px; }
-  .lp-hero-title { font-size: 1.95rem; }
-  .lp-hero-badge { font-size: 10px; padding: 5px 12px; }
-
-  .lp-section,
-  .lp-section-alt-inner { padding: 48px 16px; }
-
-  .lp-problem-stat { font-size: 2rem; }
-
-  .lp-modulos-grid { gap: 10px; }
-  .lp-modulo-card  { padding: 18px 16px; border-radius: 14px; }
-
-  .lp-chat-bubble  { max-width: 170px; }
-
-  .lp-demo-box     { padding: 22px 16px; }
-  .lp-demo-creds   { padding: 14px 16px; }
-  .lp-demo-cred-label { min-width: 64px; }
-
-  .lp-btn-primary, .lp-btn-ghost { font-size: 14px; padding: 12px 20px; }
+  .lp-section-title { font-size: 1.8rem; }
+  .lp-section-header { margin-bottom: 32px; }
+  .lp-modulo-card { padding: 20px; }
 }

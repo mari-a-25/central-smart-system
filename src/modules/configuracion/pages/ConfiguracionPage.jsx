@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import DashboardLayout from '../../../components/layout/DashboardLayout'
 
@@ -128,6 +127,76 @@ function IconX() {
   )
 }
 
+function IconShoppingCart() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="21" r="1" />
+      <circle cx="20" cy="21" r="1" />
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+    </svg>
+  )
+}
+
+function IconPackage() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+      <polyline points="3.29 7 12 12 20.71 7" />
+      <line x1="12" y1="22" x2="12" y2="12" />
+    </svg>
+  )
+}
+
+function IconTruck() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="1" y="3" width="15" height="13" rx="2" />
+      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+      <circle cx="5.5" cy="18.5" r="2.5" />
+      <circle cx="18.5" cy="18.5" r="2.5" />
+    </svg>
+  )
+}
+
+function IconFactory() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
+    </svg>
+  )
+}
+
+function IconUsersGroup() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  )
+}
+
+function IconDollarSign() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="1" x2="12" y2="23" />
+      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  )
+}
+
+function IconHandshake() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 12l-4-4-4 4M12 8l-4-4-4 4" />
+      <path d="M4 12l4 4 4-4M12 16l4 4 4-4" />
+    </svg>
+  )
+}
+
 export default function ConfiguracionPage() {
   const [activeSection, setActiveSection] = useState('empresa')
   const [showApiKey, setShowApiKey] = useState(false)
@@ -138,8 +207,8 @@ export default function ConfiguracionPage() {
     nombre: 'Central Smart System',
     logo: 'CSS',
     moneda: 'RD$',
-    pais: 'República Dominicana',
-    sector: 'Tecnología / ERP',
+    pais: 'Republica Dominicana',
+    sector: 'Tecnologia / ERP',
     email: 'info@centralsmart.com',
     telefono: '809-555-0000',
     direccion: 'Av. Principal #123, Santiago'
@@ -147,32 +216,32 @@ export default function ConfiguracionPage() {
 
   // Usuarios del sistema
   const [usuarios, setUsuarios] = useState([
-    { id: 1, nombre: 'María Peña', email: 'maria.pena@central.com', rol: 'Administrador', estado: 'activo', ultimoAcceso: '2024-03-15 14:30:00' },
-    { id: 2, nombre: 'Juan Pérez', email: 'juan.perez@central.com', rol: 'Gerente', estado: 'activo', ultimoAcceso: '2024-03-15 10:15:00' },
-    { id: 3, nombre: 'Ana Rodríguez', email: 'ana.rodriguez@central.com', rol: 'Ventas', estado: 'activo', ultimoAcceso: '2024-03-14 16:45:00' },
-    { id: 4, nombre: 'Carlos López', email: 'carlos.lopez@central.com', rol: 'Compras', estado: 'inactivo', ultimoAcceso: '2024-03-10 09:30:00' }
+    { id: 1, nombre: 'Maria Peña', email: 'maria.pena@central.com', rol: 'Administrador', estado: 'activo', ultimoAcceso: '2024-03-15 14:30:00' },
+    { id: 2, nombre: 'Juan Perez', email: 'juan.perez@central.com', rol: 'Gerente', estado: 'activo', ultimoAcceso: '2024-03-15 10:15:00' },
+    { id: 3, nombre: 'Ana Rodriguez', email: 'ana.rodriguez@central.com', rol: 'Ventas', estado: 'activo', ultimoAcceso: '2024-03-14 16:45:00' },
+    { id: 4, nombre: 'Carlos Lopez', email: 'carlos.lopez@central.com', rol: 'Compras', estado: 'inactivo', ultimoAcceso: '2024-03-10 09:30:00' }
   ])
 
-  // Módulos activos
+  // Modulos activos - SIN EMOJIS
   const [modulos, setModulos] = useState([
-    { id: 1, nombre: 'Ventas', icono: '🛒', activo: true, descripcion: 'Gestión de pedidos y facturación' },
-    { id: 2, nombre: 'Compras', icono: '📦', activo: true, descripcion: 'Órdenes de compra y proveedores' },
-    { id: 3, nombre: 'Inventario', icono: '📊', activo: true, descripcion: 'Control de stock y movimientos' },
-    { id: 4, nombre: 'Producción', icono: '🏭', activo: true, descripcion: 'Lotes de producción y calidad' },
-    { id: 5, nombre: 'Logística', icono: '🚚', activo: true, descripcion: 'Rutas y entregas' },
-    { id: 6, nombre: 'RRHH', icono: '👥', activo: true, descripcion: 'Empleados, asistencia y nómina' },
-    { id: 7, nombre: 'Contabilidad', icono: '💰', activo: true, descripcion: 'Movimientos financieros' },
-    { id: 8, nombre: 'Clientes', icono: '🤝', activo: true, descripcion: 'CRM y tickets de soporte' }
+    { id: 1, nombre: 'Ventas', icono: <IconShoppingCart />, activo: true, descripcion: 'Gestion de pedidos y facturacion' },
+    { id: 2, nombre: 'Compras', icono: <IconPackage />, activo: true, descripcion: 'Ordenes de compra y proveedores' },
+    { id: 3, nombre: 'Inventario', icono: <IconPackage />, activo: true, descripcion: 'Control de stock y movimientos' },
+    { id: 4, nombre: 'Produccion', icono: <IconFactory />, activo: true, descripcion: 'Lotes de produccion y calidad' },
+    { id: 5, nombre: 'Logistica', icono: <IconTruck />, activo: true, descripcion: 'Rutas y entregas' },
+    { id: 6, nombre: 'RRHH', icono: <IconUsersGroup />, activo: true, descripcion: 'Empleados, asistencia y nomina' },
+    { id: 7, nombre: 'Contabilidad', icono: <IconDollarSign />, activo: true, descripcion: 'Movimientos financieros' },
+    { id: 8, nombre: 'Clientes', icono: <IconHandshake />, activo: true, descripcion: 'CRM y tickets de soporte' }
   ])
 
-  // Configuración IA
+  // Configuracion IA
   const [iaConfig, setIaConfig] = useState({
     apiKey: 'AIzaSyDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     modelo: 'gemini-pro',
     enabled: true
   })
 
-  // Configuración de alertas
+  // Configuracion de alertas
   const [alertasConfig, setAlertasConfig] = useState({
     inventarioMinimoDias: 5,
     contratosVencimiento: 30,
@@ -184,52 +253,52 @@ export default function ConfiguracionPage() {
   const handleSaveEmpresa = () => {
     setSaveSuccess(true)
     setTimeout(() => setSaveSuccess(false), 3000)
-    alert('✅ Datos de empresa guardados correctamente')
+    alert('Datos de empresa guardados correctamente')
   }
 
   const handleInviteUser = () => {
     const email = prompt('Ingrese el correo del nuevo usuario:')
     if (email) {
-      alert(`✅ Invitación enviada a ${email}\n\nEl usuario recibirá un correo para crear su cuenta y acceder al sistema.`)
+      alert(`Invitacion enviada a ${email}\n\nEl usuario recibira un correo para crear su cuenta y acceder al sistema.`)
     }
   }
 
   const handleChangeUserRole = (userId, newRole) => {
     setUsuarios(prev => prev.map(u => u.id === userId ? { ...u, rol: newRole } : u))
-    alert(`✅ Rol del usuario actualizado a: ${newRole}`)
+    alert(`Rol del usuario actualizado a: ${newRole}`)
   }
 
   const handleToggleUserStatus = (userId) => {
     const user = usuarios.find(u => u.id === userId)
     const nuevoEstado = user.estado === 'activo' ? 'inactivo' : 'activo'
     setUsuarios(prev => prev.map(u => u.id === userId ? { ...u, estado: nuevoEstado } : u))
-    alert(`✅ Usuario ${nuevoEstado === 'activo' ? 'activado' : 'desactivado'} correctamente`)
+    alert(`Usuario ${nuevoEstado === 'activo' ? 'activado' : 'desactivado'} correctamente`)
   }
 
   const handleToggleModulo = (moduloId) => {
     setModulos(prev => prev.map(m => m.id === moduloId ? { ...m, activo: !m.activo } : m))
     const modulo = modulos.find(m => m.id === moduloId)
-    alert(`✅ Módulo "${modulo.nombre}" ${!modulo.activo ? 'activado' : 'desactivado'}\n\nLos cambios se aplicarán al recargar la página.`)
+    alert(`Modulo "${modulo.nombre}" ${!modulo.activo ? 'activado' : 'desactivado'}\n\nLos cambios se aplicaran al recargar la pagina.`)
   }
 
   const handleSaveIAConfig = () => {
-    alert(`✅ Configuración de IA guardada\n\nAPI Key almacenada de forma segura en Supabase\nModelo: ${iaConfig.modelo}\nIA Asistente: ${iaConfig.enabled ? 'Activado' : 'Desactivado'}\n\nLa key nunca se expone en el frontend, solo se usa desde Edge Functions.`)
+    alert(`Configuracion de IA guardada\n\nAPI Key almacenada de forma segura en Supabase\nModelo: ${iaConfig.modelo}\nIA Asistente: ${iaConfig.enabled ? 'Activado' : 'Desactivado'}\n\nLa key nunca se expone en el frontend, solo se usa desde Edge Functions.`)
   }
 
   const handleSaveAlertas = () => {
-    alert(`✅ Configuración de alertas guardada\n\n• Umbral inventario mínimo: ${alertasConfig.inventarioMinimoDias} días\n• Contratos a vencer: ${alertasConfig.contratosVencimiento} días de anticipación\n• Notificaciones email: ${alertasConfig.notificacionesEmail ? 'Activadas' : 'Desactivadas'}\n• Alertas stock crítico: ${alertasConfig.alertasStockCritico ? 'Activadas' : 'Desactivadas'}`)
+    alert(`Configuracion de alertas guardada\n\n• Umbral inventario minimo: ${alertasConfig.inventarioMinimoDias} dias\n• Contratos a vencer: ${alertasConfig.contratosVencimiento} dias de anticipacion\n• Notificaciones email: ${alertasConfig.notificacionesEmail ? 'Activadas' : 'Desactivadas'}\n• Alertas stock critico: ${alertasConfig.alertasStockCritico ? 'Activadas' : 'Desactivadas'}`)
   }
 
   const sections = [
     { id: 'empresa', nombre: 'Datos de Empresa', icono: <IconBuilding /> },
     { id: 'usuarios', nombre: 'Usuarios y Roles', icono: <IconUsers /> },
-    { id: 'modulos', nombre: 'Módulos Activos', icono: <IconGrid /> },
-    { id: 'ia', nombre: 'Integración IA', icono: <IconCpu /> },
+    { id: 'modulos', nombre: 'Modulos Activos', icono: <IconGrid /> },
+    { id: 'ia', nombre: 'Integracion IA', icono: <IconCpu /> },
     { id: 'alertas', nombre: 'Alertas', icono: <IconBell /> }
   ]
 
   return (
-    <DashboardLayout title="Configuración" subtitle="administración general del sistema">
+    <DashboardLayout title="Configuracion" subtitle="administracion general del sistema">
       <style>{`
         :root {
           --c-config: #8b5cf6;
@@ -239,8 +308,8 @@ export default function ConfiguracionPage() {
           --card: #ffffff;
           --border: rgba(15,30,53,.08);
           --text: #0f172a;
-          --text-2: #475569;
-          --text-3: #94a3b8;
+          --text-2: #1e293b;
+          --text-3: #334155;
           --radius: 16px;
           --radius-sm: 10px;
           --shadow: 0 2px 16px rgba(15,30,53,.08);
@@ -250,6 +319,7 @@ export default function ConfiguracionPage() {
         .config-container {
           display: flex;
           gap: 24px;
+          flex-wrap: wrap;
         }
         .config-sidebar {
           width: 260px;
@@ -284,6 +354,7 @@ export default function ConfiguracionPage() {
         }
         .config-content {
           flex: 1;
+          min-width: 280px;
         }
         .config-card {
           background: var(--card);
@@ -303,6 +374,7 @@ export default function ConfiguracionPage() {
           font-size: 18px;
           font-weight: 700;
           margin: 0;
+          color: var(--text);
         }
         .config-card-body {
           padding: 24px;
@@ -326,6 +398,7 @@ export default function ConfiguracionPage() {
           font-size: 14px;
           outline: none;
           transition: all 0.2s;
+          color: var(--text);
         }
         .form-input:focus, .form-select:focus {
           border-color: var(--c-config);
@@ -365,6 +438,7 @@ export default function ConfiguracionPage() {
           display: inline-flex;
           align-items: center;
           gap: 6px;
+          color: var(--text-2);
         }
         .btn-secondary:hover {
           border-color: var(--c-config);
@@ -443,10 +517,22 @@ export default function ConfiguracionPage() {
           border-radius: 10px;
           margin-bottom: 12px;
           transition: all 0.2s;
+          flex-wrap: wrap;
+          gap: 12px;
         }
         .modulo-card:hover {
           border-color: var(--c-config);
           box-shadow: var(--shadow-sm);
+        }
+        .modulo-info {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .modulo-icon {
+          width: 32px;
+          height: 32px;
+          color: var(--c-config);
         }
         .switch {
           position: relative;
@@ -509,9 +595,36 @@ export default function ConfiguracionPage() {
           from { transform: translateX(100%); opacity: 0; }
           to { transform: translateX(0); opacity: 1; }
         }
+
+        @media (max-width: 800px) {
+          .page-content-wrap { padding: 16px 12px !important; }
+          .form-row {
+            grid-template-columns: 1fr !important;
+          }
+          .config-sidebar {
+            width: 100%;
+            position: relative;
+            top: 0;
+            overflow-x: auto;
+            display: flex;
+            gap: 8px;
+            padding: 8px;
+            margin-bottom: 16px;
+            -webkit-overflow-scrolling: touch;
+          }
+          .config-sidebar-item {
+            flex: none;
+            padding: 10px 16px;
+          }
+          .config-container {
+            flex-direction: column;
+          }
+          .config-card-header { padding: 16px !important; }
+          .config-card-body { padding: 16px !important; }
+        }
       `}</style>
 
-      <div style={{ padding: '24px 28px' }}>
+      <div className="page-content-wrap" style={{ padding: '24px 28px' }}>
         <div className="config-container">
           {/* Sidebar */}
           <div className="config-sidebar">
@@ -557,7 +670,7 @@ export default function ConfiguracionPage() {
                       </select>
                     </div>
                     <div className="form-group">
-                      <label className="form-label">País</label>
+                      <label className="form-label">Pais</label>
                       <input className="form-input" value={empresa.pais} onChange={(e) => setEmpresa({ ...empresa, pais: e.target.value })} />
                     </div>
                   </div>
@@ -571,12 +684,12 @@ export default function ConfiguracionPage() {
                       <input className="form-input" value={empresa.email} onChange={(e) => setEmpresa({ ...empresa, email: e.target.value })} />
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Teléfono</label>
+                      <label className="form-label">Telefono</label>
                       <input className="form-input" value={empresa.telefono} onChange={(e) => setEmpresa({ ...empresa, telefono: e.target.value })} />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Dirección</label>
+                    <label className="form-label">Direccion</label>
                     <input className="form-input" value={empresa.direccion} onChange={(e) => setEmpresa({ ...empresa, direccion: e.target.value })} />
                   </div>
                   <button className="btn-primary" onClick={handleSaveEmpresa}><IconSave /> Guardar Cambios</button>
@@ -598,7 +711,14 @@ export default function ConfiguracionPage() {
                   <div className="table-wrapper">
                     <table>
                       <thead>
-                        <tr><th>Usuario</th><th>Email</th><th>Rol</th><th>Estado</th><th>Último Acceso</th><th>Acciones</th></tr>
+                        <tr>
+                          <th>Usuario</th>
+                          <th>Email</th>
+                          <th>Rol</th>
+                          <th>Estado</th>
+                          <th>Ultimo Acceso</th>
+                          <th>Acciones</th>
+                        </tr>
                       </thead>
                       <tbody>
                         {usuarios.map(user => (
@@ -611,14 +731,14 @@ export default function ConfiguracionPage() {
                                 <option>Gerente</option>
                                 <option>Ventas</option>
                                 <option>Compras</option>
-                                <option>Producción</option>
-                                <option>Logística</option>
+                                <option>Produccion</option>
+                                <option>Logistica</option>
                                 <option>RRHH</option>
                                 <option>Contabilidad</option>
                               </select>
                             </td>
                             <td><span className={`status-badge ${user.estado === 'activo' ? 'badge-active' : 'badge-inactive'}`}>{user.estado === 'activo' ? 'Activo' : 'Inactivo'}</span></td>
-                            <td style={{ fontSize: '12px' }}>{user.ultimoAcceso}</td>
+                            <td style={{ fontSize: '12px', color: 'var(--text-2)' }}>{user.ultimoAcceso}</td>
                             <td>
                               <button className="btn-secondary" style={{ padding: '4px 8px', marginRight: '4px' }} onClick={() => handleToggleUserStatus(user.id)}>{user.estado === 'activo' ? 'Desactivar' : 'Activar'}</button>
                             </td>
@@ -631,21 +751,21 @@ export default function ConfiguracionPage() {
               </div>
             )}
 
-            {/* Módulos Activos */}
+            {/* Modulos Activos */}
             {activeSection === 'modulos' && (
               <div className="config-card">
                 <div className="config-card-header">
                   <IconGrid />
-                  <h2>Módulos Activos</h2>
+                  <h2>Modulos Activos</h2>
                 </div>
                 <div className="config-card-body">
-                  <p style={{ marginBottom: '20px', fontSize: '13px', color: 'var(--text-2)' }}>Active o desactive módulos según las necesidades de su empresa. Los módulos desactivados no aparecerán en el menú principal.</p>
+                  <p style={{ marginBottom: '20px', fontSize: '13px', color: 'var(--text-2)' }}>Active o desactive modulos segun las necesidades de su empresa. Los modulos desactivados no apareceran en el menu principal.</p>
                   {modulos.map(modulo => (
                     <div key={modulo.id} className="modulo-card">
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <span style={{ fontSize: '24px' }}>{modulo.icono}</span>
+                      <div className="modulo-info">
+                        <span className="modulo-icon">{modulo.icono}</span>
                         <div>
-                          <div style={{ fontWeight: '600' }}>{modulo.nombre}</div>
+                          <div style={{ fontWeight: '600', color: 'var(--text)' }}>{modulo.nombre}</div>
                           <div style={{ fontSize: '11px', color: 'var(--text-3)' }}>{modulo.descripcion}</div>
                         </div>
                       </div>
@@ -659,17 +779,17 @@ export default function ConfiguracionPage() {
               </div>
             )}
 
-            {/* Integración IA */}
+            {/* Integracion IA */}
             {activeSection === 'ia' && (
               <div className="config-card">
                 <div className="config-card-header">
                   <IconCpu />
-                  <h2>Integración con IA (Gemini)</h2>
+                  <h2>Integracion con IA (Gemini)</h2>
                 </div>
                 <div className="config-card-body">
                   <div className="form-group">
                     <label className="form-label">API Key de Gemini</label>
-                    <div style={{ display: 'flex', gap: '8px' }}>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                       <input className="form-input api-key-input" type={showApiKey ? 'text' : 'password'} value={iaConfig.apiKey} onChange={(e) => setIaConfig({ ...iaConfig, apiKey: e.target.value })} style={{ flex: 1 }} />
                       <button className="btn-secondary" onClick={() => setShowApiKey(!showApiKey)}>{showApiKey ? <IconEyeOff /> : <IconEye />}</button>
                     </div>
@@ -685,15 +805,15 @@ export default function ConfiguracionPage() {
                   </div>
                   <div className="modulo-card" style={{ marginBottom: '20px' }}>
                     <div>
-                      <div style={{ fontWeight: '600' }}>Activar Asistente IA</div>
-                      <div style={{ fontSize: '11px', color: 'var(--text-3)' }}>El chat con IA estará disponible en toda la aplicación</div>
+                      <div style={{ fontWeight: '600', color: 'var(--text)' }}>Activar Asistente IA</div>
+                      <div style={{ fontSize: '11px', color: 'var(--text-3)' }}>El chat con IA estara disponible en toda la aplicacion</div>
                     </div>
                     <label className="switch">
                       <input type="checkbox" checked={iaConfig.enabled} onChange={() => setIaConfig({ ...iaConfig, enabled: !iaConfig.enabled })} />
                       <span className="slider"></span>
                     </label>
                   </div>
-                  <button className="btn-primary" onClick={handleSaveIAConfig}><IconSave /> Guardar Configuración IA</button>
+                  <button className="btn-primary" onClick={handleSaveIAConfig}><IconSave /> Guardar Configuracion IA</button>
                 </div>
               </div>
             )}
@@ -703,20 +823,20 @@ export default function ConfiguracionPage() {
               <div className="config-card">
                 <div className="config-card-header">
                   <IconBell />
-                  <h2>Configuración de Alertas</h2>
+                  <h2>Configuracion de Alertas</h2>
                 </div>
                 <div className="config-card-body">
                   <div className="form-group">
-                    <label className="form-label">Inventario - Días de anticipación para stock mínimo</label>
+                    <label className="form-label">Inventario - Dias de anticipacion para stock minimo</label>
                     <input type="number" className="form-input" value={alertasConfig.inventarioMinimoDias} onChange={(e) => setAlertasConfig({ ...alertasConfig, inventarioMinimoDias: parseInt(e.target.value) })} />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">RRHH - Días de anticipación para contratos por vencer</label>
+                    <label className="form-label">RRHH - Dias de anticipacion para contratos por vencer</label>
                     <input type="number" className="form-input" value={alertasConfig.contratosVencimiento} onChange={(e) => setAlertasConfig({ ...alertasConfig, contratosVencimiento: parseInt(e.target.value) })} />
                   </div>
                   <div className="modulo-card" style={{ marginBottom: '12px' }}>
                     <div>
-                      <div style={{ fontWeight: '600' }}>Notificaciones por Email</div>
+                      <div style={{ fontWeight: '600', color: 'var(--text)' }}>Notificaciones por Email</div>
                       <div style={{ fontSize: '11px', color: 'var(--text-3)' }}>Recibir alertas en el correo del administrador</div>
                     </div>
                     <label className="switch">
@@ -726,8 +846,8 @@ export default function ConfiguracionPage() {
                   </div>
                   <div className="modulo-card" style={{ marginBottom: '12px' }}>
                     <div>
-                      <div style={{ fontWeight: '600' }}>Alertas de Stock Crítico</div>
-                      <div style={{ fontSize: '11px', color: 'var(--text-3)' }}>Notificar cuando productos estén por debajo del mínimo</div>
+                      <div style={{ fontWeight: '600', color: 'var(--text)' }}>Alertas de Stock Critico</div>
+                      <div style={{ fontSize: '11px', color: 'var(--text-3)' }}>Notificar cuando productos esten por debajo del minimo</div>
                     </div>
                     <label className="switch">
                       <input type="checkbox" checked={alertasConfig.alertasStockCritico} onChange={() => setAlertasConfig({ ...alertasConfig, alertasStockCritico: !alertasConfig.alertasStockCritico })} />
@@ -736,7 +856,7 @@ export default function ConfiguracionPage() {
                   </div>
                   <div className="modulo-card" style={{ marginBottom: '20px' }}>
                     <div>
-                      <div style={{ fontWeight: '600' }}>Reportes Semanales</div>
+                      <div style={{ fontWeight: '600', color: 'var(--text)' }}>Reportes Semanales</div>
                       <div style={{ fontSize: '11px', color: 'var(--text-3)' }}>Recibir resumen semanal de actividades y alertas</div>
                     </div>
                     <label className="switch">
@@ -744,14 +864,14 @@ export default function ConfiguracionPage() {
                       <span className="slider"></span>
                     </label>
                   </div>
-                  <button className="btn-primary" onClick={handleSaveAlertas}><IconSave /> Guardar Configuración</button>
+                  <button className="btn-primary" onClick={handleSaveAlertas}><IconSave /> Guardar Configuracion</button>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* Toast de éxito */}
+        {/* Toast de exito */}
         {saveSuccess && (
           <div className="success-toast">
             <IconCheckCircle /> Cambios guardados correctamente

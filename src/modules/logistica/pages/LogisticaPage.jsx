@@ -181,6 +181,15 @@ export default function LogisticaPage() {
         }
 
         .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 22px; }
+        @media (max-width: 1024px) {
+          .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 800px) {
+          .kpi-grid { grid-template-columns: 1fr !important; }
+          .page-content-wrap { padding: 16px 12px !important; }
+          .mid-grid, .bottom-grid { grid-template-columns: 1fr !important; }
+          .ia-suggestion { padding: 14px !important; }
+        }
         .kpi-card {
           background: var(--card); border-radius: var(--radius); padding: 20px 22px;
           border: 1px solid var(--border); box-shadow: var(--shadow);
@@ -359,7 +368,7 @@ export default function LogisticaPage() {
         .kpi-card { animation: fadeUp .4s both; }
       `}</style>
 
-      <div style={{ padding: '24px 28px' }}>
+      <div className="page-content-wrap" style={{ padding: '24px 28px' }}>
         {/* KPIs */}
         <div className="kpi-grid">
           <div className="kpi-card rutas">

@@ -129,6 +129,7 @@ export default function LoginPage() {
       {/* Botón volver a la landing */}
       <button
         onClick={() => navigate('/')}
+        className="btn-back-landing"
         style={{
           position: 'fixed', top: '20px', left: '24px', zIndex: 10,
           display: 'flex', alignItems: 'center', gap: '7px',
@@ -147,7 +148,7 @@ export default function LoginPage() {
           <line x1="19" y1="12" x2="5" y2="12"/>
           <polyline points="12 19 5 12 12 5"/>
         </svg>
-        Volver al inicio
+        <span>Volver al inicio</span>
       </button>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
@@ -177,6 +178,12 @@ export default function LoginPage() {
           .right-panel {
             padding: 36px 24px !important;
           }
+        }
+
+        .btn-back-landing { transition: all 0.2s; }
+        @media (max-width: 600px) {
+          .btn-back-landing { top: 12px !important; left: 12px !important; padding: 6px 12px !important; font-size: 12px !important; }
+          .btn-back-landing span { display: none; }
         }
 
         .btn-submit { transition: background 0.2s, transform 0.15s, box-shadow 0.2s; }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import DashboardLayout from '../../../components/layout/DashboardLayout'
 
-// ≡ƒôè Iconos personalizados - TODOS SVG, SIN EMOJIS
+// Iconos personalizados
 function IconPackage() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -229,35 +229,35 @@ export default function VentasPage() {
 
   const [orders] = useState([
     { id: '#1048', cliente: 'Supermercado Rey', productos: [{ nombre: 'Jugo Naranja', cantidad: 24, precio: 200 }], monto: 4800, estado: 'procesado', fecha: '2024-01-15' },
-    { id: '#1047', cliente: 'Colmado Pe├▒a', productos: [{ nombre: 'Snack Ma├¡z', cantidad: 50, precio: 42 }], monto: 2100, estado: 'en_ruta', fecha: '2024-01-15' },
-    { id: '#1046', cliente: 'Tienda Mart├¡nez', productos: [{ nombre: 'Jugo Mango', cantidad: 12, precio: 160 }], monto: 1920, estado: 'en_ruta', fecha: '2024-01-15' },
+    { id: '#1047', cliente: 'Colmado Peña', productos: [{ nombre: 'Snack Maiz', cantidad: 50, precio: 42 }], monto: 2100, estado: 'en_ruta', fecha: '2024-01-15' },
+    { id: '#1046', cliente: 'Tienda Martinez', productos: [{ nombre: 'Jugo Mango', cantidad: 12, precio: 160 }], monto: 1920, estado: 'en_ruta', fecha: '2024-01-15' },
     { id: '#1045', cliente: 'Distribuidora Central', productos: [{ nombre: 'Agua', cantidad: 100, precio: 25 }], monto: 2500, estado: 'entregado', fecha: '2024-01-14' },
-    { id: '#1044', cliente: 'Pulper├¡a San Juan', productos: [{ nombre: 'Mixto', cantidad: 30, precio: 113.33 }], monto: 3400, estado: 'pendiente', fecha: '2024-01-14' },
+    { id: '#1044', cliente: 'Pulperia San Juan', productos: [{ nombre: 'Mixto', cantidad: 30, precio: 113.33 }], monto: 3400, estado: 'pendiente', fecha: '2024-01-14' },
     { id: '#1043', cliente: 'Supermercado La Sirena', productos: [{ nombre: 'Cerveza', cantidad: 48, precio: 120 }], monto: 5760, estado: 'cancelado', fecha: '2024-01-13' },
     { id: '#1042', cliente: 'Farmacia Carol', productos: [{ nombre: 'Medicamentos', cantidad: 15, precio: 150 }], monto: 2250, estado: 'entregado', fecha: '2024-01-13' },
   ])
 
   const [clientes] = useState([
     { id: 1, nombre: 'Supermercado Rey', tipo: 'VIP', pedidos: 45, montoTotal: 125000, contacto: '809-555-0101', email: 'ventas@superrey.com', direccion: 'Av. 27 de Febrero #123' },
-    { id: 2, nombre: 'Colmado Pe├▒a', tipo: 'Activo', pedidos: 28, montoTotal: 45200, contacto: '809-555-0102', email: 'colmpena@gmail.com', direccion: 'Calle Principal #45' },
-    { id: 3, nombre: 'Tienda Mart├¡nez', tipo: 'Activo', pedidos: 32, montoTotal: 67800, contacto: '809-555-0103', email: 'tiendamartinez@hotmail.com', direccion: 'Av. Lincoln #789' },
-    { id: 4, nombre: 'Pulper├¡a San Juan', tipo: 'VIP', pedidos: 67, montoTotal: 189300, contacto: '809-555-0104', email: 'pulperiasj@yahoo.com', direccion: 'Calle San Juan #12' },
+    { id: 2, nombre: 'Colmado Peña', tipo: 'Activo', pedidos: 28, montoTotal: 45200, contacto: '809-555-0102', email: 'colmpena@gmail.com', direccion: 'Calle Principal #45' },
+    { id: 3, nombre: 'Tienda Martinez', tipo: 'Activo', pedidos: 32, montoTotal: 67800, contacto: '809-555-0103', email: 'tiendamartinez@hotmail.com', direccion: 'Av. Lincoln #789' },
+    { id: 4, nombre: 'Pulperia San Juan', tipo: 'VIP', pedidos: 67, montoTotal: 189300, contacto: '809-555-0104', email: 'pulperiasj@yahoo.com', direccion: 'Calle San Juan #12' },
     { id: 5, nombre: 'Distribuidora Central', tipo: 'Nuevo', pedidos: 12, montoTotal: 18900, contacto: '809-555-0105', email: 'distcentral@gmail.com', direccion: 'Zona Industrial Km 22' },
   ])
 
   const [productos] = useState([
     { id: 1, nombre: 'Jugo Naranja', precio: 200, stock: 150, categoria: 'Bebidas', vendidos: 2450 },
     { id: 2, nombre: 'Jugo Mango', precio: 160, stock: 200, categoria: 'Bebidas', vendidos: 1870 },
-    { id: 3, nombre: 'Snack Ma├¡z', precio: 42, stock: 500, categoria: 'Snacks', vendidos: 5600 },
+    { id: 3, nombre: 'Snack Maiz', precio: 42, stock: 500, categoria: 'Snacks', vendidos: 5600 },
     { id: 4, nombre: 'Mixto', precio: 113.33, stock: 80, categoria: 'Snacks', vendidos: 1200 },
     { id: 5, nombre: 'Agua', precio: 25, stock: 1000, categoria: 'Bebidas', vendidos: 8900 },
   ])
 
   const getEstadoInfo = (estado) => {
     const estadosMap = {
-      borrador: { label: 'Borrador', color: '#94a3b8', bg: 'rgba(148,163,184,.12)' },
+      borrador: { label: 'Borrador', color: '#6b7280', bg: 'rgba(107,114,128,.12)' },
       procesado: { label: 'Procesado', color: '#3b82f6', bg: 'rgba(59,130,246,.12)' },
-      en_ruta: { label: 'En ruta', color: '#f59e0b', bg: 'rgba(245,158,11,.12)' },
+      en_ruta: { label: 'En Ruta', color: '#f59e0b', bg: 'rgba(245,158,11,.12)' },
       entregado: { label: 'Entregado', color: '#10b981', bg: 'rgba(16,185,129,.12)' },
       cancelado: { label: 'Cancelado', color: '#ef4444', bg: 'rgba(239,68,68,.12)' },
       pendiente: { label: 'Pendiente', color: '#f59e0b', bg: 'rgba(245,158,11,.12)' }
@@ -271,16 +271,20 @@ export default function VentasPage() {
   )
 
   const handleConfirmOrder = () => {
-    alert('Γ£à Pedido confirmado!\n\n1. Pedido registrado en tabla pedidos\n2. Stock actualizado en inventario\n3. Evento enviado a n8n para verificar m├¡nimos')
+    alert('Pedido confirmado!\n\n1. Pedido registrado en tabla pedidos\n2. Stock actualizado en inventario\n3. Evento enviado a n8n para verificar minimos')
     setShowNewOrderModal(false)
   }
 
   const handleGenerateInvoice = (order) => {
-    alert(`≡ƒôä Generando factura para pedido ${order.id}\n\nCliente: ${order.cliente}\nMonto: RD$${order.monto.toLocaleString()}\n\n[PDF generado para descarga]`)
+    alert(`Generando factura para pedido ${order.id}\n\nCliente: ${order.cliente}\nMonto: RD$${order.monto.toLocaleString()}\n\nPDF generado para descarga`)
+  }
+
+  const handleViewDetails = (section) => {
+    alert(`Mostrando detalles de: ${section}`)
   }
 
   return (
-    <DashboardLayout title="Ventas" subtitle="gesti├│n de pedidos, clientes y facturaci├│n">
+    <DashboardLayout title="Ventas" subtitle="gestion de pedidos, clientes y facturacion">
       <style>{`
         :root {
           --c-ventas: #3b82f6;
@@ -290,8 +294,8 @@ export default function VentasPage() {
           --card: #ffffff;
           --border: rgba(15,30,53,.08);
           --text: #0f172a;
-          --text-2: #475569;
-          --text-3: #94a3b8;
+          --text-2: #334155;
+          --text-3: #64748b;
           --radius: 16px;
           --radius-sm: 10px;
           --shadow: 0 2px 16px rgba(15,30,53,.08);
@@ -333,12 +337,29 @@ export default function VentasPage() {
           background: rgba(59,130,246,.08);
           color: var(--c-ventas);
         }
+        @media (max-width: 1024px) {
+          .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 800px) {
+          .kpi-grid { grid-template-columns: 1fr !important; }
+          .page-content-wrap { padding: 16px 12px !important; }
+          .tabs-container { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+          .tab-btn { flex: none; padding: 10px 16px; }
+        }
 
         .kpi-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 16px;
           margin-bottom: 24px;
+        }
+        @media (max-width: 1024px) {
+          .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+          .kpi-grid { grid-template-columns: 1fr; }
+          .tabs-container { overflow-x: auto; white-space: nowrap; }
+          .tab-btn { flex: none; padding: 10px 16px; }
         }
         .kpi-card {
           background: var(--card);
@@ -349,6 +370,7 @@ export default function VentasPage() {
           position: relative;
           overflow: hidden;
           transition: all 0.2s;
+          cursor: pointer;
         }
         .kpi-card:hover {
           transform: translateY(-2px);
@@ -611,30 +633,37 @@ export default function VentasPage() {
           font-weight: 700;
           color: var(--text);
         }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animated {
+          animation: fadeIn 0.3s ease;
+        }
       `}</style>
 
-      <div style={{ padding: '24px 28px' }}>
+      <div className="page-content-wrap" style={{ padding: '24px 28px' }}>
         {/* KPIs */}
         <div className="kpi-grid">
-          <div className="kpi-card">
+          <div className="kpi-card" onClick={() => handleViewDetails('Pedidos Hoy')}>
             <div className="kpi-icon"><IconShoppingCart /></div>
             <div className="kpi-label">Pedidos Hoy</div>
             <div className="kpi-value">24</div>
             <div className="kpi-trend trend-up"><IconTrendingUp /> +12% vs ayer</div>
           </div>
-          <div className="kpi-card">
+          <div className="kpi-card" onClick={() => handleViewDetails('Ventas Hoy')}>
             <div className="kpi-icon"><IconDollarSign /></div>
             <div className="kpi-label">Ventas Hoy</div>
             <div className="kpi-value">RD$45,280</div>
             <div className="kpi-trend trend-up"><IconTrendingUp /> +8% vs ayer</div>
           </div>
-          <div className="kpi-card">
+          <div className="kpi-card" onClick={() => handleViewDetails('Clientes Activos')}>
             <div className="kpi-icon"><IconUsers /></div>
             <div className="kpi-label">Clientes Activos</div>
             <div className="kpi-value">128</div>
             <div className="kpi-trend trend-up"><IconTrendingUp /> +12 este mes</div>
           </div>
-          <div className="kpi-card">
+          <div className="kpi-card" onClick={() => handleViewDetails('Ticket Promedio')}>
             <div className="kpi-icon"><IconStar /></div>
             <div className="kpi-label">Ticket Promedio</div>
             <div className="kpi-value">RD$1,886</div>
@@ -660,8 +689,8 @@ export default function VentasPage() {
 
         {/* Tab: Pedidos */}
         {activeTab === 'pedidos' && (
-          <>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <div className="animated">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <div className="search-box">
                 <IconSearch />
                 <input 
@@ -673,7 +702,7 @@ export default function VentasPage() {
                 <IconFilter />
               </div>
               <div style={{ display: 'flex', gap: '12px' }}>
-                <button className="btn-secondary"><IconRefresh /> Actualizar</button>
+                <button className="btn-secondary" onClick={() => handleViewDetails('Actualizar datos')}><IconRefresh /> Actualizar</button>
                 <button className="btn-primary" onClick={() => setShowNewOrderModal(true)}>
                   <IconPlus /> Nuevo Pedido
                 </button>
@@ -683,7 +712,15 @@ export default function VentasPage() {
             <div className="table-wrapper">
               <table>
                 <thead>
-                  <tr><th>#</th><th>Cliente</th><th>Productos</th><th>Monto</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr>
+                  <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Productos</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {filteredOrders.map(order => {
@@ -692,7 +729,9 @@ export default function VentasPage() {
                       <tr key={order.id}>
                         <td><strong>{order.id}</strong></td>
                         <td>{order.cliente}</td>
-                        <td style={{ fontSize: '12px', color: 'var(--text-2)' }}>{order.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ')}</td>
+                        <td style={{ fontSize: '12px', color: 'var(--text-2)' }}>
+                          {order.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ')}
+                        </td>
                         <td><strong>RD${order.monto.toLocaleString()}</strong></td>
                         <td>
                           <span className="estado-badge" style={{ background: estadoInfo.bg, color: estadoInfo.color }}>
@@ -714,29 +753,29 @@ export default function VentasPage() {
                 </tbody>
               </table>
             </div>
-          </>
+          </div>
         )}
 
         {/* Tab: Clientes */}
         {activeTab === 'clientes' && (
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+          <div className="animated">
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <div className="search-box">
                 <IconSearch />
-                <input type="text" placeholder="Buscar cliente..." />
+                <input type="text" placeholder="Buscar cliente..." onChange={(e) => setSearchTerm(e.target.value)} />
               </div>
-              <button className="btn-primary"><IconPlus /> Nuevo Cliente</button>
+              <button className="btn-primary" onClick={() => handleViewDetails('Nuevo Cliente')}><IconPlus /> Nuevo Cliente</button>
             </div>
             <div style={{ display: 'grid', gap: '16px' }}>
-              {clientes.map(cliente => (
+              {clientes.filter(c => c.nombre.toLowerCase().includes(searchTerm.toLowerCase())).map(cliente => (
                 <div key={cliente.id} className="client-card" onClick={() => setSelectedClient(cliente)}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', flexWrap: 'wrap', gap: '12px' }}>
                     <div>
-                      <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>{cliente.nombre}</h3>
-                      <div style={{ display: 'flex', gap: '16px', fontSize: '13px', color: 'var(--text-2)' }}>
-                        <span><IconPhone /> {cliente.contacto}</span>
-                        <span><IconMail /> {cliente.email}</span>
-                        <span><IconMapPin /> {cliente.direccion}</span>
+                      <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px', color: '#0f172a' }}>{cliente.nombre}</h3>
+                      <div style={{ display: 'flex', gap: '16px', fontSize: '13px', color: 'var(--text-2)', flexWrap: 'wrap' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><IconPhone /> {cliente.contacto}</span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><IconMail /> {cliente.email}</span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><IconMapPin /> {cliente.direccion}</span>
                       </div>
                     </div>
                     <span className="client-type" style={{ 
@@ -749,7 +788,7 @@ export default function VentasPage() {
                   <div className="info-row">
                     <div className="info-item"><div className="info-label">Pedidos Totales</div><div className="info-value">{cliente.pedidos}</div></div>
                     <div className="info-item"><div className="info-label">Monto Acumulado</div><div className="info-value">RD${cliente.montoTotal.toLocaleString()}</div></div>
-                    <div className="info-item"><div className="info-label">├Ültimo Pedido</div><div className="info-value">Hace 3 d├¡as</div></div>
+                    <div className="info-item"><div className="info-label">Ultimo Pedido</div><div className="info-value">Hace 3 dias</div></div>
                   </div>
                 </div>
               ))}
@@ -759,51 +798,63 @@ export default function VentasPage() {
 
         {/* Tab: Facturas */}
         {activeTab === 'facturas' && (
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr><th># Factura</th><th>Pedido</th><th>Cliente</th><th>Monto</th><th>Fecha</th><th>Estado Pago</th><th>Acciones</th></tr>
-              </thead>
-              <tbody>
-                {orders.filter(o => o.estado !== 'pendiente' && o.estado !== 'borrador').map(order => (
-                  <tr key={`factura-${order.id}`}>
-                    <td><strong>FAC-{order.id.substring(1)}</strong></td>
-                    <td>{order.id}</td>
-                    <td>{order.cliente}</td>
-                    <td>RD${order.monto.toLocaleString()}</td>
-                    <td><IconCalendar /> {order.fecha}</td>
-                    <td><span className="estado-badge" style={{ background: 'rgba(16,185,129,.12)', color: '#10b981' }}><IconCheckCircle /> Pagado</span></td>
-                    <td>
-                      <button className="btn-outline" onClick={() => handleGenerateInvoice(order)}>
-                        <IconDownload /> Descargar PDF
-                      </button>
-                    </td>
+          <div className="animated">
+            <div className="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th># Factura</th>
+                    <th>Pedido</th>
+                    <th>Cliente</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Estado Pago</th>
+                    <th>Acciones</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {orders.filter(o => o.estado !== 'pendiente' && o.estado !== 'borrador').map(order => (
+                    <tr key={`factura-${order.id}`}>
+                      <td><strong>FAC-{order.id.substring(1)}</strong></td>
+                      <td>{order.id}</td>
+                      <td>{order.cliente}</td>
+                      <td>RD${order.monto.toLocaleString()}</td>
+                      <td><IconCalendar /> {order.fecha}</td>
+                      <td><span className="estado-badge" style={{ background: 'rgba(16,185,129,.12)', color: '#10b981' }}><IconCheckCircle /> Pagado</span></td>
+                      <td>
+                        <button className="btn-outline" onClick={() => handleGenerateInvoice(order)}>
+                          <IconDownload /> Descargar PDF
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
         {/* Tab: Reportes */}
         {activeTab === 'reportes' && (
-          <div>
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', justifyContent: 'flex-end' }}>
-              <button className="btn-secondary"><IconCalendar /> Esta semana</button>
-              <button className="btn-secondary"><IconFilter /> Filtrar</button>
-              <button className="btn-primary"><IconDownload /> Exportar</button>
+          <div className="animated">
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+              <button className="btn-secondary" onClick={() => handleViewDetails('Esta semana')}><IconCalendar /> Esta semana</button>
+              <button className="btn-secondary" onClick={() => handleViewDetails('Filtrar')}><IconFilter /> Filtrar</button>
+              <button className="btn-primary" onClick={() => handleViewDetails('Exportar reporte')}><IconDownload /> Exportar</button>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '20px' }}>
               <div className="card" style={{ padding: '20px' }}>
-                <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}><IconBarChart /> Ventas por Per├¡odo</h3>
+                <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}><IconBarChart /> Ventas por Periodo</h3>
                 <div style={{ height: '200px', display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
-                  {['Lun', 'Mar', 'Mi├⌐', 'Jue', 'Vie', 'S├íb', 'Dom'].map((dia, i) => {
+                  {['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'].map((dia, i) => {
                     const heights = [65, 78, 82, 71, 94, 88, 52]
                     return (
                       <div key={dia} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                         <div style={{ width: '100%', background: 'var(--c-ventas)', height: `${heights[i]}px`, borderRadius: '8px 8px 0 0', opacity: 0.7, transition: 'all 0.2s', cursor: 'pointer' }} 
                           onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                          onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}></div>
+                          onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
+                          onClick={() => handleViewDetails(`${dia}`)}>
+                        </div>
                         <span style={{ fontSize: '11px', color: 'var(--text-3)' }}>{dia}</span>
                         <span style={{ fontSize: '10px', fontWeight: '600', color: 'var(--text-2)' }}>RD${(heights[i] * 500).toLocaleString()}</span>
                       </div>
@@ -812,12 +863,12 @@ export default function VentasPage() {
                 </div>
               </div>
               <div className="card" style={{ padding: '20px' }}>
-                <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}><IconStar /> Top Clientes</h3>
+                <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}><IconStar /> Top Clientes</h3>
                 {clientes.slice(0, 5).map((c, i) => (
-                  <div key={c.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid var(--border)', alignItems: 'center' }}>
+                  <div key={c.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid var(--border)', alignItems: 'center', cursor: 'pointer' }} onClick={() => handleViewDetails(c.nombre)}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: i === 0 ? 'rgba(234,179,8,.12)' : 'rgba(59,130,246,.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '700', color: i === 0 ? '#ca8a04' : 'var(--c-ventas)' }}>{i + 1}</div>
-                      <div><strong>{c.nombre}</strong><br/><span style={{ fontSize: '10px', color: 'var(--text-3)' }}>{c.pedidos} pedidos</span></div>
+                      <div><strong style={{ color: '#0f172a' }}>{c.nombre}</strong><br/><span style={{ fontSize: '10px', color: 'var(--text-3)' }}>{c.pedidos} pedidos</span></div>
                     </div>
                     <span style={{ fontWeight: '700', color: 'var(--c-ventas)' }}>RD${c.montoTotal.toLocaleString()}</span>
                   </div>
@@ -825,12 +876,12 @@ export default function VentasPage() {
               </div>
             </div>
             <div className="card" style={{ padding: '20px' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}><IconPackage /> Productos M├ís Vendidos</h3>
+              <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}><IconPackage /> Productos Mas Vendidos</h3>
               {productos.map((p, i) => (
-                <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
-                  <div style={{ flex: 2 }}><strong>{p.nombre}</strong><br/><span style={{ fontSize: '11px', color: 'var(--text-3)' }}>{p.categoria}</span></div>
-                  <div style={{ flex: 1, textAlign: 'center' }}><span style={{ fontSize: '11px', color: 'var(--text-3)' }}>Vendidos</span><br/><strong>{p.vendidos.toLocaleString()}</strong></div>
-                  <div style={{ flex: 1, textAlign: 'center' }}><span style={{ fontSize: '11px', color: 'var(--text-3)' }}>Stock</span><br/><strong>{p.stock}</strong></div>
+                <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border)', flexWrap: 'wrap', gap: '12px', cursor: 'pointer' }} onClick={() => handleViewDetails(p.nombre)}>
+                  <div style={{ flex: 2 }}><strong style={{ color: '#0f172a' }}>{p.nombre}</strong><br/><span style={{ fontSize: '11px', color: 'var(--text-3)' }}>{p.categoria}</span></div>
+                  <div style={{ flex: 1, textAlign: 'center' }}><span style={{ fontSize: '11px', color: 'var(--text-3)' }}>Vendidos</span><br/><strong style={{ color: '#0f172a' }}>{p.vendidos.toLocaleString()}</strong></div>
+                  <div style={{ flex: 1, textAlign: 'center' }}><span style={{ fontSize: '11px', color: 'var(--text-3)' }}>Stock</span><br/><strong style={{ color: '#0f172a' }}>{p.stock}</strong></div>
                   <div><span className="estado-badge" style={{ background: p.stock < 100 ? 'rgba(239,68,68,.12)' : 'rgba(16,185,129,.12)', color: p.stock < 100 ? '#ef4444' : '#10b981' }}>{p.stock < 100 ? <IconAlertCircle /> : <IconCheckCircle />} {p.stock < 100 ? 'Stock bajo' : 'Disponible'}</span></div>
                 </div>
               ))}
@@ -840,7 +891,7 @@ export default function VentasPage() {
 
         {/* Modal Nuevo Pedido */}
         {showNewOrderModal && (
-          <div className="modal-overlay" onClick={() => setShowNewOrderModal(false)}>
+          <div className="modal-overlay animated" onClick={() => setShowNewOrderModal(false)}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
                 <h2 className="modal-title"><IconPackage /> Nuevo Pedido</h2>
@@ -855,13 +906,13 @@ export default function VentasPage() {
               </div>
               <div className="form-group">
                 <label className="form-label">Agregar Productos</label>
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                  <select className="form-select" style={{ flex: 2 }}>
+                <div style={{ display: 'flex', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
+                  <select className="form-select" style={{ flex: 2, minWidth: '150px' }}>
                     <option>Seleccionar producto</option>
                     {productos.map(p => <option key={p.id}>{p.nombre} - RD${p.precio}</option>)}
                   </select>
-                  <input type="number" placeholder="Cantidad" className="form-input" style={{ flex: 1 }} />
-                  <button className="btn-primary" style={{ padding: '10px 20px' }}><IconPlus /></button>
+                  <input type="number" placeholder="Cantidad" className="form-input" style={{ flex: 1, minWidth: '100px' }} />
+                  <button className="btn-primary" style={{ padding: '10px 20px' }} onClick={() => handleViewDetails('Agregar producto')}><IconPlus /></button>
                 </div>
                 <div className="table-wrapper" style={{ marginTop: '16px' }}>
                   <table style={{ fontSize: '12px' }}>
@@ -870,15 +921,15 @@ export default function VentasPage() {
                   </table>
                 </div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '24px', paddingTop: '20px', borderTop: '1px solid var(--border)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '24px', paddingTop: '20px', borderTop: '1px solid var(--border)', flexWrap: 'wrap', gap: '12px' }}>
                 <div><span style={{ fontSize: '14px', color: 'var(--text-2)' }}>Total:</span><strong style={{ fontSize: '24px', marginLeft: '8px' }}>RD$0</strong></div>
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <button className="btn-secondary" onClick={() => setShowNewOrderModal(false)}>Cancelar</button>
-                  <button className="btn-primary" onClick={handleConfirmOrder}>Confirmar Pedido ΓåÆ</button>
+                  <button className="btn-primary" onClick={handleConfirmOrder}>Confirmar Pedido →</button>
                 </div>
               </div>
-              <div style={{ marginTop: '16px', padding: '12px', background: '#f0fdf4', borderRadius: '8px', fontSize: '12px', color: '#166534', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <IconCheckCircle /> <strong>Automatizaci├│n:</strong> Al confirmar se descontar├í el stock y se verificar├í niveles m├¡nimos v├¡a n8n
+              <div style={{ marginTop: '16px', padding: '12px', background: '#f0fdf4', borderRadius: '8px', fontSize: '12px', color: '#166534', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <IconCheckCircle /> <strong>Automatizacion:</strong> Al confirmar se descontara el stock y se verificaran niveles minimos via n8n
               </div>
             </div>
           </div>
@@ -886,7 +937,7 @@ export default function VentasPage() {
 
         {/* Modal Detalle Cliente */}
         {selectedClient && (
-          <div className="modal-overlay" onClick={() => setSelectedClient(null)}>
+          <div className="modal-overlay animated" onClick={() => setSelectedClient(null)}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
                 <h2 className="modal-title"><IconUsers /> {selectedClient.nombre}</h2>
@@ -897,11 +948,11 @@ export default function VentasPage() {
                   <IconStar /> {selectedClient.tipo}
                 </span>
               </div>
-              <div className="form-group"><label className="form-label"><IconPhone /> Contacto</label><div>{selectedClient.contacto}</div></div>
-              <div className="form-group"><label className="form-label"><IconMail /> Email</label><div>{selectedClient.email}</div></div>
-              <div className="form-group"><label className="form-label"><IconMapPin /> Direcci├│n</label><div>{selectedClient.direccion}</div></div>
-              <div className="form-group"><label className="form-label"><IconPackage /> Pedidos Totales</label><div><strong>{selectedClient.pedidos}</strong> pedidos</div></div>
-              <div className="form-group"><label className="form-label"><IconDollarSign /> Monto Acumulado</label><div><strong>RD${selectedClient.montoTotal.toLocaleString()}</strong></div></div>
+              <div className="form-group"><label className="form-label"><IconPhone /> Contacto</label><div style={{ color: '#0f172a' }}>{selectedClient.contacto}</div></div>
+              <div className="form-group"><label className="form-label"><IconMail /> Email</label><div style={{ color: '#0f172a' }}>{selectedClient.email}</div></div>
+              <div className="form-group"><label className="form-label"><IconMapPin /> Direccion</label><div style={{ color: '#0f172a' }}>{selectedClient.direccion}</div></div>
+              <div className="form-group"><label className="form-label"><IconPackage /> Pedidos Totales</label><div><strong style={{ color: '#0f172a' }}>{selectedClient.pedidos}</strong> pedidos</div></div>
+              <div className="form-group"><label className="form-label"><IconDollarSign /> Monto Acumulado</label><div><strong style={{ color: '#0f172a' }}>RD${selectedClient.montoTotal.toLocaleString()}</strong></div></div>
               <button className="btn-primary" style={{ width: '100%', marginTop: '20px' }} onClick={() => setSelectedClient(null)}>Cerrar</button>
             </div>
           </div>
@@ -909,14 +960,14 @@ export default function VentasPage() {
 
         {/* Modal Detalle Pedido */}
         {selectedOrder && (
-          <div className="modal-overlay" onClick={() => setSelectedOrder(null)}>
+          <div className="modal-overlay animated" onClick={() => setSelectedOrder(null)}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
                 <h2 className="modal-title"><IconPackage /> Pedido {selectedOrder.id}</h2>
                 <button onClick={() => setSelectedOrder(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><IconX /></button>
               </div>
-              <div className="form-group"><label className="form-label"><IconUsers /> Cliente</label><div><strong>{selectedOrder.cliente}</strong></div></div>
-              <div className="form-group"><label className="form-label"><IconCalendar /> Fecha</label><div>{selectedOrder.fecha}</div></div>
+              <div className="form-group"><label className="form-label"><IconUsers /> Cliente</label><div><strong style={{ color: '#0f172a' }}>{selectedOrder.cliente}</strong></div></div>
+              <div className="form-group"><label className="form-label"><IconCalendar /> Fecha</label><div style={{ color: '#0f172a' }}>{selectedOrder.fecha}</div></div>
               <div className="form-group"><label className="form-label">Estado</label><div><span className="estado-badge" style={{ background: getEstadoInfo(selectedOrder.estado).bg, color: getEstadoInfo(selectedOrder.estado).color }}>{getEstadoInfo(selectedOrder.estado).label}</span></div></div>
               <div className="form-group"><label className="form-label"><IconPackage /> Productos</label>
                 <div className="table-wrapper">
@@ -924,14 +975,22 @@ export default function VentasPage() {
                     <thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr></thead>
                     <tbody>
                       {selectedOrder.productos.map((p, i) => (
-                        <tr key={i}><td>{p.nombre}</td><td>{p.cantidad}</td><td>RD${p.precio}</td><td>RD${(p.cantidad * p.precio).toLocaleString()}</td></tr>
+                        <tr key={i}>
+                          <td style={{ color: '#0f172a' }}>{p.nombre}</td>
+                          <td style={{ color: '#0f172a' }}>{p.cantidad}</td>
+                          <td style={{ color: '#0f172a' }}>RD${p.precio}</td>
+                          <td style={{ color: '#0f172a' }}>RD${(p.cantidad * p.precio).toLocaleString()}</td>
+                        </tr>
                       ))}
-                      <tr style={{ borderTop: '2px solid var(--border)' }}><td colSpan="3" style={{ textAlign: 'right', fontWeight: '700' }}>Total:</td><td><strong>RD${selectedOrder.monto.toLocaleString()}</strong></td></tr>
+                      <tr style={{ borderTop: '2px solid var(--border)' }}>
+                        <td colSpan="3" style={{ textAlign: 'right', fontWeight: '700', color: '#0f172a' }}>Total:</td>
+                        <td><strong style={{ color: '#0f172a' }}>RD${selectedOrder.monto.toLocaleString()}</strong></td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '20px', flexWrap: 'wrap' }}>
                 {selectedOrder.estado !== 'cancelado' && selectedOrder.estado !== 'entregado' && (
                   <button className="btn-primary" style={{ flex: 1 }} onClick={() => { handleGenerateInvoice(selectedOrder); setSelectedOrder(null); }}><IconDownload /> Generar Factura</button>
                 )}

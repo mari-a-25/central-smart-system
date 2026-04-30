@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { QRCodeSVG } from 'qrcode.react'
 import './LandingPage.css'
 
 // ── Scroll Reveal ────────────────────────────────────
@@ -46,39 +47,35 @@ function IcoCpu() {
   return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
 }
 
-// ── QR Code SVG (pure SVG, sin dependencias) ─────────
-function QrCode({ url }) {
-  // QR decorativo — reemplaza la URL con la de tu deploy en Vercel
-  // Para un QR real: npm install qrcode.react y usa <QRCodeSVG value={url} />
+// ── QR Code Real ─────────────────────────────────────
+function QrCode({ url = 'https://central-smart-system.vercel.app' }) {
   return (
-    <div style={{ background: '#fff', borderRadius: '12px', padding: '12px', width: '150px', height: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
-      <svg viewBox="0 0 120 120" width="126" height="126" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Esquina TL */}
-        <rect x="8" y="8" width="34" height="34" rx="4" fill="#111"/>
-        <rect x="14" y="14" width="22" height="22" rx="2" fill="white"/>
-        <rect x="18" y="18" width="14" height="14" rx="1" fill="#111"/>
-        {/* Esquina TR */}
-        <rect x="78" y="8" width="34" height="34" rx="4" fill="#111"/>
-        <rect x="84" y="14" width="22" height="22" rx="2" fill="white"/>
-        <rect x="88" y="18" width="14" height="14" rx="1" fill="#111"/>
-        {/* Esquina BL */}
-        <rect x="8" y="78" width="34" height="34" rx="4" fill="#111"/>
-        <rect x="14" y="84" width="22" height="22" rx="2" fill="white"/>
-        <rect x="18" y="88" width="14" height="14" rx="1" fill="#111"/>
-        {/* Módulos de datos */}
-        {[52,56,60,64,68,72].map((x,i)=><rect key={i} x={x} y="8" width="4" height="4" fill={i%2===0?'#111':'#555'}/>)}
-        {[52,56,64,72].map((x,i)=><rect key={i} x={x} y="14" width="4" height="4" fill="#111"/>)}
-        {[52,60,64,68,72].map((x,i)=><rect key={i} x={x} y="20" width="4" height="4" fill="#111"/>)}
-        {[52,56,60,68].map((x,i)=><rect key={i} x={x} y="26" width="4" height="4" fill="#111"/>)}
-        {[52,56,60,64,72].map((x,i)=><rect key={i} x={x} y="32" width="4" height="4" fill="#111"/>)}
-        {[52,64,68,72].map((x,i)=><rect key={i} x={x} y="38" width="4" height="4" fill="#111"/>)}
-        {Array.from({length:10}).map((_,i)=><rect key={i} x={8+i*6} y="52" width="4" height="4" fill={i%2===0?'#111':'#444'}/>)}
-        {Array.from({length:10}).map((_,i)=><rect key={i} x={8+i*6} y="58" width="4" height="4" fill={i%3===1?'#111':'transparent'}/>)}
-        {Array.from({length:10}).map((_,i)=><rect key={i} x={8+i*6} y="64" width="4" height="4" fill={i%2===1?'#111':'transparent'}/>)}
-        {Array.from({length:10}).map((_,i)=><rect key={i} x={8+i*6} y="70" width="4" height="4" fill={i%3===0?'#111':'#666'}/>)}
-        {Array.from({length:10}).map((_,i)=><rect key={i} x={52+i*4} y={52+i%4*6} width="4" height="4" fill={i%2===0?'#111':'transparent'}/>)}
-        {Array.from({length:8}).map((_,i)=><rect key={i} x={52+i*4} y={78+i%3*6} width="4" height="4" fill={i%3!==1?'#111':'transparent'}/>)}
-      </svg>
+    <div style={{ 
+      background: '#fff', 
+      borderRadius: '16px', 
+      padding: '16px', 
+      width: '160px', 
+      height: '160px', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      margin: '0 auto',
+      boxShadow: '0 8px 30px rgba(0,0,0,0.12)'
+    }}>
+      <QRCodeSVG 
+        value={url} 
+        size={128}
+        level="M"
+        includeMargin={false}
+        imageSettings={{
+          src: "/favicon.ico",
+          x: undefined,
+          y: undefined,
+          height: 24,
+          width: 24,
+          excavate: true,
+        }}
+      />
     </div>
   )
 }
@@ -297,7 +294,6 @@ export default function LandingPage() {
               <div className="lp-demo-qr-label">Escanea con tu celular</div>
               <QrCode />
               <div className="lp-demo-qr-url">
-                {/* Reemplaza esta URL con la de tu deploy en Vercel */}
                 central-smart-system.vercel.app
               </div>
               <div className="lp-demo-qr-note">

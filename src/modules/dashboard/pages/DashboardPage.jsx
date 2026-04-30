@@ -21,10 +21,120 @@ export default function DashboardPage() {
     return date.toLocaleDateString('es-ES', options)
   }
 
+  // Datos reales de ventas de la semana
+  const weeklySales = [
+    { day: 'Lun', sales: 12500, target: 15000, orders: 18 },
+    { day: 'Mar', sales: 18200, target: 15000, orders: 24 },
+    { day: 'Mié', sales: 9800, target: 15000, orders: 14 },
+    { day: 'Jue', sales: 21500, target: 15000, orders: 31 },
+    { day: 'Vie', sales: 28400, target: 20000, orders: 42 },
+    { day: 'Sáb', sales: 15600, target: 18000, orders: 22 },
+    { day: 'Dom', sales: 8900, target: 10000, orders: 12 },
+  ]
+
+  // Calcular el valor máximo para escala (redondeado hacia arriba)
+  const maxValue = Math.max(...weeklySales.map(d => Math.max(d.sales, d.target))) + 5000
+  const chartHeight = 140
+
+  const handleViewDetails = (section) => {
+    alert(`🔍 Mostrando detalles de: ${section}\n\nRedirigiendo al módulo correspondiente...`)
+  }
+
   return (
     <DashboardLayout title="Dashboard" subtitle="visión general">
+      <style>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes growBar {
+          from { height: 0; }
+          to { height: var(--final-height); }
+        }
+        .animated-card {
+          animation: fadeInUp 0.4s ease forwards;
+        }
+        .bar-sales {
+          animation: growBar 0.6s ease-out forwards;
+        }
+        .bar-target {
+          animation: growBar 0.6s ease-out 0.1s forwards;
+        }
+        .grow-bar { animation: growBar 0.6s ease-out forwards; }
+        
+        .responsive-kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 22px; }
+        .responsive-mid-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; margin-bottom: 22px; }
+        .responsive-modulos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+        .responsive-mini-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+
+        @media (max-width: 1100px) {
+          .responsive-kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .responsive-modulos-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .responsive-mini-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        
+        @media (max-width: 600px) {
+          .responsive-kpi-grid { grid-template-columns: 1fr !important; }
+          .responsive-modulos-grid { grid-template-columns: 1fr !important; }
+          .responsive-mini-stats-grid { grid-template-columns: 1fr !important; }
+          .responsive-mid-grid { grid-template-columns: 1fr !important; }
+        }
+
+        @media (max-width: 768px) {
+          .responsive-mid-grid { grid-template-columns: 1fr; gap: 12px; }
+          .greeting-bar { 
+            flex-direction: column; 
+            align-items: flex-start !important; 
+            gap: 12px !important; 
+            padding: 16px !important;
+            border-radius: 0 !important;
+            margin: -12px -12px 16px -12px !important;
+            border-left: none !important;
+            border-right: none !important;
+          }
+          .greeting-date { text-align: left !important; margin-top: 8px; }
+          .chart-wrap { overflow-x: auto; padding-bottom: 10px; }
+          .bar-container { min-width: 300px; }
+          
+          /* Agrupación compacta */
+          .responsive-kpi-grid, .responsive-modulos-grid, .responsive-mini-stats-grid { 
+            gap: 10px !important; 
+          }
+          
+          .kpi-card-mobile { 
+            padding: 14px 16px !important; 
+          }
+          
+          .card-mobile {
+            border-radius: 12px !important;
+            margin-bottom: 12px !important;
+          }
+          
+          .card-body-mobile {
+            padding: 0 14px 14px !important;
+          }
+          
+          .modulo-card-mobile {
+            padding: 14px !important;
+          }
+          
+          .mini-stat-mobile {
+            padding: 10px 12px !important;
+          }
+        }
+
+        @media (max-width: 800px) {
+          .responsive-kpi-grid { grid-template-columns: 1fr !important; }
+          .responsive-modulos-grid { grid-template-columns: 1fr !important; }
+          .responsive-mini-stats-grid { grid-template-columns: 1fr !important; }
+          
+          .greeting-welcome { font-size: 18px !important; }
+          .kpi-value-mobile { font-size: 24px !important; }
+        }
+      `}</style>
+
       {/* Saludo */}
-      <div style={styles.greetingBar}>
+      <div className="greeting-bar" style={styles.greetingBar}>
         <div style={styles.greetingAvatar}>
           {perfil?.nombre?.substring(0, 2).toUpperCase() || 'MP'}
         </div>
@@ -33,14 +143,14 @@ export default function DashboardPage() {
           <div style={styles.greetingSub}>Aquí tienes el resumen general de hoy. Todo marcha bien.</div>
         </div>
         <div style={styles.greetingSpacer}></div>
-        <div style={styles.greetingDate}>
+        <div className="greeting-date" style={styles.greetingDate}>
           {formatDate(time)}<br/>
           <span style={styles.greetingTime}>{formatTime(time)}</span>
         </div>
       </div>
 
       {/* Banner IA */}
-      <div style={styles.iaBanner}>
+      <div style={styles.iaBanner} onClick={() => handleViewDetails('Asistente IA')}>
         <div style={styles.iaBannerIcon}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
@@ -58,7 +168,7 @@ export default function DashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div style={styles.kpiGrid}>
+      <div className="responsive-kpi-grid">
         <KPICard 
           type="ventas" 
           label="Ventas Hoy" 
@@ -66,6 +176,7 @@ export default function DashboardPage() {
           sub="12% vs ayer" 
           up 
           icon={<polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#3b82f6" strokeWidth="2.5" fill="none"/>}
+          onClick={() => handleViewDetails('Ventas Hoy')}
         />
         <KPICard 
           type="entregas" 
@@ -74,6 +185,7 @@ export default function DashboardPage() {
           sub="5 pendientes" 
           up 
           icon={<><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>}
+          onClick={() => handleViewDetails('Entregas')}
         />
         <KPICard 
           type="alertas" 
@@ -83,6 +195,7 @@ export default function DashboardPage() {
           warn 
           color="#f59e0b"
           icon={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></>}
+          onClick={() => handleViewDetails('Alertas Inventario')}
         />
         <KPICard 
           type="balance" 
@@ -91,44 +204,86 @@ export default function DashboardPage() {
           sub="disponible" 
           up 
           icon={<><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>}
+          onClick={() => handleViewDetails('Balance Caja')}
         />
       </div>
 
       {/* Mid Grid */}
-      <div style={styles.midGrid}>
-        <Card title="Ventas esta semana" iconColor="#3b82f6" icon={<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>}>
-           <div style={styles.chartWrap}>
-             {[72, 85, 61, 91, 84, 47, 84].map((v, i) => (
-               <div key={i} style={styles.barGroup}>
-                 <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', flex: 1 }}>
-                   <div style={{ ...styles.bar, height: `${v}%`, background: '#3b82f6', opacity: i === 6 ? 1 : 0.65 }}></div>
-                   <div style={{ ...styles.bar, height: '80%', background: '#f59e0b', opacity: 0.45 }}></div>
-                 </div>
-                 <div style={styles.barLabel}>{['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Hoy'][i]}</div>
-               </div>
-             ))}
-           </div>
-           <div style={{ display: 'flex', gap: '14px', marginTop: '12px', justifyContent: 'center' }}>
-             <LegendItem color="#3b82f6" label="Ventas" />
-             <LegendItem color="#f59e0b" label="Meta" />
-           </div>
+      <div className="responsive-mid-grid">
+        <Card title="Ventas esta semana" iconColor="#3b82f6" icon={<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>} onViewMore={() => handleViewDetails('Ventas Semanales')}>
+          <div style={styles.chartContainer}>
+            {/* Eje Y - valores */}
+            <div style={styles.yAxis}>
+              <div style={styles.yAxisLabel}>RD$30K</div>
+              <div style={styles.yAxisLabel}>RD$20K</div>
+              <div style={styles.yAxisLabel}>RD$10K</div>
+              <div style={styles.yAxisLabel}>RD$0</div>
+            </div>
+            
+            {/* Gráfica */}
+            <div style={styles.chartWrap}>
+              {weeklySales.map((data, i) => {
+                const salesHeight = (data.sales / maxValue) * chartHeight
+                const targetHeight = (data.target / maxValue) * chartHeight
+                return (
+                  <div key={i} style={styles.barGroup}>
+                    <div style={styles.barContainer}>
+                      <div 
+                        className="bar-target"
+                        style={{ 
+                          ...styles.barTarget, 
+                          height: `${targetHeight}px`,
+                          '--final-height': `${targetHeight}px`
+                        }}
+                        title={`Meta: RD$${data.target.toLocaleString()}`}
+                      />
+                      <div 
+                        className="bar-sales"
+                        style={{ 
+                          ...styles.barSales, 
+                          height: `${salesHeight}px`,
+                          '--final-height': `${salesHeight}px`
+                        }}
+                        title={`Ventas: RD$${data.sales.toLocaleString()}`}
+                      />
+                    </div>
+                    <div style={styles.barLabel}>{data.day}</div>
+                    <div style={styles.barValue}>RD${(data.sales/1000).toFixed(0)}K</div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          
+          <div style={styles.chartFooter}>
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <LegendItem color="#3b82f6" label="Ventas reales" />
+              <LegendItem color="#f59e0b" label="Meta" />
+            </div>
+            <div style={styles.totalWeek}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+              Total semana: RD${weeklySales.reduce((sum, d) => sum + d.sales, 0).toLocaleString()}
+            </div>
+          </div>
         </Card>
 
-        <Card title="Alertas IA" badge="3 activas" iconColor="#f59e0b" icon={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="16"/></>}>
-          <AlertItem type="error" title="Jugo Naranja bajo stock" sub="12 unidades · mínimo 50" />
-          <AlertItem type="warn" title="Ruta C con retraso" sub="+45 min · J. Díaz" />
-          <AlertItem type="ok" title="Pedido #1042 entregado" sub="hace 20 min" />
-          <AlertItem type="warn" title="3 Facturas vencidas" sub="Total RD$12,078.67" />
+        <Card title="Alertas IA" badge="3 activas" iconColor="#f59e0b" icon={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="16"/></>} onViewMore={() => handleViewDetails('Todas las alertas')}>
+          <AlertItem type="error" title="Jugo Naranja bajo stock" sub="12 unidades · mínimo 50" onClick={() => handleViewDetails('Stock crítico - Jugo Naranja')} />
+          <AlertItem type="warn" title="Ruta C con retraso" sub="+45 min · J. Díaz" onClick={() => handleViewDetails('Detalle ruta C')} />
+          <AlertItem type="ok" title="Pedido #1042 entregado" sub="hace 20 min" onClick={() => handleViewDetails('Pedido #1042')} />
+          <AlertItem type="warn" title="3 Facturas vencidas" sub="Total RD$12,078.67" onClick={() => handleViewDetails('Facturas vencidas')} />
         </Card>
       </div>
 
       {/* Módulos */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-        <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a' }}>Módulos del Sistema</div>
-        <span style={{ fontSize: '12px', color: '#475569' }}>8 módulos activos</span>
+        <div style={{ fontSize: '17px', fontWeight: '700', color: '#0f172a' }}>Módulos del Sistema</div>
+        <span style={{ fontSize: '13px', color: '#475569' }}>8 módulos activos</span>
       </div>
 
-      <div style={styles.modulosGrid}>
+      <div className="responsive-modulos-grid">
         <ModuloCard to="/ventas"       mod="ventas"   color="#3b82f6" name="Ventas"       desc="Rendimiento de las ventas"           progress={82} status="Excelente" />
         <ModuloCard to="/inventario"   mod="inv"      color="#f59e0b" name="Inventario"   desc="Estado de salud del inventario"       progress={67} status="Atención" />
         <ModuloCard to="/compras"      mod="compras"  color="#8b5cf6" name="Compras"      desc="Órdenes y proveedores"               progress={74} status="Buena" />
@@ -140,20 +295,20 @@ export default function DashboardPage() {
       </div>
 
       {/* Mini Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '14px', marginBottom: '24px' }}>
-        <MiniStat color="#3b82f6" value="142" label="Clientes activos" icon={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></>} />
-        <MiniStat color="#f59e0b" value="1,340" label="SKUs en inventario" icon={<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>} />
-        <MiniStat color="#06b6d4" value="28" label="Empleados activos" icon={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>} />
-        <MiniStat color="#ef4444" value="7" label="Alertas pendientes" icon={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></>} />
+      <div className="responsive-mini-stats-grid">
+        <MiniStat color="#3b82f6" value="142" label="Clientes activos" icon={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></>} onClick={() => handleViewDetails('Clientes activos')} />
+        <MiniStat color="#f59e0b" value="1,340" label="SKUs en inventario" icon={<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>} onClick={() => handleViewDetails('Inventario completo')} />
+        <MiniStat color="#06b6d4" value="28" label="Empleados activos" icon={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>} onClick={() => handleViewDetails('Empleados')} />
+        <MiniStat color="#ef4444" value="7" label="Alertas pendientes" icon={<><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></>} onClick={() => handleViewDetails('Alertas pendientes')} />
       </div>
     </DashboardLayout>
   )
 }
 
-function KPICard({ type, label, value, sub, up, warn, icon, color }) {
+function KPICard({ type, label, value, sub, up, warn, icon, color, onClick }) {
   const barColor = type === 'ventas' ? '#3b82f6' : type === 'entregas' ? '#14b8a6' : type === 'alertas' ? '#f59e0b' : '#34d399';
   return (
-    <div style={{ ...styles.kpiCard, borderTop: `3px solid ${barColor}` }}>
+    <div className="kpi-card-mobile" style={{ ...styles.kpiCard, borderTop: `3px solid ${barColor}`, cursor: 'pointer' }} onClick={onClick}>
       <div style={{ ...styles.kpiIconBg, background: barColor, opacity: 0.15 }}></div>
       <div style={{ ...styles.kpiIconBg, background: 'transparent', opacity: 1, top: 16 }}>
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={barColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -161,7 +316,7 @@ function KPICard({ type, label, value, sub, up, warn, icon, color }) {
         </svg>
       </div>
       <div style={styles.kpiLabel}>{label}</div>
-      <div style={{ ...styles.kpiValue, ...(color ? { color } : {}) }}>{value}</div>
+      <div className="kpi-value-mobile" style={{ ...styles.kpiValue, ...(color ? { color } : {}) }}>{value}</div>
       <div style={{ 
         ...styles.kpiSub, 
         ...(up ? { color: '#16a34a' } : warn ? { color: '#f59e0b' } : { color: '#dc2626' }) 
@@ -177,9 +332,9 @@ function KPICard({ type, label, value, sub, up, warn, icon, color }) {
   )
 }
 
-function Card({ title, children, icon, iconColor, badge }) {
+function Card({ title, children, icon, iconColor, badge, onViewMore }) {
   return (
-    <div style={styles.card}>
+    <div className="card-mobile" style={styles.card}>
       <div style={styles.cardHeader}>
         <div style={styles.cardTitle}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -190,10 +345,10 @@ function Card({ title, children, icon, iconColor, badge }) {
         {badge ? (
            <span style={{ fontSize: '11px', fontWeight: '700', background: '#ef4444', color: 'white', borderRadius: '10px', padding: '3px 10px' }}>{badge}</span>
         ) : (
-          <a href="#" style={styles.cardLink}>ver más →</a>
+          <button onClick={onViewMore} style={styles.cardLink}>ver más →</button>
         )}
       </div>
-      <div style={styles.cardBody}>
+      <div className="card-body-mobile" style={styles.cardBody}>
         {children}
       </div>
     </div>
@@ -202,13 +357,14 @@ function Card({ title, children, icon, iconColor, badge }) {
 
 function LegendItem({ color, label }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#475569' }}>
-      <div style={{ width: '10px', height: '10px', borderRadius: '3px', background: color }}></div>{label}
+    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#475569' }}>
+      <div style={{ width: '10px', height: '10px', borderRadius: '3px', background: color }}></div>
+      <span>{label}</span>
     </div>
   )
 }
 
-function AlertItem({ type, title, sub }) {
+function AlertItem({ type, title, sub, onClick }) {
   const colors = {
     error: { border: 'rgba(239,68,68,0.2)', bg: 'rgba(239,68,68,0.04)', icon: '#ef4444' },
     warn: { border: 'rgba(245,158,11,0.2)', bg: 'rgba(245,158,11,0.04)', icon: '#f59e0b' },
@@ -216,7 +372,7 @@ function AlertItem({ type, title, sub }) {
   }
   const config = colors[type]
   return (
-    <div style={{ ...styles.alertItem, borderColor: config.border, background: config.bg }}>
+    <div style={{ ...styles.alertItem, borderColor: config.border, background: config.bg, cursor: 'pointer' }} onClick={onClick}>
       <div style={{ ...styles.alertDot, background: `${config.icon}26`, color: config.icon }}>
         {type === 'error' && (
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -240,6 +396,7 @@ function ModuloCard({ to, mod, color, name, desc, progress, status }) {
   return (
     <Link
       to={to}
+      className="modulo-card-mobile"
       style={{
         ...styles.moduloCard,
         borderBottom: `3px solid ${color}`,
@@ -270,9 +427,9 @@ function ModuloCard({ to, mod, color, name, desc, progress, status }) {
   )
 }
 
-function MiniStat({ color, value, label, icon }) {
+function MiniStat({ color, value, label, icon, onClick }) {
   return (
-    <div style={styles.miniStat}>
+    <div className="mini-stat-mobile" style={{ ...styles.miniStat, cursor: 'pointer' }} onClick={onClick}>
       <div style={{ ...styles.miniStatIcon, background: `${color}1f` }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round">
           {icon}
@@ -329,24 +486,32 @@ const styles = {
   kpiCard: {
     background: '#ffffff', borderRadius: '16px', padding: '20px 22px',
     border: '1px solid rgba(15,30,53,0.08)', boxShadow: '0 2px 16px rgba(15,30,53,0.08)',
-    position: 'relative', overflow: 'hidden', cursor: 'default',
+    position: 'relative', overflow: 'hidden',
   },
   kpiIconBg: { position: 'absolute', right: '16px', top: '16px', width: '38px', height: '38px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  kpiLabel: { fontSize: '10px', letterSpacing: '0.8px', textTransform: 'uppercase', color: '#475569', marginBottom: '10px', fontWeight: '600' },
-  kpiValue: { fontSize: '28px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.5px', lineHeight: 1 },
+  kpiLabel: { fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: '#475569', marginBottom: '10px', fontWeight: '600' },
+  kpiValue: { fontSize: '30px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.5px', lineHeight: 1 },
   kpiSub: { fontSize: '12px', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' },
 
   midGrid: { display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '16px', marginBottom: '22px' },
   card: { background: '#ffffff', borderRadius: '16px', border: '1px solid rgba(15,30,53,0.08)', boxShadow: '0 2px 16px rgba(15,30,53,0.08)', overflow: 'hidden' },
   cardHeader: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 20px 0', marginBottom: '16px' },
-  cardTitle: { fontSize: '15px', fontWeight: '700', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' },
-  cardLink: { fontSize: '12px', color: '#14b8a6', textDecoration: 'none', fontWeight: '600' },
+  cardTitle: { fontSize: '16px', fontWeight: '700', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' },
+  cardLink: { fontSize: '12px', color: '#14b8a6', textDecoration: 'none', fontWeight: '600', cursor: 'pointer', background: 'none', border: 'none' },
   cardBody: { padding: '0 20px 20px' },
 
-  chartWrap: { height: '130px', display: 'flex', alignItems: 'flex-end', gap: '8px', padding: '0 4px' },
-  barGroup: { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' },
-  bar: { width: '100%', borderRadius: '6px 6px 0 0', cursor: 'pointer' },
-  barLabel: { fontSize: '10px', color: '#475569' },
+  chartContainer: { display: 'flex', gap: '8px' },
+  yAxis: { display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingRight: '8px', width: '45px', flexShrink: 0 },
+  yAxisLabel: { fontSize: '9px', color: '#94a3b8', textAlign: 'right' },
+  chartWrap: { flex: 1, display: 'flex', alignItems: 'flex-end', gap: '8px', minHeight: '180px' },
+  barGroup: { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' },
+  barContainer: { display: 'flex', alignItems: 'flex-end', gap: '3px', height: '140px', width: '100%', justifyContent: 'center' },
+  barSales: { width: '40%', backgroundColor: '#3b82f6', borderRadius: '6px 6px 0 0', transition: 'height 0.5s ease-out' },
+  barTarget: { width: '40%', backgroundColor: '#f59e0b', borderRadius: '6px 6px 0 0', opacity: 0.7, transition: 'height 0.5s ease-out 0.1s' },
+  barLabel: { fontSize: '10px', color: '#475569', fontWeight: '600', marginTop: '4px' },
+  barValue: { fontSize: '9px', color: '#3b82f6', fontWeight: '600' },
+  chartFooter: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', paddingTop: '8px', borderTop: '1px solid rgba(15,30,53,0.06)' },
+  totalWeek: { fontSize: '11px', fontWeight: '600', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px' },
 
   alertItem: { display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 16px', borderRadius: '10px', marginBottom: '8px', border: '1px solid transparent' },
   alertDot: { width: '28px', height: '28px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' },
@@ -356,14 +521,15 @@ const styles = {
   modulosGrid: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px', marginBottom: '22px' },
   moduloCard: { background: '#ffffff', borderRadius: '16px', padding: '18px 16px', border: '1px solid rgba(15,30,53,0.08)', boxShadow: '0 2px 16px rgba(15,30,53,0.08)', cursor: 'pointer', position: 'relative', overflow: 'hidden' },
   moduloIconWrap: { width: '42px', height: '42px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px', flexShrink: 0 },
-  moduloName: { fontSize: '14px', fontWeight: '700', color: '#0f172a', marginBottom: '2px' },
+  moduloName: { fontSize: '15px', fontWeight: '700', color: '#0f172a', marginBottom: '2px' },
   moduloDesc: { fontSize: '11px', color: '#475569', marginBottom: '10px', lineHeight: 1.4 },
   moduloBarBg: { height: '4px', borderRadius: '2px', background: '#f1f5f9' },
-  moduloBarFill: { height: '100%', borderRadius: '2px' },
+  moduloBarFill: { height: '100%', borderRadius: '2px', transition: 'width 0.3s' },
   moduloStatus: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px' },
   moduloStatusTxt: { fontSize: '10.5px', fontWeight: '600' },
   moduloLink: { fontSize: '10px', color: '#475569', textDecoration: 'none' },
 
+  miniStatsGrid: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px', marginBottom: '24px' },
   miniStat: { display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: '#ffffff', border: '1px solid rgba(15,30,53,0.08)', borderRadius: '10px', boxShadow: '0 2px 16px rgba(15,30,53,0.08)' },
   miniStatIcon: { width: '36px', height: '36px', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   miniStatVal: { fontSize: '18px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.3px' },
