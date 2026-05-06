@@ -325,12 +325,7 @@ export default function DashboardLayout({ children, title = 'Dashboard', subtitl
             display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
             boxShadow: '0 4px 16px rgba(20,184,166,0.3)',
           }}>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="3" width="8" height="8" rx="2" fill="#14b8a6" />
-              <rect x="13" y="3" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.55" />
-              <rect x="3" y="13" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.55" />
-              <rect x="13" y="13" width="8" height="8" rx="2" fill="#14b8a6" fillOpacity="0.28" />
-            </svg>
+            <img src="/Logo.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }} />
           </div>
           <div style={{ lineHeight: 1.25 }}>
             <div style={{ fontSize: '16px', fontWeight: '700', color: '#ffffff', letterSpacing: '-0.2px' }}>Central</div>
@@ -480,7 +475,7 @@ export default function DashboardLayout({ children, title = 'Dashboard', subtitl
         className="main-content" 
         style={{ 
           marginLeft: isMobile ? '0' : '230px',
-          width: '100%',
+          width: isMobile ? '100%' : 'calc(100% - 230px)',
           minHeight: '100vh',
           transition: 'margin-left 0.3s ease',
           display: 'block'

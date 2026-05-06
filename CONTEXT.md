@@ -429,7 +429,3 @@ La sección de módulos activos permite que cada empresa decida qué módulos ne
 La sección de integración con IA es donde se ingresa la API key de Gemini. Esta key se almacena de forma segura en Supabase y nunca se expone en el frontend, siempre se usa desde las Edge Functions del servidor.
 
 La sección de alertas permite configurar los umbrales de inventario mínimo para cada producto, los días de anticipación para alertas de contratos por vencer en RRHH, y qué tipos de alerta quiere recibir el administrador por correo electrónico.
-
----
-
-Eso es todo el sistema completo. ¿Quieres que ahora pasemos al código, empezando por la estructura del proyecto en React con Vite y la configuración inicial de Supabase?

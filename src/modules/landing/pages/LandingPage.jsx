@@ -114,19 +114,14 @@ export default function LandingPage() {
   useScrollReveal()
 
   return (
-    <div style={{ background: '#060c18', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       {/* ── NAV ── */}
       <nav className="lp-nav">
         <div className="lp-nav-inner">
           <div className="lp-nav-logo">
             <div className="lp-nav-logo-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <rect x="2" y="2" width="9" height="9" rx="2" fill="#14b8a6"/>
-                <rect x="13" y="2" width="9" height="9" rx="2" fill="#14b8a6" fillOpacity="0.55"/>
-                <rect x="2" y="13" width="9" height="9" rx="2" fill="#14b8a6" fillOpacity="0.55"/>
-                <rect x="13" y="13" width="9" height="9" rx="2" fill="#14b8a6" fillOpacity="0.28"/>
-              </svg>
+              <img src="/Logo.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '4px' }} />
             </div>
             <div>
               <div className="lp-nav-name">Central Smart System</div>
@@ -148,6 +143,8 @@ export default function LandingPage() {
       <section className="lp-hero">
         <div className="lp-hero-grid" />
         <div className="lp-hero-glow" />
+        <div className="lp-hero-orb-1" />
+        <div className="lp-hero-orb-2" />
 
         <div className="lp-hero-badge">
           <span className="lp-hero-badge-dot" />
@@ -212,23 +209,25 @@ export default function LandingPage() {
       </div>
 
       {/* ── MÓDULOS ── */}
-      <div className="lp-section" id="modulos">
+      <div className="lp-section-light" id="modulos">
         <div className="lp-section-header reveal">
           <span className="lp-eyebrow">La solución</span>
           <h2 className="lp-section-title">Todo el negocio en una sola pantalla</h2>
           <p className="lp-section-sub">10 módulos interconectados. Cada acción en uno actualiza automáticamente a los demás.</p>
         </div>
-        <div className="lp-modulos-grid">
-          {MODULOS.map((mod, i) => (
-            <div key={mod.name} className={`lp-modulo-card reveal reveal-delay-${(i % 4) + 1}`}>
-              <div className="lp-modulo-icon" style={{ background: `${mod.color}20`, color: mod.color }}>
-                {mod.ico}
+        <div className="lp-modulos-carousel-wrapper">
+          <div className="lp-modulos-track">
+            {[...MODULOS, ...MODULOS].map((mod, i) => (
+              <div key={`${mod.name}-${i}`} className="lp-modulo-card">
+                <div className="lp-modulo-icon" style={{ background: `${mod.color}20`, color: mod.color }}>
+                  {mod.ico}
+                </div>
+                <div className="lp-modulo-name">{mod.name}</div>
+                <div className="lp-modulo-desc">{mod.desc}</div>
+                <span className="lp-modulo-tag">{mod.tag}</span>
               </div>
-              <div className="lp-modulo-name">{mod.name}</div>
-              <div className="lp-modulo-desc">{mod.desc}</div>
-              <span className="lp-modulo-tag">{mod.tag}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

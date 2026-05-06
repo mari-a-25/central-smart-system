@@ -117,7 +117,7 @@ export default function LoginPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#0a0e27',
+      background: '#ffffff',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -133,16 +133,17 @@ export default function LoginPage() {
         style={{
           position: 'fixed', top: '20px', left: '24px', zIndex: 10,
           display: 'flex', alignItems: 'center', gap: '7px',
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.12)',
+          background: '#ffffff',
+          border: '1px solid #e2e8f0',
           borderRadius: '10px', padding: '9px 16px',
-          color: '#94a3b8', fontSize: '14px', fontWeight: '600',
+          color: '#475569', fontSize: '14px', fontWeight: '600',
           fontFamily: "'Outfit', sans-serif",
           cursor: 'pointer',
-          transition: 'background 0.2s, color 0.2s',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+          transition: 'all 0.2s',
         }}
-        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.11)'; e.currentTarget.style.color = '#e2e8f0' }}
-        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = '#94a3b8' }}
+        onMouseEnter={e => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.color = '#0f172a' }}
+        onMouseLeave={e => { e.currentTarget.style.background = '#ffffff'; e.currentTarget.style.color = '#475569' }}
       >
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"/>
@@ -163,7 +164,7 @@ export default function LoginPage() {
           min-height: 680px;
           border-radius: 28px;
           overflow: hidden;
-          box-shadow: 0 40px 100px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,85,204,0.15);
+          box-shadow: 0 40px 100px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05);
           position: relative;
           z-index: 2;
         }
@@ -198,20 +199,20 @@ export default function LoginPage() {
 
       {/* Fondo decorativo */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', width: '700px', height: '700px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,85,204,0.14), transparent 70%)', top: '-160px', left: '-120px', filter: 'blur(80px)' }} />
-        <div style={{ position: 'absolute', width: '550px', height: '550px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,119,204,0.09), transparent 70%)', bottom: '-100px', right: '-100px', filter: 'blur(80px)' }} />
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+        <div style={{ position: 'absolute', width: '700px', height: '700px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(13,148,136,0.05), transparent 70%)', top: '-160px', left: '-120px', filter: 'blur(80px)' }} />
+        <div style={{ position: 'absolute', width: '550px', height: '550px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.05), transparent 70%)', bottom: '-100px', right: '-100px', filter: 'blur(80px)' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
       </div>
 
       <div className="login-shell">
 
         {/* PANEL IZQUIERDO */}
         <div className="left-panel" style={{
-          background: 'linear-gradient(155deg, #0f1222 0%, #161c34 50%, #0a0e20 100%)',
+          background: '#f8fafc',
           padding: '52px 48px',
           display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-          borderRight: '1px solid rgba(255,255,255,0.07)',
-          color: '#ffffff',
+          borderRight: '1px solid #e2e8f0',
+          color: '#0f172a',
         }}>
           <div>
             {/* Marca */}
@@ -222,26 +223,21 @@ export default function LoginPage() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
                 boxShadow: '0 12px 32px rgba(0,85,204,0.35)',
               }}>
-                <svg width="42" height="42" viewBox="0 0 24 24" fill="none">
-                  <rect x="3" y="3" width="8" height="8" rx="2" fill="#0d9488" />
-                  <rect x="13" y="3" width="8" height="8" rx="2" fill="#0d9488" fillOpacity="0.5" />
-                  <rect x="3" y="13" width="8" height="8" rx="2" fill="#0d9488" fillOpacity="0.5" />
-                  <rect x="13" y="13" width="8" height="8" rx="2" fill="#0d9488" fillOpacity="0.25" />
-                </svg>
+                <img src="/Logo.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '14px' }} />
               </div>
               <div>
-                <div style={{ fontSize: '21px', fontWeight: '700', color: '#ffffff', letterSpacing: '-0.3px' }}>Central Smart System</div>
-                <div style={{ fontSize: '13px', color: '#94a3b8', fontFamily: "'Courier New', monospace", marginTop: '4px', letterSpacing: '0.5px' }}>SISTEMA OPERATIVO EMPRESARIAL</div>
+                <div style={{ fontSize: '21px', fontWeight: '700', color: '#0f172a', letterSpacing: '-0.3px' }}>Central Smart System</div>
+                <div style={{ fontSize: '13px', color: '#64748b', fontFamily: "'Courier New', monospace", marginTop: '4px', letterSpacing: '0.5px' }}>SISTEMA OPERATIVO EMPRESARIAL</div>
               </div>
             </div>
 
             {/* Headline */}
-            <div style={{ fontSize: '42px', fontWeight: '300', lineHeight: 1.2, color: '#ffffff', marginBottom: '18px', letterSpacing: '-0.5px' }}>
+            <div style={{ fontSize: '42px', fontWeight: '800', lineHeight: 1.1, color: '#0f172a', marginBottom: '24px', letterSpacing: '-1.5px' }}>
               La plataforma que<br />
-              <em style={{ fontStyle: 'italic', fontWeight: '600', color: '#60a5fa' }}>unifica</em> tu empresa<br />
+              <span style={{ color: '#0d9488' }}>unifica</span> tu empresa<br />
               con inteligencia.
             </div>
-            <p style={{ fontSize: '16px', color: '#94a3b8', lineHeight: 1.7, maxWidth: '340px', marginBottom: '44px' }}>
+            <p style={{ fontSize: '16px', color: '#475569', lineHeight: 1.7, maxWidth: '340px', marginBottom: '44px' }}>
               Conecta ventas, inventario, logística, RRHH y más en un solo sistema con IA integrada.
             </p>
 
@@ -255,12 +251,13 @@ export default function LoginPage() {
                 <div key={i} style={{
                   display: 'flex', alignItems: 'center', gap: '14px',
                   padding: '14px 18px',
-                  background: 'rgba(0,85,204,0.09)',
-                  border: '1px solid rgba(0,119,204,0.16)',
+                  background: '#ffffff',
+                  border: '1px solid #e2e8f0',
                   borderRadius: '14px',
+                  boxShadow: '0 4px 10px rgba(0,0,0,0.02)',
                 }}>
-                  <span style={{ flexShrink: 0, color: '#60a5fa', display: 'flex' }}>{f.icon}</span>
-                  <span style={{ fontSize: '15px', color: '#e2e8f0', lineHeight: 1.5, fontWeight: '500' }}>{f.text}</span>
+                  <span style={{ flexShrink: 0, color: '#0d9488', display: 'flex' }}>{f.icon}</span>
+                  <span style={{ fontSize: '15px', color: '#475569', lineHeight: 1.5, fontWeight: '500' }}>{f.text}</span>
                 </div>
               ))}
             </div>
@@ -270,14 +267,15 @@ export default function LoginPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '40px' }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)',
+              background: '#ffffff', border: '1px solid #e2e8f0',
               borderRadius: '24px', padding: '8px 16px',
-              fontSize: '12px', fontFamily: "'Courier New', monospace", color: '#94a3b8', letterSpacing: '0.5px', width: 'fit-content',
+              fontSize: '12px', fontFamily: "'Courier New', monospace", color: '#64748b', letterSpacing: '0.5px', width: 'fit-content',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
             }}>
-              <span style={{ width: '8px', height: '8px', background: '#4ade80', borderRadius: '50%', boxShadow: '0 0 12px rgba(74,222,128,0.6)', animation: 'pulse-dot 2s ease infinite', display: 'block' }} />
+              <span style={{ width: '8px', height: '8px', background: '#10b981', borderRadius: '50%', boxShadow: '0 0 12px rgba(16,185,129,0.3)', animation: 'pulse-dot 2s ease infinite', display: 'block' }} />
               v1.0 · SISTEMA ACTIVO
             </div>
-            <div style={{ fontSize: '12px', color: '#4a5568', fontFamily: "'Courier New', monospace" }}>
+            <div style={{ fontSize: '12px', color: '#94a3b8', fontFamily: "'Courier New', monospace" }}>
               Instituto Tecnológico México · 2026
             </div>
           </div>
