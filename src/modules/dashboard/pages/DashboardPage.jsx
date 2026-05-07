@@ -43,6 +43,21 @@ export default function DashboardPage() {
         return;
       }
       
+      // Si es la cuenta demo, mostrar datos ficticios directamente
+      if (perfil?.empresa_id === 'demo-empresa-id' || perfil?.email?.includes('demo')) {
+        setStats({
+          ventasHoy: 45280.00,
+          entregasActivas: 12,
+          alertasInv: 5,
+          balance: 185420.00,
+          totalClientes: 128,
+          totalSkus: 86,
+          totalEmpleados: 12
+        });
+        setLoading(false);
+        return;
+      }
+      
       try {
         // 1. Ventas de Hoy (Suma de total en facturas creadas hoy)
         const today = new Date().toISOString().split('T')[0];
