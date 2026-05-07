@@ -154,7 +154,7 @@ export default function LogisticaPage() {
     { dia: 'Lun', ok: 32, bad: 2 }, { dia: 'Mar', ok: 28, bad: 3 },
     { dia: 'Mié', ok: 35, bad: 1 }, { dia: 'Jue', ok: 30, bad: 4 },
     { dia: 'Vie', ok: 38, bad: 2 }, { dia: 'Sáb', ok: 20, bad: 1 },
-    { dia: 'Hoy', ok: 75, bad: 5 },
+    { dia: 'Hoy', ok: 75, bad: 12 },
   ]
   const maxV = Math.max(...weeklyData.map(d => d.ok + d.bad)) * 1.1
 
@@ -381,7 +381,7 @@ export default function LogisticaPage() {
             <div className="kpi-icon-bg" style={{ background: 'rgba(52,211,153,.10)' }}><IconCheck /></div>
             <div className="kpi-label">Entregas Completadas</div>
             <div className="kpi-value" style={{ color: 'var(--c-clientes)' }}>75</div>
-            <div className="kpi-sub up">de 80 planificadas</div>
+            <div className="kpi-sub up">de 87 planificadas</div>
           </div>
           <div className="kpi-card retraso">
             <div className="kpi-icon-bg" style={{ background: 'rgba(239,68,68,.10)' }}><IconClock /></div>
@@ -574,14 +574,14 @@ export default function LogisticaPage() {
                     <circle cx="45" cy="45" r="35" fill="none" stroke="var(--c-log)" strokeWidth="14" strokeDasharray="54.98 219.91" strokeDashoffset="65.45" strokeLinecap="round"/>
                     <circle cx="45" cy="45" r="35" fill="none" stroke="#3b82f6" strokeWidth="14" strokeDasharray="32.99 219.91" strokeDashoffset="120.43" strokeLinecap="round"/>
                     <circle cx="45" cy="45" r="35" fill="none" stroke="#ef4444" strokeWidth="14" strokeDasharray="10.996 219.91" strokeDashoffset="153.42" strokeLinecap="round"/>
-                    <text x="45" y="41" fontSize="13" fontWeight="700" fill="var(--text)" textAnchor="middle">80</text>
+                    <text x="45" y="41" fontSize="13" fontWeight="700" fill="var(--text)" textAnchor="middle">87</text>
                     <text x="45" y="54" fontSize="9" fill="var(--text-3)" textAnchor="middle">total</text>
                   </svg>
                   <div className="donut-legend">
-                    <div className="donut-legend-item"><div className="donut-legend-dot" style={{ background: 'var(--c-clientes)' }}></div>Completadas<span className="donut-legend-val">55%</span></div>
-                    <div className="donut-legend-item"><div className="donut-legend-dot" style={{ background: 'var(--c-log)' }}></div>En camino<span className="donut-legend-val">25%</span></div>
-                    <div className="donut-legend-item"><div className="donut-legend-dot" style={{ background: '#3b82f6' }}></div>Procesando<span className="donut-legend-val">15%</span></div>
-                    <div className="donut-legend-item"><div className="donut-legend-dot" style={{ background: '#ef4444' }}></div>Retrasadas<span className="donut-legend-val">5%</span></div>
+                    <div className="donut-legend-item"><div className="donut-legend-dot" style={{ background: 'var(--c-clientes)' }}></div>Completadas<span className="donut-legend-val">86%</span></div>
+                    <div className="donut-legend-item"><div className="donut-legend-dot" style={{ background: 'var(--c-log)' }}></div>En camino<span className="donut-legend-val">10%</span></div>
+                    <div className="donut-legend-item"><div className="donut-legend-dot" style={{ background: '#3b82f6' }}></div>Procesando<span className="donut-legend-val">3%</span></div>
+                    <div className="donut-legend-item"><div className="donut-legend-dot" style={{ background: '#ef4444' }}></div>Retrasadas<span className="donut-legend-val">1%</span></div>
                   </div>
                 </div>
               </div>

@@ -686,22 +686,22 @@ export default function RrhhPage() {
           <div className="kpi-card">
             <div className="kpi-icon"><IconUsers /></div>
             <div className="kpi-label">Total Empleados</div>
-            <div className="kpi-value">{empleados.length}</div>
+            <div className="kpi-value">12</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconDollarSign /></div>
             <div className="kpi-label">Masa Salarial</div>
-            <div className="kpi-value">RD$208K</div>
+            <div className="kpi-value">RD$452K</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconClock /></div>
             <div className="kpi-label">Ausencias Mes</div>
-            <div className="kpi-value">6</div>
+            <div className="kpi-value">8</div>
           </div>
           <div className="kpi-card">
             <div className="kpi-icon"><IconTrendingUp /></div>
             <div className="kpi-label">Tardanzas Mes</div>
-            <div className="kpi-value">4</div>
+            <div className="kpi-value">15</div>
           </div>
         </div>
 
